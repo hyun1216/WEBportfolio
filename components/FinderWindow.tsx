@@ -36,14 +36,27 @@ export default function FinderWindow({
 }: FinderWindowProps) {
   const [isMaximized, setIsMaximized] = useState(false);
   const [position, setPosition] = useState({ x: 120, y: 70 });
+  const [size, setSize] = useState({ width: 880, height: 580 });
   const [isDragging, setIsDragging] = useState(false);
-  const dragStartRef = useRef({ mouseX: 0, mouseY: 0, winX: 0, winY: 0 });
+  const [isResizing, setIsResizing] = useState(false);
 
-  // 초기 위치를 화면 중앙으로 설정
+  const dragStartRef = useRef({ mouseX: 0, mouseY: 0, winX: 0, winY: 0 });
+  const resizeStartRef = useRef({
+    mouseX: 0,
+    mouseY: 0,
+    winX: 0,
+    winY: 0,
+    winWidth: 0,
+    winHeight: 0,
+    direction: "",
+  });
+
+  // 초기 위치와 크기를 반응형으로 설정
   useEffect(() => {
     if (typeof window !== "undefined") {
       const w = Math.min(880, window.innerWidth - 40);
       const h = Math.min(580, window.innerHeight - 120);
+      setSize({ width: w, height: h });
       setPosition({
         x: Math.max(20, Math.floor((window.innerWidth - w) / 2)),
         y: Math.max(40, Math.floor((window.innerHeight - h) / 2)),
@@ -51,6 +64,7 @@ export default function FinderWindow({
     }
   }, []);
 
+  // 창 이동(드래그) 시작
   const handleMouseDown = (e: React.MouseEvent) => {
     if (isMaximized) return;
     if ((e.target as HTMLElement).closest("button")) return;
@@ -64,22 +78,96 @@ export default function FinderWindow({
     };
   };
 
+  // 모서리/테두리 크기 조절(리사이즈) 시작
+  const handleResizeStart = (
+    e: React.MouseEvent,
+    direction: "n" | "s" | "e" | "w" | "ne" | "nw" | "se" | "sw"
+  ) => {
+    if (isMaximized) return;
+    e.stopPropagation();
+    e.preventDefault();
+
+    setIsResizing(true);
+    resizeStartRef.current = {
+      mouseX: e.clientX,
+      mouseY: e.clientY,
+      winX: position.x,
+      winY: position.y,
+      winWidth: size.width,
+      winHeight: size.height,
+      direction,
+    };
+  };
+
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      if (!isDragging) return;
-      const dx = e.clientX - dragStartRef.current.mouseX;
-      const dy = e.clientY - dragStartRef.current.mouseY;
+      // 1. 드래그 이동
+      if (isDragging) {
+        const dx = e.clientX - dragStartRef.current.mouseX;
+        const dy = e.clientY - dragStartRef.current.mouseY;
 
-      const newY = Math.max(32, dragStartRef.current.winY + dy);
-      const newX = dragStartRef.current.winX + dx;
-      setPosition({ x: newX, y: newY });
+        const newY = Math.max(32, dragStartRef.current.winY + dy);
+        const newX = dragStartRef.current.winX + dx;
+        setPosition({ x: newX, y: newY });
+        return;
+      }
+
+      // 2. 모서리 크기 조절 (리사이즈)
+      if (isResizing) {
+        const dx = e.clientX - resizeStartRef.current.mouseX;
+        const dy = e.clientY - resizeStartRef.current.mouseY;
+        const { winX, winY, winWidth, winHeight, direction } = resizeStartRef.current;
+
+        const minW = 460;
+        const minH = 320;
+
+        let newW = winWidth;
+        let newH = winHeight;
+        let newX = winX;
+        let newY = winY;
+
+        // 가로 조절 (East / West)
+        if (direction.includes("e")) {
+          newW = Math.max(minW, winWidth + dx);
+        } else if (direction.includes("w")) {
+          const possibleW = winWidth - dx;
+          if (possibleW >= minW) {
+            newW = possibleW;
+            newX = winX + dx;
+          } else {
+            newW = minW;
+            newX = winX + (winWidth - minW);
+          }
+        }
+
+        // 세로 조절 (South / North)
+        if (direction.includes("s")) {
+          newH = Math.max(minH, winHeight + dy);
+        } else if (direction.includes("n")) {
+          const possibleH = winHeight - dy;
+          if (possibleH >= minH) {
+            const potentialY = winY + dy;
+            if (potentialY >= 32) {
+              newH = possibleH;
+              newY = potentialY;
+            }
+          } else {
+            newH = minH;
+            newY = winY + (winHeight - minH);
+          }
+        }
+
+        setSize({ width: newW, height: newH });
+        setPosition({ x: newX, y: newY });
+      }
     };
 
     const handleMouseUp = () => {
       setIsDragging(false);
+      setIsResizing(false);
     };
 
-    if (isDragging) {
+    if (isDragging || isResizing) {
       window.addEventListener("mousemove", handleMouseMove);
       window.addEventListener("mouseup", handleMouseUp);
     }
@@ -87,7 +175,7 @@ export default function FinderWindow({
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [isDragging]);
+  }, [isDragging, isResizing]);
 
   if (!isOpen) return null;
 
@@ -104,14 +192,70 @@ export default function FinderWindow({
           : {
               top: `${position.y}px`,
               left: `${position.x}px`,
-              width: "880px",
-              maxWidth: "calc(100vw - 32px)",
-              height: "580px",
-              maxHeight: "calc(100vh - 80px)",
+              width: `${size.width}px`,
+              height: `${size.height}px`,
             }
       }
-      className="fixed z-50 flex flex-col bg-white/95 dark:bg-[#1e1e1e]/95 backdrop-blur-2xl rounded-xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] border border-white/20 dark:border-white/10 overflow-hidden animate-in fade-in zoom-in-95 duration-150"
+      className={`fixed z-50 flex flex-col bg-white/95 dark:bg-[#1e1e1e]/95 backdrop-blur-2xl rounded-xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] border border-white/20 dark:border-white/10 overflow-hidden ${
+        isDragging || isResizing ? "transition-none select-none" : "animate-in fade-in zoom-in-95 duration-150"
+      }`}
     >
+      {/* ====================================================================
+          macOS 창 크기 조절 리사이즈 핸들 (8개 방향)
+          ==================================================================== */}
+      {!isMaximized && (
+        <>
+          {/* 모서리 (Corners) */}
+          <div
+            onMouseDown={(e) => handleResizeStart(e, "nw")}
+            className="absolute top-0 left-0 w-3.5 h-3.5 cursor-nwse-resize z-50"
+            title="크기 조절"
+          />
+          <div
+            onMouseDown={(e) => handleResizeStart(e, "ne")}
+            className="absolute top-0 right-0 w-3.5 h-3.5 cursor-nesw-resize z-50"
+            title="크기 조절"
+          />
+          <div
+            onMouseDown={(e) => handleResizeStart(e, "sw")}
+            className="absolute bottom-0 left-0 w-3.5 h-3.5 cursor-nesw-resize z-50"
+            title="크기 조절"
+          />
+          <div
+            onMouseDown={(e) => handleResizeStart(e, "se")}
+            className="absolute bottom-0 right-0 w-4 h-4 cursor-nwse-resize z-50 flex items-end justify-end p-0.5"
+            title="크기 조절"
+          >
+            {/* 우측 하단 macOS 특유의 그립 심볼 */}
+            <svg viewBox="0 0 10 10" className="w-2.5 h-2.5 opacity-40 fill-gray-500 pointer-events-none">
+              <circle cx="8" cy="8" r="1" />
+              <circle cx="5" cy="8" r="1" />
+              <circle cx="8" cy="5" r="1" />
+              <circle cx="2" cy="8" r="1" />
+              <circle cx="5" cy="5" r="1" />
+              <circle cx="8" cy="2" r="1" />
+            </svg>
+          </div>
+
+          {/* 테두리 변 (Edges) */}
+          <div
+            onMouseDown={(e) => handleResizeStart(e, "n")}
+            className="absolute top-0 left-3.5 right-3.5 h-1.5 cursor-ns-resize z-40"
+          />
+          <div
+            onMouseDown={(e) => handleResizeStart(e, "s")}
+            className="absolute bottom-0 left-3.5 right-3.5 h-1.5 cursor-ns-resize z-40"
+          />
+          <div
+            onMouseDown={(e) => handleResizeStart(e, "w")}
+            className="absolute left-0 top-3.5 bottom-3.5 w-1.5 cursor-ew-resize z-40"
+          />
+          <div
+            onMouseDown={(e) => handleResizeStart(e, "e")}
+            className="absolute right-0 top-3.5 bottom-3.5 w-1.5 cursor-ew-resize z-40"
+          />
+        </>
+      )}
       {/* 윈도우 상단 타이틀바 & 신호등 버튼 */}
       <div
         onMouseDown={handleMouseDown}
