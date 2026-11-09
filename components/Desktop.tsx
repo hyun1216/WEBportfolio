@@ -16,20 +16,32 @@ import {
   Wifi,
   Battery,
   SlidersHorizontal,
+  Coffee,
 } from "lucide-react";
 
 interface DesktopProps {
   initialProjects: Project[];
 }
 
+export interface WindowState {
+  id: string; // e.g. "overview", "profile", `project-${project.id}`
+  title: string;
+  tab: "project" | "profile" | "overview";
+  project: Project | null;
+  zIndex: number;
+  initialOffset: number;
+}
+
 export default function Desktop({ initialProjects }: DesktopProps) {
   const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [selectedFolderId, setSelectedFolderId] = useState<string | null>(null);
 
-  // Finder 창 상태
-  const [isFinderOpen, setIsFinderOpen] = useState(false);
-  const [activeProject, setActiveProject] = useState<Project | null>(null);
-  const [finderTab, setFinderTab] = useState<"project" | "profile" | "overview">("overview");
+  // 멀티 윈도우 목록 & zIndex 관리
+  const [windows, setWindows] = useState<WindowState[]>([]);
+  const [highestZIndex, setHighestZIndex] = useState(50);
+
+  // 상단 메뉴바 도움말 드롭다운 상태
+  const [isHelpMenuOpen, setIsHelpMenuOpen] = useState(false);
 
   // 컨텍스트 메뉴 상태
   const [contextMenu, setContextMenu] = useState<{
@@ -61,12 +73,23 @@ export default function Desktop({ initialProjects }: DesktopProps) {
     fetchProjects();
   }, [fetchProjects]);
 
+  // 창을 최상위 z-index로 맨 앞으로 올리는 함수
+  const bringToFront = useCallback((windowId: string) => {
+    setHighestZIndex((prev) => {
+      const nextZ = prev + 1;
+      setWindows((wList) =>
+        wList.map((w) => (w.id === windowId ? { ...w, zIndex: nextZ } : w))
+      );
+      return nextZ;
+    });
+  }, []);
+
   // 바탕화면 빈 공간 우클릭 핸들러
   const handleContextMenu = (e: React.MouseEvent) => {
-    // 입력창이 아니면 브라우저 기본 컨텍스트 메뉴 방지
     const target = e.target as HTMLElement;
     if (target.tagName !== "INPUT" && target.tagName !== "TEXTAREA") {
       e.preventDefault();
+      setIsHelpMenuOpen(false);
       setContextMenu({
         isOpen: true,
         x: e.clientX,
@@ -78,26 +101,115 @@ export default function Desktop({ initialProjects }: DesktopProps) {
   // 바탕화면 클릭 시 메뉴 닫기 & 폴더 선택 해제
   const handleDesktopClick = () => {
     setContextMenu((prev) => ({ ...prev, isOpen: false }));
+    setIsHelpMenuOpen(false);
     setSelectedFolderId(null);
   };
 
-  // 폴더 더블클릭 시 Finder 오픈
+  // 폴더 더블클릭 시 Finder 오픈 (동일 폴더 존재 시 포커싱)
   const handleOpenFolder = (project: Project) => {
-    setActiveProject(project);
-    setFinderTab("project");
-    setIsFinderOpen(true);
+    const windowId = `project-${project.id}`;
+    const exists = windows.some((w) => w.id === windowId);
+
+    if (exists) {
+      bringToFront(windowId);
+    } else {
+      setHighestZIndex((prev) => {
+        const nextZ = prev + 1;
+        const offset = (windows.length * 28) % 180;
+        setWindows((old) => [
+          ...old,
+          {
+            id: windowId,
+            title: project.title,
+            tab: "project",
+            project,
+            zIndex: nextZ,
+            initialOffset: offset,
+          },
+        ]);
+        return nextZ;
+      });
+    }
   };
 
-  // 프로필 보기 열기
+  // 프로필 보기 열기 (동일 창 존재 시 포커싱)
   const handleOpenProfile = () => {
-    setFinderTab("profile");
-    setIsFinderOpen(true);
+    const windowId = "profile";
+    const exists = windows.some((w) => w.id === windowId);
+
+    if (exists) {
+      bringToFront(windowId);
+    } else {
+      setHighestZIndex((prev) => {
+        const nextZ = prev + 1;
+        const offset = (windows.length * 28) % 180;
+        setWindows((old) => [
+          ...old,
+          {
+            id: windowId,
+            title: "개발자 소개 (Profile)",
+            tab: "profile",
+            project: null,
+            zIndex: nextZ,
+            initialOffset: offset,
+          },
+        ]);
+        return nextZ;
+      });
+    }
   };
 
-  // 전체 프로젝트 모아보기 열기
+  // 전체 프로젝트 모아보기 열기 (동일 창 존재 시 포커싱)
   const handleOpenOverview = () => {
-    setFinderTab("overview");
-    setIsFinderOpen(true);
+    const windowId = "overview";
+    const exists = windows.some((w) => w.id === windowId);
+
+    if (exists) {
+      bringToFront(windowId);
+    } else {
+      setHighestZIndex((prev) => {
+        const nextZ = prev + 1;
+        const offset = (windows.length * 28) % 180;
+        setWindows((old) => [
+          ...old,
+          {
+            id: windowId,
+            title: "전체 프로젝트 탐색기",
+            tab: "overview",
+            project: null,
+            zIndex: nextZ,
+            initialOffset: offset,
+          },
+        ]);
+        return nextZ;
+      });
+    }
+  };
+
+  // 창 닫기
+  const handleCloseWindow = (windowId: string) => {
+    setWindows((prev) => prev.filter((w) => w.id !== windowId));
+  };
+
+  // 창 내부에서 탭 변경 시
+  const handleSelectTabInWindow = (
+    windowId: string,
+    tab: "project" | "profile" | "overview"
+  ) => {
+    setWindows((prev) =>
+      prev.map((w) => (w.id === windowId ? { ...w, tab } : w))
+    );
+  };
+
+  // 창 내부에서 프로젝트 선택 시
+  const handleSelectProjectInWindow = (windowId: string, project: Project) => {
+    setWindows((prev) =>
+      prev.map((w) =>
+        w.id === windowId
+          ? { ...w, tab: "project", project, title: project.title }
+          : w
+      )
+    );
   };
 
   // 새 폴더 생성 완료 콜백
@@ -139,9 +251,48 @@ export default function Desktop({ initialProjects }: DesktopProps) {
           <span className="hidden sm:inline-block cursor-pointer hover:bg-white/20 px-2 py-0.5 rounded">
             이동
           </span>
-          <span className="hidden sm:inline-block cursor-pointer hover:bg-white/20 px-2 py-0.5 rounded">
-            도움말
-          </span>
+
+          {/* 도움말 메뉴 & 드롭다운 */}
+          <div className="relative inline-block">
+            <span
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsHelpMenuOpen((prev) => !prev);
+              }}
+              className={`hidden sm:inline-block cursor-pointer px-2 py-0.5 rounded transition-colors ${
+                isHelpMenuOpen ? "bg-white/30 dark:bg-white/20" : "hover:bg-white/20"
+              }`}
+            >
+              도움말
+            </span>
+
+            {isHelpMenuOpen && (
+              <div
+                onClick={(e) => e.stopPropagation()}
+                className="absolute top-8 left-0 w-64 bg-white/95 dark:bg-[#252526]/95 backdrop-blur-2xl rounded-xl shadow-2xl border border-black/10 dark:border-white/10 py-1.5 z-50 text-[13px] animate-in fade-in zoom-in-95 duration-100"
+              >
+                <a
+                  href="https://buymeacoffee.com/devom"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsHelpMenuOpen(false)}
+                  className="flex items-center gap-3 px-3.5 py-2 hover:bg-blue-500 hover:text-white transition-colors cursor-pointer text-gray-800 dark:text-gray-200 group"
+                >
+                  <div className="w-6 h-6 rounded-md bg-[#FFDD00] text-black flex items-center justify-center font-bold shadow-sm">
+                    ☕️
+                  </div>
+                  <div className="flex flex-col leading-tight">
+                    <span className="font-semibold text-gray-900 dark:text-gray-100 group-hover:text-white">
+                      개발자 후원하기
+                    </span>
+                    <span className="text-[11px] text-gray-500 dark:text-gray-400 group-hover:text-blue-100">
+                      buymeacoffee.com/devom
+                    </span>
+                  </div>
+                </a>
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="flex items-center gap-3">
@@ -199,7 +350,9 @@ export default function Desktop({ initialProjects }: DesktopProps) {
             <div className="w-12 h-12 rounded-xl bg-gradient-to-b from-blue-400 to-blue-600 flex items-center justify-center text-white shadow-lg overflow-hidden">
               <Folder className="w-7 h-7 fill-white/80" />
             </div>
-            {isFinderOpen && <span className="w-1 h-1 rounded-full bg-white mt-1 shadow" />}
+            {windows.length > 0 && (
+              <span className="w-1 h-1 rounded-full bg-white mt-1 shadow" />
+            )}
           </button>
 
           {/* 프로필 열기 버튼 */}
@@ -211,7 +364,7 @@ export default function Desktop({ initialProjects }: DesktopProps) {
             <div className="relative w-12 h-12 rounded-xl border-2 border-white/80 shadow-lg overflow-hidden bg-white">
               <Image src="/me.JPG" alt="Profile" fill className="object-cover" />
             </div>
-            {isFinderOpen && finderTab === "profile" && (
+            {windows.some((w) => w.tab === "profile") && (
               <span className="w-1 h-1 rounded-full bg-white mt-1 shadow" />
             )}
           </button>
@@ -244,7 +397,7 @@ export default function Desktop({ initialProjects }: DesktopProps) {
 
           {/* 휴지통 */}
           <button
-            onClick={() => alert("휴지통이 비어 있습니다.")}
+            onClick={() => alert("버릴게 없는 개발자 입니다")}
             className="group flex flex-col items-center transition-transform hover:-translate-y-2 hover:scale-110 active:scale-95"
             title="휴지통"
           >
@@ -267,19 +420,23 @@ export default function Desktop({ initialProjects }: DesktopProps) {
         onToggleTheme={handleToggleTheme}
       />
 
-      {/* 6. Finder 창 모달 */}
-      <FinderWindow
-        isOpen={isFinderOpen}
-        activeProject={activeProject}
-        allProjects={projects}
-        activeTab={finderTab}
-        onClose={() => setIsFinderOpen(false)}
-        onSelectProject={(proj) => {
-          setActiveProject(proj);
-          setFinderTab("project");
-        }}
-        onSelectTab={(tab) => setFinderTab(tab)}
-      />
+      {/* 6. 다중 Finder 윈도우 인스턴스들 */}
+      {windows.map((win) => (
+        <FinderWindow
+          key={win.id}
+          id={win.id}
+          zIndex={win.zIndex}
+          isOpen={true}
+          activeProject={win.project}
+          allProjects={projects}
+          activeTab={win.tab}
+          initialOffset={win.initialOffset}
+          onFocus={() => bringToFront(win.id)}
+          onClose={() => handleCloseWindow(win.id)}
+          onSelectProject={(proj) => handleSelectProjectInWindow(win.id, proj)}
+          onSelectTab={(tab) => handleSelectTabInWindow(win.id, tab)}
+        />
+      ))}
 
       {/* 7. 새 폴더 생성 모달 (관리자 비밀번호 검증) */}
       <NewFolderModal
@@ -290,4 +447,3 @@ export default function Desktop({ initialProjects }: DesktopProps) {
     </div>
   );
 }
-

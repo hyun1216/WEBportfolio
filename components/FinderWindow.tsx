@@ -31,20 +31,28 @@ import {
 } from "lucide-react";
 
 interface FinderWindowProps {
-  isOpen: boolean;
+  id: string;
+  zIndex?: number;
+  isOpen?: boolean;
   activeProject: Project | null;
   allProjects: Project[];
   activeTab: "project" | "profile" | "overview";
+  initialOffset?: number;
+  onFocus?: () => void;
   onClose: () => void;
   onSelectProject: (project: Project) => void;
   onSelectTab: (tab: "project" | "profile" | "overview") => void;
 }
 
 export default function FinderWindow({
-  isOpen,
+  id,
+  zIndex = 50,
+  isOpen = true,
   activeProject,
   allProjects,
   activeTab,
+  initialOffset = 0,
+  onFocus,
   onClose,
   onSelectProject,
   onSelectTab,
@@ -66,21 +74,24 @@ export default function FinderWindow({
     direction: "",
   });
 
-  // 초기 위치와 크기를 반응형으로 설정
+  // 초기 위치와 크기를 반응형 및 계단식 오프셋으로 설정
   useEffect(() => {
     if (typeof window !== "undefined") {
       const w = Math.min(880, window.innerWidth - 40);
       const h = Math.min(580, window.innerHeight - 120);
       setSize({ width: w, height: h });
+      const baseX = Math.max(20, Math.floor((window.innerWidth - w) / 2));
+      const baseY = Math.max(40, Math.floor((window.innerHeight - h) / 2));
       setPosition({
-        x: Math.max(20, Math.floor((window.innerWidth - w) / 2)),
-        y: Math.max(40, Math.floor((window.innerHeight - h) / 2)),
+        x: Math.min(window.innerWidth - 100, Math.max(20, baseX + initialOffset)),
+        y: Math.min(window.innerHeight - 100, Math.max(40, baseY + initialOffset)),
       });
     }
-  }, []);
+  }, [initialOffset]);
 
   // 창 이동(드래그) 시작
   const handleMouseDown = (e: React.MouseEvent) => {
+    onFocus?.();
     if (isMaximized) return;
     if ((e.target as HTMLElement).closest("button")) return;
 
@@ -196,6 +207,7 @@ export default function FinderWindow({
 
   return (
     <div
+      onMouseDown={() => onFocus?.()}
       style={
         isMaximized
           ? {
@@ -203,15 +215,17 @@ export default function FinderWindow({
               left: "8px",
               width: "calc(100vw - 16px)",
               height: "calc(100vh - 40px)",
+              zIndex,
             }
           : {
               top: `${position.y}px`,
               left: `${position.x}px`,
               width: `${size.width}px`,
               height: `${size.height}px`,
+              zIndex,
             }
       }
-      className={`fixed z-50 flex flex-col bg-white/95 dark:bg-[#1e1e1e]/95 backdrop-blur-2xl rounded-xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] border border-white/20 dark:border-white/10 overflow-hidden ${
+      className={`fixed flex flex-col bg-white/95 dark:bg-[#1e1e1e]/95 backdrop-blur-2xl rounded-xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] border border-white/20 dark:border-white/10 overflow-hidden ${
         isDragging || isResizing ? "transition-none select-none" : "animate-in fade-in zoom-in-95 duration-150"
       }`}
     >

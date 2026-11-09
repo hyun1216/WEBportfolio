@@ -3,14 +3,14 @@
     "id": "1",
     "title": "뭐사주지?",
     "description": "선물 추천 웹 서비스",
-    "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=800&auto=format&fit=crop&q=80",
+    "image": "/projects/mosajuji.png",
     "link": "https://github.com/hyun1216/WEBportfolio"
   },
   {
     "id": "2",
     "title": "월 배당금 목표 원금 계산기",
     "description": "배당금 목표 시뮬레이터",
-    "image": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&auto=format&fit=crop&q=80",
+    "image": "/projects/dividend-calc.png",
     "link": "https://github.com/hyun1216/WEBportfolio"
   },
   {
@@ -31,7 +31,7 @@
     "id": "5",
     "title": "청년체크",
     "description": "청년 복지/주거 정책 포털",
-    "image": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&auto=format&fit=crop&q=80",
+    "image": "/projects/youth-check.png",
     "link": "https://github.com/hyun1216/WEBportfolio"
   },
   {
@@ -45,7 +45,7 @@
     "id": "7",
     "title": "소원하늘",
     "description": "인터랙티브 소원 풍선 웹앱",
-    "image": "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&auto=format&fit=crop&q=80",
+    "image": "/projects/wish-sky.png",
     "link": "https://github.com/hyun1216/WEBportfolio"
   },
   {
