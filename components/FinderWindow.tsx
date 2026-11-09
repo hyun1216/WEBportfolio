@@ -59,8 +59,8 @@ export default function FinderWindow({
   onSelectTab,
 }: FinderWindowProps) {
   const [isMaximized, setIsMaximized] = useState(false);
-  const [position, setPosition] = useState({ x: 120, y: 70 });
-  const [size, setSize] = useState({ width: 880, height: 580 });
+  const [position, setPosition] = useState({ x: 80, y: 48 });
+  const [size, setSize] = useState({ width: 1200, height: 750 });
   const [isDragging, setIsDragging] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
 
@@ -75,17 +75,25 @@ export default function FinderWindow({
     direction: "",
   });
 
-  // 초기 위치와 크기를 반응형 및 계단식 오프셋으로 설정
+  // 초기 위치와 크기를 넉넉하고 시원한 기본 크기(가로 1200px, 세로 750px)로 반응형 설정
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const w = Math.min(880, window.innerWidth - 40);
-      const h = Math.min(580, window.innerHeight - 120);
+      const targetW = 1200;
+      const targetH = 750;
+
+      // 우측 바탕화면 폴더 아이콘 영역(약 280px)을 확보할 수 있는 대형 화면이면 80px에서 시작, 작은 화면이면 중앙 정렬
+      const availableW = window.innerWidth >= 1400 ? window.innerWidth - 280 : window.innerWidth - 40;
+      const w = Math.max(480, Math.min(targetW, availableW));
+      const h = Math.max(360, Math.min(targetH, window.innerHeight - 130));
+
       setSize({ width: w, height: h });
-      const baseX = Math.max(20, Math.floor((window.innerWidth - w) / 2));
-      const baseY = Math.max(40, Math.floor((window.innerHeight - h) / 2));
+
+      const baseX = window.innerWidth >= 1400 ? 80 : Math.max(20, Math.floor((window.innerWidth - w) / 2));
+      const baseY = 48;
+
       setPosition({
         x: Math.min(window.innerWidth - 100, Math.max(20, baseX + initialOffset)),
-        y: Math.min(window.innerHeight - 100, Math.max(40, baseY + initialOffset)),
+        y: Math.min(window.innerHeight - 100, Math.max(36, baseY + initialOffset)),
       });
     }
   }, [initialOffset]);
