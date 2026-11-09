@@ -1,137 +1,95 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createServerSupabaseClient } from "@/lib/supabaseServer";
-import { supabase } from "@/lib/supabaseClient";
+import fs from "fs";
+import path from "path";
 import { Project } from "@/types/project";
 
-// Supabase 미연결 또는 초기 상태일 때 사용할 7대 기본 폴더 데이터
-const FALLBACK_PROJECTS: Project[] = [
-  {
-    id: "proj-1",
-    title: "뭐사주지?",
-    description: "결정 장애를 겪는 사용자들을 위해 상황과 대상, 예산에 맞춰 최적의 선물을 추천해주는 AI 큐레이션 웹 서비스입니다.",
-    image_url: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=800&auto=format&fit=crop&q=80",
-    demo_url: "https://github.com/hyun1216/WEBportfolio",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "Gemini API"],
-    order_index: 1,
-  },
-  {
-    id: "proj-2",
-    title: "월 배당금 목표 원금 계산기",
-    description: "목표 월 배당금을 달성하기 위해 필요한 종목별 투자 원금과 월별 배당 캘린더, 복리 재투자를 시뮬레이션하는 핀테크 도구입니다.",
-    image_url: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&auto=format&fit=crop&q=80",
-    demo_url: "https://github.com/hyun1216/WEBportfolio",
-    tags: ["React", "Chart.js", "FinTech", "PWA"],
-    order_index: 2,
-  },
-  {
-    id: "proj-3",
-    title: "내돈내산 저장소",
-    description: "영수증 OCR 인증을 거친 순수 실구매자들의 신뢰도 높은 후기와 재구매 의사를 투명하게 공유하는 클린 리뷰 커뮤니티입니다.",
-    image_url: "https://images.unsplash.com/photo-1555421689-491a97ff2040?w=800&auto=format&fit=crop&q=80",
-    demo_url: "https://github.com/hyun1216/WEBportfolio",
-    tags: ["Next.js", "OCR API", "Supabase", "Tailwind CSS"],
-    order_index: 3,
-  },
-  {
-    id: "proj-4",
-    title: "Bottos",
-    description: "반복적인 일상 업무 및 데이터 수집, 웹훅 트리거 알림을 모듈식으로 자동화하는 지능형 멀티 플랫폼 봇 서비스입니다.",
-    image_url: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80",
-    demo_url: "https://github.com/hyun1216/WEBportfolio",
-    tags: ["Python", "FastAPI", "Docker", "WebSocket"],
-    order_index: 4,
-  },
-  {
-    id: "proj-5",
-    title: "청년체크",
-    description: "청년들이 놓치기 쉬운 정부·지자체 지원 정책 및 금융 혜택을 1분 자가진단으로 맞춤형 자격을 판별해주는 공공 혜택 서비스입니다.",
-    image_url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&auto=format&fit=crop&q=80",
-    demo_url: "https://github.com/hyun1216/WEBportfolio",
-    tags: ["React", "Zustand", "공공데이터포털 API"],
-    order_index: 5,
-  },
-  {
-    id: "proj-6",
-    title: "Hangeul_zip",
-    description: "상업용 무료 한글 폰트를 모아 즉석에서 폰트 크기, 간격, 굵기 커스텀 테스트 및 CSS @font-face 코드를 복사할 수 있는 아카이브입니다.",
-    image_url: "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800&auto=format&fit=crop&q=80",
-    demo_url: "https://github.com/hyun1216/WEBportfolio",
-    tags: ["Canvas API", "Vanilla JS", "Web Font API"],
-    order_index: 6,
-  },
-  {
-    id: "proj-7",
-    title: "소원하늘",
-    description: "밤하늘 3D 가상 공간에 소원을 적은 풍등을 띄우고, 다른 사용자들의 소원을 열람하며 응원을 나누는 감성 인터랙티브 웹입니다.",
-    image_url: "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&auto=format&fit=crop&q=80",
-    demo_url: "https://github.com/hyun1216/WEBportfolio",
-    tags: ["Three.js", "WebGL", "Firebase", "Web Audio"],
-    order_index: 7,
-  },
-];
+// 프로젝트 루트의 data/projects.json 파일 경로
+const DATA_FILE_PATH = path.join(process.cwd(), "data", "projects.json");
 
 /**
- * GET: 전체 프로젝트 폴더 목록 조회 (공개 API, order_index 오름차순)
+ * 로컬 파일 시스템에서 projects.json을 안전하게 읽어오는 헬퍼
+ */
+async function readLocalProjects(): Promise<Project[]> {
+  try {
+    if (fs.existsSync(DATA_FILE_PATH)) {
+      const fileData = await fs.promises.readFile(DATA_FILE_PATH, "utf-8");
+      return JSON.parse(fileData);
+    }
+  } catch (err) {
+    console.error("[API readLocalProjects error]:", err);
+  }
+  return [];
+}
+
+/**
+ * GET /api/folders
+ * data/projects.json 내용을 읽어와 브라우저에 반환 (방문자 누구나 조회 가능)
  */
 export async function GET() {
   try {
-    // 1. Supabase URL이 실제 유효한지 확인
-    const isConfigured =
-      process.env.NEXT_PUBLIC_SUPABASE_URL &&
-      !process.env.NEXT_PUBLIC_SUPABASE_URL.includes("placeholder") &&
-      !process.env.NEXT_PUBLIC_SUPABASE_URL.includes("your-project-id");
+    const owner = process.env.GITHUB_REPO_OWNER || "hyun1216";
+    const repo = process.env.GITHUB_REPO_NAME || "WEBportfolio";
+    const pat = process.env.GITHUB_PAT;
 
-    if (!isConfigured) {
-      return NextResponse.json({
-        success: true,
-        data: FALLBACK_PROJECTS,
-        source: "fallback",
-      });
+    // 1. GITHUB_PAT가 구성되어 있고 프로덕션 환경인 경우 GitHub Contents API에서 최신 데이터 조회 시도
+    if (pat && !pat.startsWith("ghp_your")) {
+      try {
+        const ghRes = await fetch(
+          `https://api.github.com/repos/${owner}/${repo}/contents/data/projects.json`,
+          {
+            headers: {
+              Authorization: `Bearer ${pat}`,
+              Accept: "application/vnd.github.v3+json",
+              "User-Agent": "WEBportfolio-App",
+            },
+            cache: "no-store",
+          }
+        );
+
+        if (ghRes.ok) {
+          const ghData = await ghRes.json();
+          if (ghData.content) {
+            const decodedStr = Buffer.from(ghData.content, "base64").toString("utf-8");
+            const parsed = JSON.parse(decodedStr);
+            return NextResponse.json({
+              success: true,
+              data: parsed,
+              source: "github_api",
+            });
+          }
+        }
+      } catch (ghErr) {
+        console.warn("[GET /api/folders] GitHub API fetch fallback to local file:", ghErr);
+      }
     }
 
-    // 2. Supabase DB에서 projects 조회
-    const { data, error } = await supabase
-      .from("projects")
-      .select("*")
-      .order("order_index", { ascending: true });
-
-    if (error) {
-      console.error("[API GET /api/folders] Supabase error:", error);
-      // DB 쿼리 오류 시 fallback 데이터 반환
-      return NextResponse.json({
-        success: true,
-        data: FALLBACK_PROJECTS,
-        source: "fallback_on_error",
-      });
-    }
-
-    // DB에 데이터가 하나도 없으면 초기 7대 프로젝트 반환
-    const result = data && data.length > 0 ? data : FALLBACK_PROJECTS;
-
+    // 2. 기본: 로컬 파일 시스템에서 data/projects.json 읽기
+    const localProjects = await readLocalProjects();
     return NextResponse.json({
       success: true,
-      data: result,
-      source: "supabase",
+      data: localProjects,
+      source: "local_file",
     });
   } catch (err: any) {
-    console.error("[API GET /api/folders] Server error:", err);
+    console.error("[GET /api/folders error]:", err);
     return NextResponse.json(
-      { success: false, error: err.message, data: FALLBACK_PROJECTS },
+      { success: false, error: err.message || "Failed to load projects" },
       { status: 500 }
     );
   }
 }
 
 /**
- * POST: 새 폴더 생성 (관리자 인증 필요: x-admin-key 헤더 검증)
+ * POST /api/folders
+ * 1. x-admin-key 헤더 검증 (ADMIN_SECRET_KEY와 대조)
+ * 2. GitHub REST API(PUT /contents/data/projects.json)로 직접 커밋 & 푸시
  */
 export async function POST(req: NextRequest) {
   try {
-    // 1. 요청 헤더에서 x-admin-key 추출
+    // 1. 관리자 비밀번호 검증 (x-admin-key 헤더)
     const adminKey = req.headers.get("x-admin-key");
     const serverAdminSecret = process.env.ADMIN_SECRET_KEY || "admin1234";
 
-    // 2. 관리자 비밀번호 검증 (불일치 시 즉시 401 Unauthorized)
     if (!adminKey || adminKey !== serverAdminSecret) {
       return NextResponse.json(
         {
@@ -142,9 +100,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 3. 요청 Body 파싱
+    // 2. 요청 Body 파싱
     const body = await req.json();
-    const { title, description, image_url, demo_url, tags } = body;
+    const { title, description, image, link } = body;
 
     if (!title || typeof title !== "string" || !title.trim()) {
       return NextResponse.json(
@@ -153,87 +111,129 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 4. Supabase DB 환경 변수 확인
-    const isConfigured =
-      process.env.NEXT_PUBLIC_SUPABASE_URL &&
-      !process.env.NEXT_PUBLIC_SUPABASE_URL.includes("placeholder") &&
-      !process.env.NEXT_PUBLIC_SUPABASE_URL.includes("your-project-id") &&
-      process.env.SUPABASE_SERVICE_ROLE_KEY &&
-      !process.env.SUPABASE_SERVICE_ROLE_KEY.includes("your-service-role-key");
+    const owner = process.env.GITHUB_REPO_OWNER || "hyun1216";
+    const repo = process.env.GITHUB_REPO_NAME || "WEBportfolio";
+    const pat = process.env.GITHUB_PAT;
 
-    // Supabase가 연결되어 있는 경우 service_role 클라이언트로 삽입
-    if (isConfigured) {
-      const serverClient = createServerSupabaseClient();
+    // 새 프로젝트 객체 생성
+    const newProject: Project = {
+      id: Date.now().toString(),
+      title: title.trim(),
+      description: description?.trim() || "새로 추가된 프로젝트 폴더입니다.",
+      image: image?.trim() || "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=800&auto=format&fit=crop&q=80",
+      link: link?.trim() || "https://github.com/hyun1216/WEBportfolio",
+    };
 
-      // 현재 최대 order_index 조회
-      const { data: maxOrderData } = await serverClient
-        .from("projects")
-        .select("order_index")
-        .order("order_index", { ascending: false })
-        .limit(1);
+    // 3. GitHub PAT가 설정되어 있는 경우 GitHub REST API를 통해 직접 커밋 & 푸시
+    if (pat && !pat.startsWith("ghp_your") && pat.trim().length > 0) {
+      // 3-1. 기존 파일의 SHA와 Content 조회
+      const getFileRes = await fetch(
+        `https://api.github.com/repos/${owner}/${repo}/contents/data/projects.json`,
+        {
+          headers: {
+            Authorization: `Bearer ${pat}`,
+            Accept: "application/vnd.github.v3+json",
+            "User-Agent": "WEBportfolio-App",
+          },
+          cache: "no-store",
+        }
+      );
 
-      const nextOrder = (maxOrderData?.[0]?.order_index ?? 0) + 1;
+      let currentSha = "";
+      let currentProjects: Project[] = [];
 
-      const newRecord = {
-        title: title.trim(),
-        description: description?.trim() || "새로 추가된 프로젝트 폴더입니다.",
-        image_url: image_url?.trim() || null,
-        demo_url: demo_url?.trim() || "https://github.com/hyun1216/WEBportfolio",
-        tags: Array.isArray(tags) ? tags : ["New Project", "Web"],
-        order_index: nextOrder,
-      };
+      if (getFileRes.ok) {
+        const fileInfo = await getFileRes.json();
+        currentSha = fileInfo.sha;
+        const decoded = Buffer.from(fileInfo.content, "base64").toString("utf-8");
+        currentProjects = JSON.parse(decoded);
+      } else {
+        // GitHub에 파일이 없으면 로컬 파일에서 읽기
+        currentProjects = await readLocalProjects();
+      }
 
-      const { data, error } = await serverClient
-        .from("projects")
-        .insert([newRecord])
-        .select()
-        .single();
+      // 새 프로젝트 추가
+      currentProjects.push(newProject);
 
-      if (error) {
-        console.error("[API POST /api/folders] Insert error:", error);
+      // JSON을 Base64로 인코딩
+      const updatedJsonString = JSON.stringify(currentProjects, null, 2);
+      const base64Content = Buffer.from(updatedJsonString, "utf-8").toString("base64");
+
+      // 3-2. PUT /repos/{owner}/{repo}/contents/data/projects.json 호출 (커밋 & 푸시)
+      const putRes = await fetch(
+        `https://api.github.com/repos/${owner}/${repo}/contents/data/projects.json`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${pat}`,
+            Accept: "application/vnd.github.v3+json",
+            "Content-Type": "application/json",
+            "User-Agent": "WEBportfolio-App",
+          },
+          body: JSON.stringify({
+            message: `feat(cms): add project folder "${newProject.title}" via web admin`,
+            content: base64Content,
+            ...(currentSha ? { sha: currentSha } : {}),
+            branch: "main",
+          }),
+        }
+      );
+
+      const putResult = await putRes.json();
+
+      if (!putRes.ok) {
+        console.error("[GitHub PUT error]:", putResult);
         return NextResponse.json(
-          { success: false, error: "데이터베이스 저장 실패: " + error.message },
+          {
+            success: false,
+            error: `GitHub Commit 실패: ${putResult.message || "원격 저장소 쓰기 권한을 확인해주세요."}`,
+          },
           { status: 500 }
         );
+      }
+
+      // 로컬 파일 시스템도 최신화
+      try {
+        await fs.promises.writeFile(DATA_FILE_PATH, updatedJsonString, "utf-8");
+      } catch (e) {
+        console.warn("Local file sync failed, but GitHub commit succeeded:", e);
       }
 
       return NextResponse.json(
         {
           success: true,
-          message: "새 폴더가 데이터베이스에 성공적으로 저장되었습니다.",
-          data,
+          message: "새 폴더가 GitHub 저장소에 성공적으로 커밋 & 푸시되었습니다.",
+          data: newProject,
+          commit: putResult.commit?.sha,
         },
         { status: 201 }
       );
     }
 
-    // Supabase 환경 변수가 아직 더미인 경우: 로컬 인메모리 반환 (프론트엔드 상태에 즉시 반영)
-    const mockCreated: Project = {
-      id: "proj-" + Date.now(),
-      title: title.trim(),
-      description: description?.trim() || "새로 추가된 프로젝트 폴더입니다.",
-      image_url: image_url || null,
-      demo_url: demo_url || "https://github.com/hyun1216/WEBportfolio",
-      tags: Array.isArray(tags) ? tags : ["New Project"],
-      order_index: 99,
-      created_at: new Date().toISOString(),
-    };
+    // 4. GITHUB_PAT가 미설정된 로컬 개발 환경인 경우: 로컬 data/projects.json에 직접 파일 기록
+    const currentLocalProjects = await readLocalProjects();
+    currentLocalProjects.push(newProject);
+    await fs.promises.writeFile(
+      DATA_FILE_PATH,
+      JSON.stringify(currentLocalProjects, null, 2),
+      "utf-8"
+    );
 
     return NextResponse.json(
       {
         success: true,
-        message: "새 폴더가 생성되었습니다. (Supabase 연결 시 DB에 영구 저장됩니다)",
-        data: mockCreated,
-        source: "mock_created",
+        message:
+          "로컬 data/projects.json에 저장되었습니다. (GitHub 자동 커밋을 원하시면 .env.local에 GITHUB_PAT를 등록해주세요)",
+        data: newProject,
+        source: "local_filesystem_write",
       },
       { status: 201 }
     );
   } catch (err: any) {
-    console.error("[API POST /api/folders] Unexpected error:", err);
+    console.error("[POST /api/folders error]:", err);
     return NextResponse.json(
       { success: false, error: err.message || "서버 내부 오류가 발생했습니다." },
       { status: 500 }
     );
   }
 }
-

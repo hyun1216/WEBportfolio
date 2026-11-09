@@ -244,7 +244,7 @@ export default function FinderWindow({
 
         {/* 메인 뷰어 영역 */}
         <main className="flex-1 overflow-y-auto p-6 bg-white dark:bg-[#1e1e1e]">
-          {/* 1. 개발자 프로필 탭 */}
+          {/* 1. 개발자 프로필 탭 (public/me.JPG 직접 연결) */}
           {activeTab === "profile" && (
             <div className="max-w-2xl mx-auto flex flex-col items-center text-center py-4">
               <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-white dark:border-gray-700 shadow-xl mb-4">
@@ -263,8 +263,8 @@ export default function FinderWindow({
                 macOS Inspired Interactive Portfolio
               </p>
               <p className="text-sm text-gray-600 dark:text-gray-300 mt-4 leading-relaxed max-w-lg break-keep">
-                사용자 경험(UX)과 인터랙티브한 웹 애니메이션을 사랑하는 개발자입니다.
-                Next.js, TypeScript, Tailwind CSS, Supabase를 활용하여 완성도 높은 프로덕트를 만듭니다.
+                Git-as-a-CMS 아키텍처와 사용자 중심의 인터랙티브 인터페이스를 설계합니다.
+                Next.js, TypeScript, Tailwind CSS를 기반으로 완성도 높은 웹 애플리케이션을 구현합니다.
               </p>
               <div className="flex gap-3 mt-6">
                 <a
@@ -295,7 +295,7 @@ export default function FinderWindow({
                   전체 프로젝트 탐색기
                 </h2>
                 <p className="text-xs text-gray-500 mt-1">
-                  바탕화면의 프로젝트 폴더를 열람하거나 상세 내용을 확인하세요.
+                  GitHub 저장소의 data/projects.json에서 불러온 프로젝트 목록입니다.
                 </p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
@@ -317,16 +317,6 @@ export default function FinderWindow({
                     <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2 leading-relaxed">
                       {p.description || "상세 설명이 없습니다."}
                     </p>
-                    <div className="mt-3 flex flex-wrap gap-1">
-                      {p.tags?.slice(0, 3).map((tag, i) => (
-                        <span
-                          key={i}
-                          className="text-[10px] bg-white dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-0.5 rounded border border-gray-200 dark:border-gray-600"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
                   </div>
                 ))}
               </div>
@@ -344,13 +334,13 @@ export default function FinderWindow({
                     {activeProject.title}
                   </h1>
                   <p className="text-xs text-gray-400 mt-1">
-                    프로젝트 순번: #{activeProject.order_index}
+                    프로젝트 ID: {activeProject.id}
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
-                  {activeProject.demo_url && (
+                  {activeProject.link && (
                     <a
-                      href={activeProject.demo_url}
+                      href={activeProject.link}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-blue-500 hover:bg-blue-600 text-white text-xs font-semibold shadow-sm transition-all"
@@ -371,25 +361,11 @@ export default function FinderWindow({
                 </div>
               </div>
 
-              {/* 기술 스택 칩 */}
-              {activeProject.tags && activeProject.tags.length > 0 && (
-                <div className="flex flex-wrap gap-1.5">
-                  {activeProject.tags.map((tag, idx) => (
-                    <span
-                      key={idx}
-                      className="text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 px-2.5 py-1 rounded-md border border-blue-100 dark:border-blue-800"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              )}
-
               {/* 스크린샷 이미지 뷰어 */}
               <div className="relative w-full h-72 sm:h-80 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-900 shadow-inner">
-                {activeProject.image_url ? (
+                {activeProject.image ? (
                   <Image
-                    src={activeProject.image_url}
+                    src={activeProject.image}
                     alt={`${activeProject.title} 스크린샷`}
                     fill
                     className="object-cover"
@@ -418,4 +394,3 @@ export default function FinderWindow({
     </div>
   );
 }
-
