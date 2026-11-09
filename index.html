@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - macOS Desktop</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <!-- 데스크톱 전체 래퍼 -->
+  <div id="desktop" class="desktop-screen">
+    
+    <!-- macOS 상단 메뉴바 -->
+    <header class="mac-menubar">
+      <div class="menubar-left">
+        <span class="apple-logo" title="Apple"></span>
+        <span class="menubar-title active">Finder</span>
+        <span class="menubar-item">파일</span>
+        <span class="menubar-item">편집</span>
+        <span class="menubar-item">보기</span>
+        <span class="menubar-item">이동</span>
+        <span class="menubar-item">윈도우</span>
+        <span class="menubar-item">도움말</span>
+      </div>
+      <div class="menubar-right">
+        <!-- 프로필 퀵 버튼 -->
+        <div class="menubar-icon profile-chip" id="profileQuickBtn" title="내 프로필 보기">
+          <img src="./me.JPG" alt="Profile" class="menubar-avatar" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%23ccc%22><circle cx=%2212%22 cy=%228%22 r=%224%22/><path d=%22M4 20c0-4 4-6 8-6s8 2 8 6%22/></svg>'">
+          <span class="menubar-name">Portfolio</span>
+        </div>
+        <!-- 시스템 트레이 아이콘 -->
+        <span class="menubar-icon" title="배터리 100%">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <rect x="2" y="6" width="17" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="2"/>
+            <rect x="4" y="8" width="13" height="8" rx="1" fill="currentColor"/>
+            <rect x="20" y="10" width="2" height="4" rx="0.5" fill="currentColor"/>
+          </svg>
+        </span>
+        <span class="menubar-icon" title="와이파이 연결됨">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M12 18a2 2 0 100 4 2 2 0 000-4zm-5.66-3.66a8 8 0 0111.32 0l-1.42 1.42a6 6 0 00-8.48 0l-1.42-1.42zm-2.83-2.83a12 12 0 0116.98 0l-1.42 1.42a10 10 0 00-14.14 0l-1.42-1.42z"/>
+          </svg>
+        </span>
+        <span class="menubar-icon" title="제어 센터">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor">
+            <path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/>
+          </svg>
+        </span>
+        <!-- 상단 메뉴바 간이 시계 -->
+        <span class="menubar-clock" id="menuClock">15:37</span>
+      </div>
+    </header>
+
+    <!-- 바탕화면 폴더 아이콘 그리드 -->
+    <main class="desktop-workspace" id="desktopWorkspace">
+      <div class="folder-grid" id="folderGrid">
+        <!-- JavaScript에서 동적으로 렌더링 -->
+      </div>
+    </main>
+
+    <!-- [필수] 화면 오른쪽 하단: 실시간 초 단위 날짜 및 시계 위젯 -->
+    <aside class="desktop-clock-widget" id="bottomClockWidget">
+      <div class="clock-glass-card">
+        <div class="clock-calendar-badge">
+          <span class="calendar-month" id="widgetMonth">11월</span>
+          <span class="calendar-day" id="widgetDay">09</span>
+        </div>
+        <div class="clock-details">
+          <div class="clock-time" id="realtimeClock">15:37:00</div>
+          <div class="clock-date" id="realtimeDate">2026. 11. 09 (월)</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- macOS 하단 Dock 바 -->
+    <footer class="mac-dock">
+      <div class="dock-container">
+        <button class="dock-item" id="dockFinder" title="Finder (전체 프로젝트)">
+          <div class="dock-icon finder-dock-icon">
+            <svg viewBox="0 0 48 48" width="40" height="40">
+              <rect x="4" y="4" width="40" height="40" rx="9" fill="#1e90ff"/>
+              <path d="M24 8v16M14 20c0 5.5 4.5 10 10 10s10-4.5 10-10" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none"/>
+              <circle cx="17" cy="18" r="2.5" fill="#fff"/>
+              <circle cx="31" cy="18" r="2.5" fill="#fff"/>
+            </svg>
+          </div>
+          <span class="dock-dot"></span>
+        </button>
+
+        <button class="dock-item" id="dockProfile" title="개발자 프로필">
+          <div class="dock-icon profile-dock-icon">
+            <img src="./me.JPG" alt="Profile" onerror="this.style.display='none'; document.getElementById('dockFallbackAvatar').style.display='flex';">
+            <div id="dockFallbackAvatar" class="dock-fallback-avatar" style="display:none;">👤</div>
+          </div>
+        </button>
+
+        <button class="dock-item" id="dockNewFolder" title="새 폴더 생성">
+          <div class="dock-icon newfolder-dock-icon">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="#ffd15c">
+              <path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/>
+              <line x1="12" y1="11" x2="12" y2="17" stroke="#2c3e50" stroke-width="2" stroke-linecap="round"/>
+              <line x1="9" y1="14" x2="15" y2="14" stroke="#2c3e50" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </button>
+
+        <div class="dock-separator"></div>
+
+        <button class="dock-item" id="dockGithub" title="GitHub 저장소 바로가기" onclick="window.open('https://github.com/hyun1216/WEBportfolio', '_blank')">
+          <div class="dock-icon github-dock-icon">
+            <svg viewBox="0 0 24 24" width="30" height="30" fill="#fff">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+            </svg>
+          </div>
+        </button>
+
+        <button class="dock-item" id="dockTrash" title="휴지통" onclick="alert('휴지통이 비어 있습니다.')">
+          <div class="dock-icon trash-dock-icon">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="#e0e0e0">
+              <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/>
+            </svg>
+          </div>
+        </button>
+      </div>
+    </footer>
+
+    <!-- 우클릭 컨텍스트 메뉴 -->
+    <div id="contextMenu" class="mac-context-menu" style="display: none;">
+      <div class="menu-item" id="ctxNewFolder">
+        <span class="menu-icon">📁</span>
+        <span class="menu-label">새 폴더</span>
+      </div>
+      <div class="menu-separator"></div>
+      <div class="menu-item" id="ctxRefresh">
+        <span class="menu-icon">🔄</span>
+        <span class="menu-label">새로고침</span>
+      </div>
+      <div class="menu-item" id="ctxCleanUp">
+        <span class="menu-icon">🪄</span>
+        <span class="menu-label">아이콘 자동 정렬</span>
+      </div>
+      <div class="menu-separator"></div>
+      <div class="menu-item" id="ctxChangeTheme">
+        <span class="menu-icon">🎨</span>
+        <span class="menu-label">배경화면 테마 변경</span>
+      </div>
+      <div class="menu-separator"></div>
+      <div class="menu-item" id="ctxAboutMe">
+        <span class="menu-icon">👤</span>
+        <span class="menu-label">개발자 프로필 보기</span>
+      </div>
+    </div>
+
+    <!-- Finder 창 컨테이너 (단일 윈도우/다중 탭 모달) -->
+    <div id="finderWindow" class="mac-window finder-window" style="display: none;">
+      <!-- 윈도우 헤더 (타이틀바 & 신호등 버튼) -->
+      <div class="window-header" id="windowHeader">
+        <div class="traffic-lights">
+          <button class="traffic-light close" id="btnWinClose" title="닫기"></button>
+          <button class="traffic-light minimize" id="btnWinMinimize" title="최소화"></button>
+          <button class="traffic-light maximize" id="btnWinMaximize" title="전체화면"></button>
+        </div>
+        <div class="window-title-wrap">
+          <span class="window-folder-icon">📂</span>
+          <span class="window-title" id="windowTitle">Finder</span>
+        </div>
+        <div class="header-tools">
+          <span class="tool-btn" id="toolViewToggle" title="보기 방식">☷</span>
+          <span class="tool-btn" id="toolShare" title="저장소 방문" onclick="window.open('https://github.com/hyun1216/WEBportfolio', '_blank')">↗</span>
+        </div>
+      </div>
+
+      <!-- 윈도우 바디 -->
+      <div class="window-body">
+        <!-- 좌측 사이드바 -->
+        <aside class="finder-sidebar">
+          <div class="sidebar-group">
+            <span class="sidebar-heading">즐겨찾기</span>
+            <ul class="sidebar-list">
+              <li class="sidebar-item active" id="navAllProjects">
+                <span class="item-icon">📁</span>
+                <span class="item-name">전체 프로젝트</span>
+              </li>
+              <li class="sidebar-item" id="navProfile">
+                <span class="item-icon">👤</span>
+                <span class="item-name">개발자 소개 (Profile)</span>
+              </li>
+            </ul>
+          </div>
+          <div class="sidebar-group">
+            <span class="sidebar-heading">프로젝트 목록</span>
+            <ul class="sidebar-list" id="sidebarProjectList">
+              <!-- 동적 생성 -->
+            </ul>
+          </div>
+        </aside>
+
+        <!-- 우측 메인 콘텐츠 뷰어 -->
+        <section class="finder-content" id="finderContent">
+          <!-- 프로젝트 상세 뷰 or 프로필 뷰가 렌더링됨 -->
+        </section>
+      </div>
+    </div>
+
+    <!-- 새 폴더 생성 모달 다이얼로그 -->
+    <div id="newFolderModal" class="mac-dialog-overlay" style="display: none;">
+      <div class="mac-dialog">
+        <div class="dialog-icon">📁</div>
+        <h3 class="dialog-title">새 폴더 생성</h3>
+        <p class="dialog-desc">바탕화면에 생성할 폴더의 이름을 입력해주세요.</p>
+        <input type="text" id="newFolderInput" class="dialog-input" placeholder="새 프로젝트 폴더" maxlength="30">
+        <div class="dialog-buttons">
+          <button type="button" class="dialog-btn cancel" id="btnCancelFolder">취소</button>
+          <button type="button" class="dialog-btn confirm" id="btnConfirmFolder">생성</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
+
