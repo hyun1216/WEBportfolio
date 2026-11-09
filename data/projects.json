@@ -4,7 +4,13 @@
     "title": "뭐사주지?",
     "subtitle": "mwasajuji | Kakao Gift Curator",
     "description": "카카오톡 선물하기 링크 분석 및 맥락 기반 선물 큐레이션 웹",
-    "tags": ["Next.js", "TypeScript", "Tailwind CSS", "Python (Flask)", "Vercel"],
+    "tags": [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Python (Flask)",
+      "Vercel"
+    ],
     "image": "/projects/mosajuji.png",
     "link": "https://www.mwasajuji.kr/",
     "demoUrl": "https://www.mwasajuji.kr/",
@@ -15,7 +21,13 @@
     "title": "월 배당금 목표 원금 계산기",
     "subtitle": "Dividend Simulator",
     "description": "금융 데이터 API 연동 실시간 현금 흐름 & 절세 복리 시뮬레이터",
-    "tags": ["TypeScript", "Next.js", "Financial APIs", "Tailwind CSS", "Vercel"],
+    "tags": [
+      "TypeScript",
+      "Next.js",
+      "Financial APIs",
+      "Tailwind CSS",
+      "Vercel"
+    ],
     "image": "/projects/dividend-calc.png",
     "link": "https://mydividend.co.kr/",
     "demoUrl": "https://mydividend.co.kr/",
@@ -26,7 +38,12 @@
     "title": "내돈내산 저장소",
     "subtitle": "Honest Review Archive",
     "description": "100% 실구매 경험 기록 및 모바일 최적화 미디어 갤러리를 갖춘 프라이빗 리뷰 웹",
-    "tags": ["React (Vite)", "Vanilla CSS", "Lucide React", "Vercel"],
+    "tags": [
+      "React (Vite)",
+      "Vanilla CSS",
+      "Lucide React",
+      "Vercel"
+    ],
     "image": "https://images.unsplash.com/photo-1555421689-491a97ff2040?w=800&auto=format&fit=crop&q=80",
     "link": "https://my-money-repo.netlify.app/",
     "demoUrl": "https://my-money-repo.netlify.app/",
@@ -38,7 +55,12 @@
     "title": "Bottos",
     "subtitle": "US Equity Automated Trading System",
     "description": "토스증권 API 연동 미국 정규장 단타·단기 스윙 자동매매 및 리스크 통제 시스템",
-    "tags": ["Python", "Toss Securities API", "Financial Automation", "Risk Management"],
+    "tags": [
+      "Python",
+      "Toss Securities API",
+      "Financial Automation",
+      "Risk Management"
+    ],
     "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80",
     "link": "",
     "demoUrl": "",
@@ -50,7 +72,14 @@
     "title": "청년체크",
     "subtitle": "YouthCheck",
     "description": "광고성 정보와 행정 용어를 배제한 2030 직장인·청년 맞춤형 복지 정책 큐레이션 & 커리어 어시스턴트 플랫폼",
-    "tags": ["Next.js", "TypeScript", "Tailwind CSS", "Zustand", "LocalStorage", "Mobile-First UI"],
+    "tags": [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Zustand",
+      "LocalStorage",
+      "Mobile-First UI"
+    ],
     "image": "/projects/youth-check.png",
     "link": "https://youth-check-nine.vercel.app/",
     "demoUrl": "https://youth-check-nine.vercel.app/",
@@ -61,7 +90,12 @@
     "title": "Hangeul_zip",
     "subtitle": "집에서한글",
     "description": "유아/초등 부모를 위한 엄마표 한글 파닉스 학습지 및 모바일 맞춤형 부모 해설지 제공 웹 플랫폼",
-    "tags": ["Next.js 14 (App Router)", "Tailwind CSS", "Supabase", "Vercel"],
+    "tags": [
+      "Next.js 14 (App Router)",
+      "Tailwind CSS",
+      "Supabase",
+      "Vercel"
+    ],
     "image": "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800&auto=format&fit=crop&q=80",
     "link": "https://github.com/hyun1216/Hangeul_zip.git",
     "demoUrl": "",
@@ -72,7 +106,13 @@
     "title": "소원하늘",
     "subtitle": "SowonSky",
     "description": "전 세계 사람들의 소원을 밤하늘 풍선으로 띄우고 교감하는 12시간 시한부 인터랙티브 웹 플랫폼",
-    "tags": ["Next.js (App Router)", "Tailwind CSS", "Framer Motion", "Supabase Realtime", "Vercel"],
+    "tags": [
+      "Next.js (App Router)",
+      "Tailwind CSS",
+      "Framer Motion",
+      "Supabase Realtime",
+      "Vercel"
+    ],
     "image": "/projects/wish-sky.png",
     "link": "https://sowonsky.vercel.app/",
     "demoUrl": "https://sowonsky.vercel.app/",
@@ -83,7 +123,14 @@
     "title": "고용·산재 4대보험 및 세무 환급 시스템 파이썬 마이그레이션",
     "subtitle": "Brity RPA & Excel VBA 기반 레거시 업무의 Python 로컬 데이터 파이프라인 전면 재구축",
     "description": "기존 Brity RPA와 VBA 매크로에 분산되어 있던 근로소득 경정청구·과오납 환급 업무를 체계적으로 분석하여, 비정형 급여대장 정규화부터 수정신고서 생성까지 전 과정을 Python 파이프라인으로 전환한 프로젝트입니다.",
-    "tags": ["Python", "Pandas", "PyPDF2 / pdfplumber", "OpenPyXL", "Data Normalization", "RPA Migration"],
+    "tags": [
+      "Python",
+      "Pandas",
+      "PyPDF2 / pdfplumber",
+      "OpenPyXL",
+      "Data Normalization",
+      "RPA Migration"
+    ],
     "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80",
     "link": "https://github.com/hyun1216/WEBportfolio",
     "githubUrl": "https://github.com/hyun1216/WEBportfolio",
@@ -162,5 +209,12 @@
         "purpose": "배치 파이프라인 실시간 상태 알림 및 장애 발생 시 스택트레이스 즉시 전송"
       }
     ]
+  },
+  {
+    "id": "1794214419218",
+    "title": "위하고 경정청구 자동화",
+    "description": "WEHAGO 급여·원천징수 데이터를 기반으로 경정청구 대상자 판정부터 급여 수정, 세액 재계산, 원천징수영수증·제출서류 생성까지 연결한 Windows 기반 세무·노무 업무 자동화 시스템",
+    "image": "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=800&auto=format&fit=crop&q=80",
+    "link": "https://github.com/hyun1216/WEBportfolio"
   }
 ]
