@@ -1,68 +1,86 @@
-# macOS Interactive Desktop Portfolio
+# macOS Interactive Desktop Portfolio (Next.js & Supabase)
 
-macOS 감성의 인터랙티브 웹 데스크톱 포트폴리오 프로젝트입니다.  
-별도의 빌드 과정 없이 정적 웹 호스팅(GitHub Pages, Vercel, Netlify 등) 및 로컬 브라우저에서 즉시 실행할 수 있도록 설계되었습니다.
-
----
-
-## 🌟 주요 기능
-
-### 1. macOS 데스크톱 UI & 레이아웃
-- **macOS 스타일 다이내믹 월페이퍼**: 고급스러운 Glassmorphism(블러 및 반투명 효과) 스타일이 적용된 상단 메뉴바와 하단 Dock.
-- **실시간 날짜 & 시계 위젯 (화면 우측 하단)**:
-  - 초 단위까지 실시간으로 업데이트되는 날짜 및 시계 위젯 (`YYYY. MM. DD (요일) HH:mm:ss`).
-  - 캘린더 날짜 칩 및 글래스 카드 디자인 적용.
-- **배경 테마 변경**: 우클릭 메뉴를 통해 Sonoma, Monterey 등의 테마로 즉시 전환 가능.
-
-### 2. 바탕화면 노란 폴더 아이콘 (7대 프로젝트)
-macOS 특유의 노란색 폴더 벡터 아이콘으로 초기 7개 프로젝트가 자동 배치됩니다:
-1. **뭐사주지?** (AI 맞춤형 선물 추천 플랫폼)
-2. **월 배당금 목표 원금 계산기** (투자 원금 및 복리 역산 시뮬레이터)
-3. **내돈내산 저장소** (영수증 인증 기반 클린 리뷰 아카이브)
-4. **Bottos** (멀티 플랫폼 업무 자동화 봇)
-5. **청년체크** (정부·지자체 청년 정책 원클릭 자격 진단기)
-6. **Hangeul_zip** (상업용 무료 한글 서체 실시간 프리뷰 큐레이션)
-7. **소원하늘** (3D 풍등 소원 공유 인터랙티브 웹)
-
-### 3. 우클릭 컨텍스트 메뉴 & 새 폴더 생성
-- 바탕화면 빈 공간 마우스 우클릭 시 macOS 네이티브 스타일 컨텍스트 메뉴 출력.
-- **새 폴더 생성**: 이름을 입력하여 즉시 새 폴더를 생성할 수 있으며, `localStorage`를 통해 새로고침 후에도 영구 유지됩니다.
-
-### 4. macOS Finder 스타일 파일 탐색기 모달
-- 폴더 클릭/더블클릭 시 Finder 스타일의 윈도우 팝업 오픈.
-- **macOS 시그니처 신호등 버튼**:
-  - 🔴 닫기 (Close)
-  - 🟡 최소화 (Minimize)
-  - 🟢 전체화면 / 이전 크기 토글 (Maximize)
-- **창 드래그 이동**: 타이틀바를 마우스로 잡고 자유롭게 이동 가능.
-- **콘텐츠 레이아웃**:
-  - 프로젝트 개요 및 기술 스택 칩
-  - 스크린샷 이미지(`<img>`) 및 시연 영상(`video`) 컨테이너
-  - 핵심 기능 리스트 및 라이브 데모 / GitHub 바로가기 링크 버튼
-- **프로필 연동**: 로컬 루트의 증명사진(`./me.JPG`) 에셋과 직접 연결된 개발자 프로필 뷰 지원.
+macOS 감성의 인터랙티브 웹 데스크톱 포트폴리오입니다.  
+**Next.js 14+ (App Router), TypeScript, Tailwind CSS, Supabase PostgreSQL, Lucide React** 기반으로 제작되었으며, 관리자 인증을 통한 서버리스 API 및 DB 영구 저장을 지원합니다.
 
 ---
 
-## 📁 파일 구조
+## 🌟 기술 스택 & 아키텍처
+
+- **Framework:** Next.js 14+ (App Router, Server & Client Components)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS, Glassmorphism, Custom macOS Theme
+- **Database & Auth:** Supabase PostgreSQL with Row Level Security (RLS)
+- **Icons:** Lucide React & Custom SVG
+- **Deployment:** Vercel (One-Click Deploy 지원)
+
+---
+
+## 🚀 빠른 시작 가이드
+
+### 1. 환경 변수 설정 (`.env.local`)
+`.env.example`을 복사하여 `.env.local`을 생성하고 Supabase 프로젝트의 키 값을 입력합니다:
+
+```env
+# Supabase 대시보드 (Project Settings > API)
+NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+
+# 서버 전용 Service Role Key (클라이언트에 절대 노출되지 않음)
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+
+# 관리자 인증 전용 비밀번호 (기본: admin1234)
+ADMIN_SECRET_KEY=admin1234
+```
+
+### 2. Supabase 데이터베이스 세팅
+Supabase SQL Editor에서 [`supabase/schema.sql`](./supabase/schema.sql) 파일의 내용을 실행합니다:
+- `projects` 테이블 자동 생성 (UUID, RLS 활성화)
+- 방문자 읽기(`SELECT`) 허용 및 클라이언트 직접 쓰기 차단 보안 정책
+- 초기 7대 기본 프로젝트 데이터 자동 `INSERT`
+
+### 3. 로컬 개발 서버 실행
+```bash
+npm install
+npm run dev
+```
+브라우저에서 `http://localhost:3000`으로 접속합니다.
+
+### 4. Vercel 배포
+GitHub 저장소(`https://github.com/hyun1216/WEBportfolio.git`)를 Vercel에 연동한 후, Vercel 프로젝트 설정의 **Environment Variables**에 위 4개 환경 변수를 등록하면 즉시 프로덕션 배포가 완료됩니다.
+
+---
+
+## 📁 주요 파일 및 컴포넌트 구조
 
 ```
 WEBportfolio/
-├── index.html       # 데스크톱 메인 마크업 (메뉴바, 위젯, Dock, Finder 모달)
-├── style.css        # macOS 감성의 디자인 시스템 및 반응형 CSS
-├── script.js        # 실시간 시계, 폴더 관리, Finder 창 및 인터랙션 로직
-├── me.JPG           # 개발자 프로필 증명사진 에셋
-└── README.md        # 프로젝트 안내 문서
+├── app/
+│   ├── api/folders/route.ts   # GET (프로젝트 목록 조회) & POST (x-admin-key 검증 후 DB 저장)
+│   ├── globals.css            # macOS 폰트, 스크롤바, 흔들림(shake) 애니메이션
+│   ├── layout.tsx             # 루트 레이아웃 & 메타데이터
+│   └── page.tsx               # SSR 데이터 패칭 및 데스크톱 진입점
+├── components/
+│   ├── Desktop.tsx            # 전체 macOS 데스크톱 화면, 메뉴바, Dock
+│   ├── FolderIcon.tsx         # 노란색 macOS 폴더 벡터 아이콘 (84px 크기)
+│   ├── FinderWindow.tsx       # 신호등 버튼(닫기/최소화/최대화), 드래그 지원 모달
+│   ├── Taskbar.tsx            # 우측 하단 실시간 초 단위 갱신 시계 & 날짜 위젯
+│   ├── ContextMenu.tsx        # 우클릭 컨텍스트 메뉴 (새 폴더 생성 등)
+│   └── NewFolderModal.tsx     # 관리자 암호 입력 및 Shake 애니메이션 모달
+├── lib/
+│   ├── supabaseClient.ts      # 공개(anon) 클라이언트
+│   └── supabaseServer.ts      # 서버 전용(service_role) 클라이언트
+├── public/
+│   ├── me.JPG                 # 개발자 프로필 사진 에셋
+│   └── wallpaper.jpg          # macOS 기본 배경화면
+├── supabase/
+│   └── schema.sql             # DB 테이블 스키마, RLS 정책, 초기 데이터 쿼리
+└── types/
+    └── project.ts             # TypeScript 인터페이스
 ```
 
 ---
 
-## 🚀 실행 및 배포 방법
-
-### 로컬에서 바로 실행하기
-`index.html` 파일을 더블클릭하거나 웹 브라우저(Chrome, Safari, Edge 등)로 드래그하면 즉시 실행됩니다.
-
-### GitHub Pages 정적 배포
-1. 저장소 `https://github.com/hyun1216/WEBportfolio`에 커밋 및 푸시합니다.
-2. GitHub 저장소의 **Settings** > **Pages**로 이동합니다.
-3. **Build and deployment**의 Source를 `Deploy from a branch`로 선택하고, Branch를 `main` (또는 `master`) / `/ (root)`로 지정한 뒤 **Save**를 누르면 자동으로 정적 사이트가 무료 배포됩니다.
-
+## 🔒 보안 아키텍처 (Security)
+- **RLS(Row Level Security):** 클라이언트가 직접 Supabase DB에 쓰기 요청을 보내는 것은 데이터베이스 레벨에서 원천 차단됩니다.
+- **서버리스 API 검증:** 새 폴더 생성 시 `x-admin-key` 헤더를 `POST /api/folders`로 전달하며, 서버 환경 변수 `ADMIN_SECRET_KEY`와 일치할 때만 `service_role` 키로 DB에 안전하게 레코드를 삽입합니다.
