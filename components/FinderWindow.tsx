@@ -22,6 +22,12 @@ import {
   ShieldCheck,
   Layers,
   ArrowRight,
+  GraduationCap,
+  Sparkles,
+  Target,
+  CheckSquare,
+  Compass,
+  Flame,
 } from "lucide-react";
 
 interface FinderWindowProps {
@@ -443,7 +449,62 @@ export default function FinderWindow({
                 </div>
               </div>
 
-              {/* 경력 사항 (Work Experience) 섹션 */}
+              {/* 1. 성향 및 업무 스타일 섹션 */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 pb-2 border-b border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white font-bold text-sm">
+                  <Sparkles className="w-4 h-4 text-amber-500" />
+                  <span>성향 및 업무 스타일 (Work Style & Vision)</span>
+                </div>
+
+                <div className="grid grid-cols-1 gap-3.5">
+                  {/* 장점 */}
+                  <div className="p-4 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700/80 shadow-sm space-y-2 hover:border-amber-400 dark:hover:border-amber-500 transition-all">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-md bg-amber-100 dark:bg-amber-950/60 flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0">
+                        <Flame className="w-3.5 h-3.5" />
+                      </div>
+                      <h4 className="font-bold text-xs sm:text-sm text-gray-900 dark:text-white">
+                        장점 (Strengths) <span className="text-[11px] font-normal text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/50 px-2 py-0.5 rounded ml-1">빠른 실행력 & 확장적 사고</span>
+                      </h4>
+                    </div>
+                    <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed pl-8 break-keep">
+                      문제를 발견하면 망설이지 않고 즉각 프로토타입으로 구체화하는 실행력과 확장적 사고가 저의 가장 큰 무기입니다. 복잡한 아이디어를 가지나무처럼 구조화하고, AI 도구와 최신 기술 스택을 적극 활용해 빠른 속도로 실제 동작하는 서비스와 자동화 파이프라인을 완성합니다. 단순히 주어진 스펙대로 코드를 타이핑하는 것을 넘어, 비즈니스 흐름 전체를 읽고 데이터 파이프라인과 사용자 경험의 개선점을 능동적으로 찾아내어 솔루션으로 연결하는 데 강점이 있습니다.
+                    </p>
+                  </div>
+
+                  {/* 단점 및 극복 노력 */}
+                  <div className="p-4 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700/80 shadow-sm space-y-2 hover:border-blue-400 dark:hover:border-blue-500 transition-all">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-md bg-blue-100 dark:bg-blue-950/60 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+                        <CheckSquare className="w-3.5 h-3.5" />
+                      </div>
+                      <h4 className="font-bold text-xs sm:text-sm text-gray-900 dark:text-white">
+                        단점 및 극복 노력 (Weaknesses & Mitigation) <span className="text-[11px] font-normal text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 px-2 py-0.5 rounded ml-1">시각적 체크리스트 루틴화</span>
+                      </h4>
+                    </div>
+                    <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed pl-8 break-keep">
+                      새로운 기술이나 프로젝트에 대한 초기 몰입도와 실행력이 매우 뛰어난 반면, 익숙해지는 단계에서는 다소 흥미가 떨어지는 경향이 있었습니다. 이를 완벽히 보완하기 위해 모든 업무를 잘게 쪼개어 &apos;체크리스트&apos;화 하고 매일 해야 할 일을 시각적으로 정리하는 루틴을 만들었습니다. 작은 성취를 눈으로 확인하며 스스로 동기부여를 지속하는 시스템을 갖추고 있습니다.
+                    </p>
+                  </div>
+
+                  {/* 포부 */}
+                  <div className="p-4 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700/80 shadow-sm space-y-2 hover:border-purple-400 dark:hover:border-purple-500 transition-all">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-md bg-purple-100 dark:bg-purple-950/60 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0">
+                        <Compass className="w-3.5 h-3.5" />
+                      </div>
+                      <h4 className="font-bold text-xs sm:text-sm text-gray-900 dark:text-white">
+                        포부 (Vision) <span className="text-[11px] font-normal text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/50 px-2 py-0.5 rounded ml-1">지능형 자동화 전문가</span>
+                      </h4>
+                    </div>
+                    <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed pl-8 break-keep">
+                      단순 반복 업무의 자동화를 넘어, AI 에이전트와 레거시 시스템, 모던 웹 환경을 유기적으로 엮어 비즈니스의 중단 없는 흐름을 만드는 지능형 자동화 전문가로 나아가고자 합니다. 빠른 실행력과 AI 오케스트레이션 역량, 그리고 탄탄한 시스템 관리 루틴을 결합하여, 기업의 생산성을 극적으로 끌어올리는 확장 가능한 자동화 생태계를 구축하겠습니다.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 2. 경력 사항 (Work Experience) 섹션 */}
               <div className="space-y-4">
                 <div className="flex items-center gap-2 pb-2 border-b border-gray-200 dark:border-gray-800">
                   <Briefcase className="w-4 h-4 text-blue-500" />
@@ -516,6 +577,36 @@ export default function FinderWindow({
                       <li>무중단 배치를 위한 일일 작업 모니터링 체계 구축 및 장애 대응</li>
                     </ul>
                   </div>
+                </div>
+              </div>
+
+              {/* 3. 학력 사항 (Education) - 맨 아래 배치 */}
+              <div className="space-y-4 pt-2">
+                <div className="flex items-center gap-2 pb-2 border-b border-gray-200 dark:border-gray-800">
+                  <GraduationCap className="w-4 h-4 text-indigo-500" />
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-white">
+                    학력 사항 (Education)
+                  </h3>
+                </div>
+
+                <div className="p-4 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700/80 shadow-sm hover:border-indigo-400 dark:hover:border-indigo-500 transition-all">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-indigo-500 shrink-0" />
+                      <h4 className="font-bold text-sm text-gray-900 dark:text-white">
+                        한양사이버대학교 <span className="font-normal text-gray-400">|</span> 소프트웨어응용학과
+                      </h4>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-semibold bg-indigo-50 dark:bg-indigo-950/50 px-2 py-0.5 rounded-md w-fit">
+                      <Calendar className="w-3 h-3" />
+                      <span>2022.03 ~ 2028.02 (예정)</span>
+                    </div>
+                  </div>
+                  <ul className="mt-2.5 space-y-1.5 text-xs text-gray-600 dark:text-gray-300 pl-4 list-disc marker:text-indigo-500 leading-relaxed">
+                    <li>소프트웨어응용학과 4학년 재학 중</li>
+                    <li>컴퓨터 공학 기초 및 응용 소프트웨어 개발 역량 강화 중</li>
+                    <li>실무 업무와 학업을 병행하며 꾸준히 학습하고 성장하고 있습니다.</li>
+                  </ul>
                 </div>
               </div>
             </div>
