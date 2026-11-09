@@ -295,11 +295,17 @@ function escapeHtml(str) {
 }
 
 // ==========================================================================
-// 6. 우클릭 컨텍스트 메뉴 & 새 폴더 생성
+// 6. 우클릭 컨텍스트 메뉴 & 새 폴더 생성 (관리자 인증)
 // ==========================================================================
 const contextMenu = document.getElementById("contextMenu");
 const newFolderModal = document.getElementById("newFolderModal");
+const macDialogBox = document.getElementById("macDialogBox");
 const newFolderInput = document.getElementById("newFolderInput");
+const adminPasswordInput = document.getElementById("adminPasswordInput");
+const dialogErrorMsg = document.getElementById("dialogErrorMsg");
+
+// 기본 관리자 암호 (필요 시 원하는 비밀번호로 변경 가능)
+const ADMIN_PASSWORD = "admin";
 
 function initContextMenu() {
   const desktop = document.getElementById("desktop");
@@ -360,12 +366,15 @@ function initContextMenu() {
   document.getElementById("btnCancelFolder")?.addEventListener("click", closeNewFolderDialog);
   document.getElementById("btnConfirmFolder")?.addEventListener("click", handleCreateFolder);
 
-  newFolderInput?.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      handleCreateFolder();
-    } else if (e.key === "Escape") {
-      closeNewFolderDialog();
-    }
+  // Enter 및 Esc 키 핸들링
+  [newFolderInput, adminPasswordInput].forEach(input => {
+    input?.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        handleCreateFolder();
+      } else if (e.key === "Escape") {
+        closeNewFolderDialog();
+      }
+    });
   });
 }
 
@@ -387,6 +396,10 @@ function hideContextMenu() {
 function openNewFolderDialog() {
   newFolderModal.style.display = "flex";
   newFolderInput.value = `새 프로젝트 ${projects.length + 1}`;
+  adminPasswordInput.value = "";
+  if (dialogErrorMsg) dialogErrorMsg.style.display = "none";
+  if (macDialogBox) macDialogBox.classList.remove("shake");
+
   setTimeout(() => {
     newFolderInput.focus();
     newFolderInput.select();
@@ -395,16 +408,46 @@ function openNewFolderDialog() {
 
 function closeNewFolderDialog() {
   newFolderModal.style.display = "none";
+  if (dialogErrorMsg) dialogErrorMsg.style.display = "none";
+  if (macDialogBox) macDialogBox.classList.remove("shake");
+}
+
+function triggerShake() {
+  if (!macDialogBox) return;
+  macDialogBox.classList.remove("shake");
+  // reflow 트리거하여 shake 재실행
+  void macDialogBox.offsetWidth;
+  macDialogBox.classList.add("shake");
 }
 
 function handleCreateFolder() {
   const name = newFolderInput.value.trim();
+  const password = adminPasswordInput.value.trim();
+
+  // 1. 이름 검증
   if (!name) {
-    alert("폴더 이름을 입력해주세요.");
+    if (dialogErrorMsg) {
+      dialogErrorMsg.textContent = "폴더 이름을 입력해주세요.";
+      dialogErrorMsg.style.display = "block";
+    }
+    triggerShake();
     newFolderInput.focus();
     return;
   }
 
+  // 2. 관리자 비밀번호 검증 (관리자만 생성 가능)
+  if (password !== ADMIN_PASSWORD) {
+    if (dialogErrorMsg) {
+      dialogErrorMsg.textContent = "관리자 암호가 일치하지 않습니다. (기본: admin)";
+      dialogErrorMsg.style.display = "block";
+    }
+    triggerShake();
+    adminPasswordInput.focus();
+    adminPasswordInput.select();
+    return;
+  }
+
+  // 검증 성공 -> 새 프로젝트 폴더 생성
   const newProj = {
     id: "proj-" + Date.now(),
     name: name,
@@ -699,14 +742,18 @@ function renderProjectDetail(projectId) {
   `;
 }
 
-// 프로젝트 삭제 핸들러
+// 프로젝트 삭제 핸들러 (관리자 인증 필요)
 window.handleDeleteProject = function(projectId) {
-  if (confirm("정말로 이 프로젝트 폴더를 바탕화면에서 삭제하시겠습니까?")) {
-    projects = projects.filter(p => p.id !== projectId);
-    saveProjects();
-    renderFolderGrid();
-    openFinder("overview");
+  const pwd = prompt("폴더를 삭제하려면 관리자 암호를 입력해주세요. (기본: admin)");
+  if (pwd === null) return;
+  if (pwd !== ADMIN_PASSWORD) {
+    alert("관리자 암호가 일치하지 않습니다.");
+    return;
   }
+  projects = projects.filter(p => p.id !== projectId);
+  saveProjects();
+  renderFolderGrid();
+  openFinder("overview");
 };
 
 // ② 전체 프로젝트 모아보기 뷰
