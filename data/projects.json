@@ -47,6 +47,89 @@
     "description": "인터랙티브 소원 풍선 웹앱",
     "image": "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800&auto=format&fit=crop&q=80",
     "link": "https://github.com/hyun1216/WEBportfolio"
+  },
+  {
+    "id": "8",
+    "title": "고용·산재 4대보험 및 세무 환급 시스템 파이썬 마이그레이션",
+    "subtitle": "Brity RPA & Excel VBA 기반 레거시 업무의 Python 로컬 데이터 파이프라인 전면 재구축",
+    "description": "기존 Brity RPA와 VBA 매크로에 분산되어 있던 근로소득 경정청구·과오납 환급 업무를 체계적으로 분석하여, 비정형 급여대장 정규화부터 수정신고서 생성까지 전 과정을 Python 파이프라인으로 전환한 프로젝트입니다.",
+    "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80",
+    "link": "https://github.com/hyun1216/WEBportfolio",
+    "summary": {
+      "background": "기존 Brity RPA와 VBA 매크로에 분산되어 있던 근로소득 경정청구·과오납 환급 업무를 체계적으로 분석",
+      "role": "업체별 비정형 급여대장·원천징수영수증 정규화부터 수정신고 자료 및 수정 원천징수영수증 생성까지 전 과정 Python 파이프라인화",
+      "philosophy": "세무 데이터 특성상 금액·인원 식별의 무결성을 최우선으로 하여, 무리한 전면 자동화 대신 Fail-safe 검증과 Human-in-the-loop(전문가 검토 게이트)를 도입"
+    },
+    "features": [
+      {
+        "title": "1. 레거시 업무의 모듈화 재설계 (Decoupling)",
+        "desc": "실행 순서가 꼬이기 쉬운 매크로 의존성을 탈피하고, 단위 테스트가 가능한 11단계 독립 파이프라인으로 재설계:",
+        "subitems": [
+          "입력 접수 ➔ 문서 분류 ➔ PDF 추출 ➔ 급여자료 정규화 ➔ 금액 검증 ➔ 지급항목 분류 ➔ 직원정보 결합 ➔ [검토 게이트] ➔ 대상자 판정 ➔ 수정신고 자료 생성 ➔ 제출자료 생성"
+        ]
+      },
+      {
+        "title": "2. 비정형 실무 데이터의 정규화 (Data Normalization)",
+        "desc": "업체별·서식별 파편화된 예외 케이스를 공통 표준 스키마로 흡수:",
+        "subitems": [
+          "2~3행 다단 헤더 및 페이지별 반복 헤더 자동 보정",
+          "동일 월 분할 파일, 연도별/월별 혼재 파일 병합 처리",
+          "월별로 수당명이 변경되거나 코드가 충돌하는 비정형 열 매핑",
+          "지급항목과 공제항목의 열 경계 불일치 자동 감지"
+        ]
+      },
+      {
+        "title": "3. 정확성을 우선한 Fail-safe & 무결성 보증",
+        "desc": "세무 사고를 방지하기 위해 오차 발생 시 조용히 넘기지 않고 즉시 파이프라인을 중단:",
+        "subitems": [
+          "산술 검증식: 지급항목 합계 == 지급합계, 공제항목 합계 == 공제합계, 지급합계 - 공제합계 == 차인지급액",
+          "식별 검증: 직원·월·급여구분 중복 검증, 원천징수 자료 ↔ 급여대장 매칭 대사",
+          "격리 및 리포팅: 오류 발생 시 기존 데이터를 덮어쓰지 않고 격리 폴더로 이동 후 원인을 구조화된 JSON 리포트로 출력"
+        ]
+      },
+      {
+        "title": "4. Human-in-the-loop (업무적 판단 분리)",
+        "desc": "정액급여·수당 분류 및 경정청구 최종 대상자 판정 등 도메인 전문가의 판단이 필요한 영역은 무조건적인 자동화를 지양:",
+        "subitems": [
+          "Python이 1차 분류 초안을 생성 ➔ 담당자가 Excel에서 확정 ➔ 검토 결과가 후속 단계 입력으로 전달되는 협업 아키텍처 수립"
+        ]
+      },
+      {
+        "title": "5. 데이터 추적성(Traceability) 및 원자성 확보",
+        "desc": "데이터 변경 이력과 실패 시 롤백 안정성을 보장:",
+        "subitems": [
+          "무결성 추적: 입력 원본 파일의 SHA-256 해시 로깅, 원본-산출물 물리적 격리 보관",
+          "원자적 파일 교체(Atomic Replacement): 임시 파일 생성 및 검증 통과 후에만 최종 파일로 교체하며, 작업 실패 시 중간 결과 자동 롤백",
+          "버전 관리: 수정 전·수정 후 영수증 분리 보관 및 단계별 JSON 실행 로그 적재"
+        ]
+      }
+    ],
+    "techStackTable": [
+      {
+        "category": "Language & CLI",
+        "skills": "Python 3.11+, Typer",
+        "purpose": "CLI 환경 구축, 모듈형 파이프라인 실행 환경"
+      },
+      {
+        "category": "Data Processing",
+        "skills": "pandas, openpyxl, pywin32 (Excel COM)",
+        "purpose": "급여 원장 정규화, 서식/수식 복제, .xlsx ↔ .xls 호환"
+      },
+      {
+        "category": "PDF Engineering",
+        "skills": "PyMuPDF (fitz), pdfplumber, pypdf, Pillow",
+        "purpose": "좌표 기반 텍스트 수정, 표 추출, PDF 분할·병합 및 이미지 렌더링"
+      },
+      {
+        "category": "Architecture",
+        "skills": "dataclass, SQLite, ThreadPoolExecutor",
+        "purpose": "도메인 모델 정의, 파이프라인 상태 관리, 대량 PDF 병렬 처리"
+      },
+      {
+        "category": "Quality & Test",
+        "skills": "pytest, SHA-256 Checksum",
+        "purpose": "회귀 테스트, 실데이터 기반 금액/인원 대사, 파일 무결성 검증"
+      }
+    ]
   }
 ]
-

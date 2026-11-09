@@ -16,6 +16,12 @@ import {
   Briefcase,
   Calendar,
   CheckCircle2,
+  Lightbulb,
+  Wrench,
+  Cpu,
+  ShieldCheck,
+  Layers,
+  ArrowRight,
 } from "lucide-react";
 
 interface FinderWindowProps {
@@ -553,19 +559,24 @@ export default function FinderWindow({
 
           {/* 3. 개별 프로젝트 상세 탭 */}
           {activeTab === "project" && activeProject && (
-            <div className="space-y-6">
+            <div className="space-y-6 max-w-4xl mx-auto pb-8">
               {/* 상단 헤더 */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-gray-100 dark:border-gray-800">
-                <div>
-                  <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                    <Folder className="w-6 h-6 text-[#e8a716]" />
-                    {activeProject.title}
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-gray-100 dark:border-gray-800">
+                <div className="space-y-1">
+                  <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                    <Folder className="w-6 h-6 text-[#e8a716] shrink-0" />
+                    <span>{activeProject.title}</span>
                   </h1>
-                  <p className="text-xs text-gray-400 mt-1">
+                  {activeProject.subtitle && (
+                    <p className="text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400">
+                      {activeProject.subtitle}
+                    </p>
+                  )}
+                  <p className="text-xs text-gray-400">
                     프로젝트 ID: {activeProject.id}
                   </p>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 shrink-0">
                   {activeProject.link && (
                     <a
                       href={activeProject.link}
@@ -590,7 +601,7 @@ export default function FinderWindow({
               </div>
 
               {/* 스크린샷 이미지 뷰어 */}
-              <div className="relative w-full h-72 sm:h-80 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-900 shadow-inner">
+              <div className="relative w-full h-64 sm:h-72 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-900 shadow-inner">
                 {activeProject.image ? (
                   <Image
                     src={activeProject.image}
@@ -606,15 +617,151 @@ export default function FinderWindow({
                 )}
               </div>
 
-              {/* 프로젝트 상세 설명 */}
-              <div className="space-y-2">
-                <h3 className="text-sm font-bold text-gray-900 dark:text-white">
-                  📌 프로젝트 개요 및 설명
-                </h3>
-                <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line break-keep">
-                  {activeProject.description || "등록된 상세 설명이 없습니다."}
-                </p>
-              </div>
+              {/* 1. 💡 프로젝트 요약 (Summary) 섹션 */}
+              {activeProject.summary && (
+                <div className="p-4 sm:p-5 rounded-xl bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200/70 dark:border-amber-800/40 space-y-3">
+                  <div className="flex items-center gap-2 text-amber-800 dark:text-amber-400 font-bold text-sm">
+                    <Lightbulb className="w-4 h-4 shrink-0" />
+                    <span>프로젝트 요약</span>
+                  </div>
+                  <div className="grid grid-cols-1 gap-2 text-xs sm:text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                    {activeProject.summary.background && (
+                      <p>
+                        <strong className="text-gray-900 dark:text-white">• 배경:</strong>{" "}
+                        {activeProject.summary.background}
+                      </p>
+                    )}
+                    {activeProject.summary.role && (
+                      <p>
+                        <strong className="text-gray-900 dark:text-white">• 핵심 역할:</strong>{" "}
+                        {activeProject.summary.role}
+                      </p>
+                    )}
+                    {activeProject.summary.philosophy && (
+                      <p>
+                        <strong className="text-gray-900 dark:text-white">• 설계 철학:</strong>{" "}
+                        <span className="bg-amber-100 dark:bg-amber-900/40 px-1 rounded">
+                          {activeProject.summary.philosophy}
+                        </span>
+                      </p>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* 기본 개요 설명 */}
+              {!activeProject.summary && (
+                <div className="space-y-2">
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-white">
+                    📌 프로젝트 개요 및 설명
+                  </h3>
+                  <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line break-keep">
+                    {activeProject.description || "등록된 상세 설명이 없습니다."}
+                  </p>
+                </div>
+              )}
+
+              {/* 2. 🛠️ 엔지니어링 핵심 특장점 */}
+              {activeProject.features && activeProject.features.length > 0 && (
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 pb-2 border-b border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white font-bold text-sm">
+                    <Wrench className="w-4 h-4 text-blue-500" />
+                    <span>엔지니어링 핵심 특장점</span>
+                  </div>
+                  <div className="space-y-3.5">
+                    {activeProject.features.map((feat, idx) => (
+                      <div
+                        key={idx}
+                        className="p-4 rounded-xl bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700/80 shadow-sm space-y-2"
+                      >
+                        <h4 className="font-bold text-xs sm:text-sm text-gray-900 dark:text-white flex items-center gap-2">
+                          <CheckCircle2 className="w-4 h-4 text-blue-500 shrink-0" />
+                          <span>{feat.title}</span>
+                        </h4>
+                        <p className="text-xs text-gray-600 dark:text-gray-300 pl-6 leading-relaxed">
+                          {feat.desc}
+                        </p>
+                        {feat.subitems && feat.subitems.length > 0 && (
+                          <div className="pl-6 space-y-1.5 pt-1">
+                            {feat.subitems.map((sub, sIdx) => {
+                              // 11단계 파이프라인 텍스트일 경우 시각적 배지 형태로 렌더링
+                              if (sub.includes("➔")) {
+                                const steps = sub.split("➔").map((s) => s.trim());
+                                return (
+                                  <div
+                                    key={sIdx}
+                                    className="flex flex-wrap items-center gap-1.5 p-2.5 rounded-lg bg-gray-50 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-800 text-[11px]"
+                                  >
+                                    {steps.map((st, i) => (
+                                      <React.Fragment key={i}>
+                                        <span
+                                          className={`px-2 py-0.5 rounded font-medium ${
+                                            st.includes("검토")
+                                              ? "bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300 font-bold border border-amber-300 dark:border-amber-700"
+                                              : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
+                                          }`}
+                                        >
+                                          {st}
+                                        </span>
+                                        {i < steps.length - 1 && (
+                                          <ArrowRight className="w-3 h-3 text-gray-400" />
+                                        )}
+                                      </React.Fragment>
+                                    ))}
+                                  </div>
+                                );
+                              }
+                              return (
+                                <div
+                                  key={sIdx}
+                                  className="text-xs text-gray-600 dark:text-gray-300 flex items-start gap-1.5"
+                                >
+                                  <span className="text-blue-500 font-bold">•</span>
+                                  <span className="leading-relaxed">{sub}</span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* 3. 💻 기술 스택 (Tech Stack Table) */}
+              {activeProject.techStackTable && activeProject.techStackTable.length > 0 && (
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 pb-2 border-b border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white font-bold text-sm">
+                    <Cpu className="w-4 h-4 text-purple-500" />
+                    <span>기술 스택 (Tech Stack)</span>
+                  </div>
+                  <div className="overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700/80 shadow-sm">
+                    <table className="w-full text-left text-xs">
+                      <thead className="bg-gray-50 dark:bg-gray-800/80 text-gray-700 dark:text-gray-300 font-bold border-b border-gray-200 dark:border-gray-700">
+                        <tr>
+                          <th className="py-2.5 px-3.5 w-36">구분</th>
+                          <th className="py-2.5 px-3.5">사용 기술 및 라이브러리</th>
+                          <th className="py-2.5 px-3.5">적용 목적</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-100 dark:divide-gray-800 bg-white dark:bg-gray-900/40 text-gray-600 dark:text-gray-300">
+                        {activeProject.techStackTable.map((row, idx) => (
+                          <tr key={idx} className="hover:bg-gray-50/60 dark:hover:bg-gray-800/40">
+                            <td className="py-2.5 px-3.5 font-bold text-gray-900 dark:text-white whitespace-nowrap">
+                              {row.category}
+                            </td>
+                            <td className="py-2.5 px-3.5 font-mono text-[11px] text-blue-600 dark:text-blue-400">
+                              {row.skills}
+                            </td>
+                            <td className="py-2.5 px-3.5 leading-relaxed">{row.purpose}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </main>
