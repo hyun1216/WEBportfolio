@@ -217,6 +217,8 @@ export default function FinderWindow({
               width: "calc(100vw - 16px)",
               height: "calc(100vh - 40px)",
               zIndex,
+              isolation: "isolate",
+              transform: "translate3d(0, 0, 0)",
             }
           : {
               top: `${position.y}px`,
@@ -224,10 +226,12 @@ export default function FinderWindow({
               width: `${size.width}px`,
               height: `${size.height}px`,
               zIndex,
+              isolation: "isolate",
+              transform: "translate3d(0, 0, 0)",
             }
       }
-      className={`fixed flex flex-col bg-white/95 dark:bg-[#1e1e1e]/95 backdrop-blur-2xl rounded-xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] border border-white/20 dark:border-white/10 overflow-hidden ${
-        isDragging || isResizing ? "transition-none select-none" : "animate-in fade-in zoom-in-95 duration-150"
+      className={`fixed flex flex-col bg-white dark:bg-[#1e1e1e] rounded-xl shadow-2xl border border-black/15 dark:border-white/10 overflow-hidden ${
+        isDragging || isResizing ? "transition-none select-none" : "animate-in fade-in duration-100"
       }`}
     >
       {/* ====================================================================
@@ -711,20 +715,20 @@ export default function FinderWindow({
                 </div>
 
                 {/* 링크 & 상태 버튼 */}
-                <div className="flex flex-wrap items-center gap-2.5 shrink-0 pt-1">
+                <div className="flex flex-wrap items-center gap-3 shrink-0 pt-1">
                   {/* 라이브 데모 버튼 */}
                   {activeProject.demoUrl ? (
                     <a
                       href={activeProject.demoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4.5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all"
+                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all shrink-0 whitespace-nowrap"
                     >
                       <span>Live Demo</span>
                       <ExternalLink className="w-4.5 h-4.5" />
                     </a>
                   ) : activeProject.id === "6" ? (
-                    <span className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-xs sm:text-sm font-semibold border border-gray-200 dark:border-gray-700">
+                    <span className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-xs sm:text-sm font-semibold border border-gray-200 dark:border-gray-700 shrink-0 whitespace-nowrap">
                       <span>Live Demo 진행중</span>
                     </span>
                   ) : null}
@@ -735,13 +739,13 @@ export default function FinderWindow({
                       href={activeProject.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4.5 py-2.5 rounded-xl bg-gray-900 hover:bg-black text-white text-sm sm:text-base font-semibold shadow-md transition-all"
+                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gray-900 hover:bg-black text-white text-sm sm:text-base font-semibold shadow-md transition-all shrink-0 whitespace-nowrap"
                     >
                       <Github className="w-4.5 h-4.5" />
                       <span>Repository</span>
                     </a>
                   ) : activeProject.isPrivate ? (
-                    <span className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-800 text-xs sm:text-sm font-semibold">
+                    <span className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-800 text-xs sm:text-sm font-semibold shrink-0 whitespace-nowrap">
                       <Lock className="w-4 h-4 text-amber-600" />
                       <span>Private Repository</span>
                     </span>
