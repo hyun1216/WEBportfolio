@@ -23,6 +23,10 @@ export interface Project {
   image: string;
   link: string;
   subtitle?: string;
+  githubUrl?: string;
+  demoUrl?: string;
+  isPrivate?: boolean;
+  tags?: string[];
   summary?: ProjectSummary;
   features?: ProjectFeature[];
   techStackTable?: TechStackItem[];

@@ -2,59 +2,91 @@
   {
     "id": "1",
     "title": "뭐사주지?",
-    "description": "선물 추천 웹 서비스",
+    "subtitle": "mwasajuji | Kakao Gift Curator",
+    "description": "카카오톡 선물하기 링크 분석 및 맥락 기반 선물 큐레이션 웹",
+    "tags": ["Next.js", "TypeScript", "Tailwind CSS", "Python (Flask)", "Vercel"],
     "image": "/projects/mosajuji.png",
-    "link": "https://github.com/hyun1216/WEBportfolio"
+    "link": "https://www.mwasajuji.kr/",
+    "demoUrl": "https://www.mwasajuji.kr/",
+    "githubUrl": "https://github.com/hyun1216/mwasajuji"
   },
   {
     "id": "2",
     "title": "월 배당금 목표 원금 계산기",
-    "description": "배당금 목표 시뮬레이터",
+    "subtitle": "Dividend Simulator",
+    "description": "금융 데이터 API 연동 실시간 현금 흐름 & 절세 복리 시뮬레이터",
+    "tags": ["TypeScript", "Next.js", "Financial APIs", "Tailwind CSS", "Vercel"],
     "image": "/projects/dividend-calc.png",
-    "link": "https://github.com/hyun1216/WEBportfolio"
+    "link": "https://mydividend.co.kr/",
+    "demoUrl": "https://mydividend.co.kr/",
+    "githubUrl": "https://github.com/hyun1216/dividend-backend"
   },
   {
     "id": "3",
     "title": "내돈내산 저장소",
-    "description": "솔직 리뷰 아카이브",
+    "subtitle": "Honest Review Archive",
+    "description": "100% 실구매 경험 기록 및 모바일 최적화 미디어 갤러리를 갖춘 프라이빗 리뷰 웹",
+    "tags": ["React (Vite)", "Vanilla CSS", "Lucide React", "Vercel"],
     "image": "https://images.unsplash.com/photo-1555421689-491a97ff2040?w=800&auto=format&fit=crop&q=80",
-    "link": "https://github.com/hyun1216/WEBportfolio"
+    "link": "https://my-money-repo.netlify.app/",
+    "demoUrl": "https://my-money-repo.netlify.app/",
+    "githubUrl": "",
+    "isPrivate": true
   },
   {
     "id": "4",
     "title": "Bottos",
-    "description": "미국 주식 자동매매 봇",
+    "subtitle": "US Equity Automated Trading System",
+    "description": "토스증권 API 연동 미국 정규장 단타·단기 스윙 자동매매 및 리스크 통제 시스템",
+    "tags": ["Python", "Toss Securities API", "Financial Automation", "Risk Management"],
     "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80",
-    "link": "https://github.com/hyun1216/WEBportfolio"
+    "link": "",
+    "demoUrl": "",
+    "githubUrl": "",
+    "isPrivate": true
   },
   {
     "id": "5",
     "title": "청년체크",
-    "description": "청년 복지/주거 정책 포털",
+    "subtitle": "YouthCheck",
+    "description": "광고성 정보와 행정 용어를 배제한 2030 직장인·청년 맞춤형 복지 정책 큐레이션 & 커리어 어시스턴트 플랫폼",
+    "tags": ["Next.js", "TypeScript", "Tailwind CSS", "Zustand", "LocalStorage", "Mobile-First UI"],
     "image": "/projects/youth-check.png",
-    "link": "https://github.com/hyun1216/WEBportfolio"
+    "link": "https://youth-check-nine.vercel.app/",
+    "demoUrl": "https://youth-check-nine.vercel.app/",
+    "githubUrl": "https://github.com/hyun1216/YouthCheck"
   },
   {
     "id": "6",
     "title": "Hangeul_zip",
-    "description": "유아 한글 교육 플랫폼",
+    "subtitle": "집에서한글",
+    "description": "유아/초등 부모를 위한 엄마표 한글 파닉스 학습지 및 모바일 맞춤형 부모 해설지 제공 웹 플랫폼",
+    "tags": ["Next.js 14 (App Router)", "Tailwind CSS", "Supabase", "Vercel"],
     "image": "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800&auto=format&fit=crop&q=80",
-    "link": "https://github.com/hyun1216/WEBportfolio"
+    "link": "https://github.com/hyun1216/Hangeul_zip.git",
+    "demoUrl": "",
+    "githubUrl": "https://github.com/hyun1216/Hangeul_zip.git"
   },
   {
     "id": "7",
     "title": "소원하늘",
-    "description": "인터랙티브 소원 풍선 웹앱",
+    "subtitle": "SowonSky",
+    "description": "전 세계 사람들의 소원을 밤하늘 풍선으로 띄우고 교감하는 12시간 시한부 인터랙티브 웹 플랫폼",
+    "tags": ["Next.js (App Router)", "Tailwind CSS", "Framer Motion", "Supabase Realtime", "Vercel"],
     "image": "/projects/wish-sky.png",
-    "link": "https://github.com/hyun1216/WEBportfolio"
+    "link": "https://sowonsky.vercel.app/",
+    "demoUrl": "https://sowonsky.vercel.app/",
+    "githubUrl": "https://github.com/hyun1216/SowonSky"
   },
   {
     "id": "8",
     "title": "고용·산재 4대보험 및 세무 환급 시스템 파이썬 마이그레이션",
     "subtitle": "Brity RPA & Excel VBA 기반 레거시 업무의 Python 로컬 데이터 파이프라인 전면 재구축",
     "description": "기존 Brity RPA와 VBA 매크로에 분산되어 있던 근로소득 경정청구·과오납 환급 업무를 체계적으로 분석하여, 비정형 급여대장 정규화부터 수정신고서 생성까지 전 과정을 Python 파이프라인으로 전환한 프로젝트입니다.",
+    "tags": ["Python", "Pandas", "PyPDF2 / pdfplumber", "OpenPyXL", "Data Normalization", "RPA Migration"],
     "image": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80",
     "link": "https://github.com/hyun1216/WEBportfolio",
+    "githubUrl": "https://github.com/hyun1216/WEBportfolio",
     "summary": {
       "background": "기존 Brity RPA와 VBA 매크로에 분산되어 있던 근로소득 경정청구·과오납 환급 업무를 체계적으로 분석",
       "role": "업체별 비정형 급여대장·원천징수영수증 정규화부터 수정신고 자료 및 수정 원천징수영수증 생성까지 전 과정 Python 파이프라인화",
@@ -98,37 +130,36 @@
         "title": "5. 데이터 추적성(Traceability) 및 원자성 확보",
         "desc": "데이터 변경 이력과 실패 시 롤백 안정성을 보장:",
         "subitems": [
-          "무결성 추적: 입력 원본 파일의 SHA-256 해시 로깅, 원본-산출물 물리적 격리 보관",
-          "원자적 파일 교체(Atomic Replacement): 임시 파일 생성 및 검증 통과 후에만 최종 파일로 교체하며, 작업 실패 시 중간 결과 자동 롤백",
-          "버전 관리: 수정 전·수정 후 영수증 분리 보관 및 단계별 JSON 실행 로그 적재"
+          "작업별 고유 세션 ID 생성 및 단계별 산출물 스냅샷 보존",
+          "단계 실패 시 이전 상태로 자동 롤백 및 파이프라인 격리"
         ]
       }
     ],
     "techStackTable": [
       {
-        "category": "Language & CLI",
-        "skills": "Python 3.11+, Typer",
-        "purpose": "CLI 환경 구축, 모듈형 파이프라인 실행 환경"
+        "category": "언어 / 런타임",
+        "skills": "Python 3.11+",
+        "purpose": "레거시 RPA 대비 10배 이상의 연산 속도 및 고도화된 정규식/데이터 처리"
       },
       {
-        "category": "Data Processing",
-        "skills": "pandas, openpyxl, pywin32 (Excel COM)",
-        "purpose": "급여 원장 정규화, 서식/수식 복제, .xlsx ↔ .xls 호환"
+        "category": "데이터 처리 / 연산",
+        "skills": "Pandas, NumPy",
+        "purpose": "비정형 대용량 급여 데이터프레임 병합, 그룹핑, 통계 및 산술 대사 검증"
       },
       {
-        "category": "PDF Engineering",
-        "skills": "PyMuPDF (fitz), pdfplumber, pypdf, Pillow",
-        "purpose": "좌표 기반 텍스트 수정, 표 추출, PDF 분할·병합 및 이미지 렌더링"
+        "category": "비정형 문서 추출",
+        "skills": "pdfplumber, PyPDF2",
+        "purpose": "스캔본 및 텍스트 PDF 형태의 원천징수영수증/납부서 텍스트·테이블 좌표 파싱"
       },
       {
-        "category": "Architecture",
-        "skills": "dataclass, SQLite, ThreadPoolExecutor",
-        "purpose": "도메인 모델 정의, 파이프라인 상태 관리, 대량 PDF 병렬 처리"
+        "category": "엑셀 서식 자동화",
+        "skills": "openpyxl, XlsxWriter",
+        "purpose": "세무 제출용 규격 서식 반영, 수식 주입 및 조건부 서식 리포트 자동 생성"
       },
       {
-        "category": "Quality & Test",
-        "skills": "pytest, SHA-256 Checksum",
-        "purpose": "회귀 테스트, 실데이터 기반 금액/인원 대사, 파일 무결성 검증"
+        "category": "모니터링 / 알림",
+        "skills": "python-telegram-bot, logging",
+        "purpose": "배치 파이프라인 실시간 상태 알림 및 장애 발생 시 스택트레이스 즉시 전송"
       }
     ]
   }

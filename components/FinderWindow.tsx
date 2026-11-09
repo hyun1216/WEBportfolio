@@ -28,6 +28,7 @@ import {
   CheckSquare,
   Compass,
   Flame,
+  Lock,
 } from "lucide-react";
 
 interface FinderWindowProps {
@@ -348,19 +349,19 @@ export default function FinderWindow({
       {/* 윈도우 본문: 사이드바 + 메인 뷰어 */}
       <div className="flex-1 flex overflow-hidden">
         {/* 사이드바 */}
-        <aside className="w-56 bg-[#f4f4f6] dark:bg-[#252526] border-r border-black/10 dark:border-white/10 p-3.5 flex flex-col gap-5 shrink-0 overflow-y-auto">
+        <aside className="w-60 bg-[#f4f4f6] dark:bg-[#252526] border-r border-black/10 dark:border-white/10 p-3.5 flex flex-col gap-5 shrink-0 overflow-y-auto">
           {/* 즐겨찾기 */}
           <div>
             <span className="text-xs font-bold text-gray-400 dark:text-gray-500 px-2 uppercase tracking-wider">
               Favorites
             </span>
-            <ul className="mt-1.5 space-y-1 text-sm">
+            <ul className="mt-1.5 space-y-1.5 text-sm sm:text-[15px]">
               <li>
                 <button
                   onClick={() => onSelectTab("overview")}
-                  className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg font-medium transition-colors ${
+                  className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium transition-colors ${
                     activeTab === "overview"
-                      ? "bg-blue-500 text-white shadow-sm"
+                      ? "bg-blue-500 text-white shadow-sm font-semibold"
                       : "text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5"
                   }`}
                 >
@@ -371,9 +372,9 @@ export default function FinderWindow({
               <li>
                 <button
                   onClick={() => onSelectTab("profile")}
-                  className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg font-medium transition-colors ${
+                  className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium transition-colors ${
                     activeTab === "profile"
-                      ? "bg-blue-500 text-white shadow-sm"
+                      ? "bg-blue-500 text-white shadow-sm font-semibold"
                       : "text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5"
                   }`}
                 >
@@ -389,7 +390,7 @@ export default function FinderWindow({
             <span className="text-xs font-bold text-gray-400 dark:text-gray-500 px-2 uppercase tracking-wider">
               Projects ({allProjects.length})
             </span>
-            <ul className="mt-1.5 space-y-1 text-sm">
+            <ul className="mt-1.5 space-y-1 text-sm sm:text-[14.5px]">
               {allProjects.map((p) => {
                 const isActive = activeTab === "project" && activeProject?.id === p.id;
                 return (
@@ -401,11 +402,11 @@ export default function FinderWindow({
                       }}
                       className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg font-medium text-left truncate transition-colors ${
                         isActive
-                          ? "bg-blue-500 text-white shadow-sm"
+                          ? "bg-blue-500 text-white shadow-sm font-semibold"
                           : "text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5"
                       }`}
                     >
-                      <Folder className="w-4 h-4 text-[#e8a716] shrink-0" />
+                      <Folder className="w-4.5 h-4.5 text-[#e8a716] shrink-0" />
                       <span className="truncate">{p.title}</span>
                     </button>
                   </li>
@@ -435,28 +436,28 @@ export default function FinderWindow({
                   <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 text-xs font-bold border border-blue-200 dark:border-blue-800 mb-2">
                     <span>Automation Engineer & Developer</span>
                   </div>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
+                  <h2 className="text-2xl sm:text-3.5xl font-extrabold text-gray-900 dark:text-white">
                     RPA & AI 자동화 엔지니어 / 풀스택 개발자
                   </h2>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mt-3 leading-relaxed break-keep">
+                  <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 mt-3.5 leading-relaxed break-keep font-medium">
                     고객사 맞춤형 자동화 아키텍처 설계부터 대규모 데이터 스크래핑, 과오납 환급 파이프라인, 전사 ERP 배치 모니터링까지
                     비즈니스 생산성을 극대화하는 견고하고 신뢰도 높은 자동화 시스템을 구축합니다.
                   </p>
-                  <div className="flex flex-wrap gap-3 justify-center sm:justify-start mt-4">
+                  <div className="flex flex-wrap gap-3 justify-center sm:justify-start mt-4.5">
                     <a
                       href="https://github.com/hyun1216/WEBportfolio"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-gray-900 hover:bg-black text-white text-sm font-semibold shadow-sm transition-all"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gray-900 hover:bg-black text-white text-sm sm:text-base font-semibold shadow-sm transition-all"
                     >
-                      <Github className="w-4 h-4" />
+                      <Github className="w-4.5 h-4.5" />
                       <span>GitHub 저장소</span>
                     </a>
                     <button
                       onClick={() => onSelectTab("overview")}
-                      className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm font-semibold border border-gray-200 dark:border-gray-700 transition-all"
+                      className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 text-sm sm:text-base font-semibold border border-gray-200 dark:border-gray-700 transition-all"
                     >
-                      <LayoutGrid className="w-4 h-4" />
+                      <LayoutGrid className="w-4.5 h-4.5" />
                       <span>프로젝트 목록 둘러보기</span>
                     </button>
                   </div>
@@ -465,53 +466,53 @@ export default function FinderWindow({
 
               {/* 1. 성향 및 업무 스타일 섹션 */}
               <div className="space-y-4">
-                <div className="flex items-center gap-2 pb-2 border-b border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white font-bold text-base">
-                  <Sparkles className="w-5 h-5 text-amber-500" />
+                <div className="flex items-center gap-2 pb-2.5 border-b border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white font-bold text-lg sm:text-xl">
+                  <Sparkles className="w-5.5 h-5.5 text-amber-500" />
                   <span>성향 및 업무 스타일 (Work Style & Vision)</span>
                 </div>
 
-                <div className="grid grid-cols-1 gap-4">
+                <div className="grid grid-cols-1 gap-4.5">
                   {/* 장점 */}
-                  <div className="p-5 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700/80 shadow-sm space-y-2.5 hover:border-amber-400 dark:hover:border-amber-500 transition-all">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-7 h-7 rounded-lg bg-amber-100 dark:bg-amber-950/60 flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0">
-                        <Flame className="w-4 h-4" />
+                  <div className="p-5.5 sm:p-6 rounded-2xl bg-white dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700/80 shadow-sm space-y-3 hover:border-amber-400 dark:hover:border-amber-500 transition-all">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-xl bg-amber-100 dark:bg-amber-950/60 flex items-center justify-center text-amber-600 dark:text-amber-400 shrink-0">
+                        <Flame className="w-5 h-5" />
                       </div>
-                      <h4 className="font-bold text-sm sm:text-base text-gray-900 dark:text-white">
-                        장점 (Strengths) <span className="text-xs font-semibold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/50 px-2 py-0.5 rounded ml-1.5">빠른 실행력 & 확장적 사고</span>
+                      <h4 className="font-bold text-base sm:text-lg text-gray-900 dark:text-white">
+                        장점 (Strengths) <span className="text-xs sm:text-sm font-bold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/50 px-2.5 py-0.5 rounded ml-2">빠른 실행력 & 확장적 사고</span>
                       </h4>
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed pl-9.5 break-keep">
+                    <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed pl-11 break-keep font-medium">
                       문제를 발견하면 망설이지 않고 즉각 프로토타입으로 구체화하는 실행력과 확장적 사고가 저의 가장 큰 무기입니다. 복잡한 아이디어를 가지나무처럼 구조화하고, AI 도구와 최신 기술 스택을 적극 활용해 빠른 속도로 실제 동작하는 서비스와 자동화 파이프라인을 완성합니다. 단순히 주어진 스펙대로 코드를 타이핑하는 것을 넘어, 비즈니스 흐름 전체를 읽고 데이터 파이프라인과 사용자 경험의 개선점을 능동적으로 찾아내어 솔루션으로 연결하는 데 강점이 있습니다.
                     </p>
                   </div>
 
                   {/* 단점 및 극복 노력 */}
-                  <div className="p-5 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700/80 shadow-sm space-y-2.5 hover:border-blue-400 dark:hover:border-blue-500 transition-all">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-7 h-7 rounded-lg bg-blue-100 dark:bg-blue-950/60 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
-                        <CheckSquare className="w-4 h-4" />
+                  <div className="p-5.5 sm:p-6 rounded-2xl bg-white dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700/80 shadow-sm space-y-3 hover:border-blue-400 dark:hover:border-blue-500 transition-all">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-xl bg-blue-100 dark:bg-blue-950/60 flex items-center justify-center text-blue-600 dark:text-blue-400 shrink-0">
+                        <CheckSquare className="w-5 h-5" />
                       </div>
-                      <h4 className="font-bold text-sm sm:text-base text-gray-900 dark:text-white">
-                        단점 및 극복 노력 (Weaknesses & Mitigation) <span className="text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 px-2 py-0.5 rounded ml-1.5">시각적 체크리스트 루틴화</span>
+                      <h4 className="font-bold text-base sm:text-lg text-gray-900 dark:text-white">
+                        단점 및 극복 노력 (Weaknesses & Mitigation) <span className="text-xs sm:text-sm font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/50 px-2.5 py-0.5 rounded ml-2">시각적 체크리스트 루틴화</span>
                       </h4>
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed pl-9.5 break-keep">
+                    <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed pl-11 break-keep font-medium">
                       새로운 기술이나 프로젝트에 대한 초기 몰입도와 실행력이 매우 뛰어난 반면, 익숙해지는 단계에서는 다소 흥미가 떨어지는 경향이 있었습니다. 이를 완벽히 보완하기 위해 모든 업무를 잘게 쪼개어 &apos;체크리스트&apos;화 하고 매일 해야 할 일을 시각적으로 정리하는 루틴을 만들었습니다. 작은 성취를 눈으로 확인하며 스스로 동기부여를 지속하는 시스템을 갖추고 있습니다.
                     </p>
                   </div>
 
                   {/* 포부 */}
-                  <div className="p-5 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700/80 shadow-sm space-y-2.5 hover:border-purple-400 dark:hover:border-purple-500 transition-all">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-7 h-7 rounded-lg bg-purple-100 dark:bg-purple-950/60 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0">
-                        <Compass className="w-4 h-4" />
+                  <div className="p-5.5 sm:p-6 rounded-2xl bg-white dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700/80 shadow-sm space-y-3 hover:border-purple-400 dark:hover:border-purple-500 transition-all">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-xl bg-purple-100 dark:bg-purple-950/60 flex items-center justify-center text-purple-600 dark:text-purple-400 shrink-0">
+                        <Compass className="w-5 h-5" />
                       </div>
-                      <h4 className="font-bold text-sm sm:text-base text-gray-900 dark:text-white">
-                        포부 (Vision) <span className="text-xs font-semibold text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/50 px-2 py-0.5 rounded ml-1.5">지능형 자동화 전문가</span>
+                      <h4 className="font-bold text-base sm:text-lg text-gray-900 dark:text-white">
+                        포부 (Vision) <span className="text-xs sm:text-sm font-bold text-purple-600 dark:text-purple-400 bg-purple-50 dark:bg-purple-950/50 px-2.5 py-0.5 rounded ml-2">지능형 자동화 전문가</span>
                       </h4>
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed pl-9.5 break-keep">
+                    <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed pl-11 break-keep font-medium">
                       단순 반복 업무의 자동화를 넘어, AI 에이전트와 레거시 시스템, 모던 웹 환경을 유기적으로 엮어 비즈니스의 중단 없는 흐름을 만드는 지능형 자동화 전문가로 나아가고자 합니다. 빠른 실행력과 AI 오케스트레이션 역량, 그리고 탄탄한 시스템 관리 루틴을 결합하여, 기업의 생산성을 극적으로 끌어올리는 확장 가능한 자동화 생태계를 구축하겠습니다.
                     </p>
                   </div>
@@ -520,27 +521,27 @@ export default function FinderWindow({
 
               {/* 2. 경력 사항 (Work Experience) 섹션 */}
               <div className="space-y-4">
-                <div className="flex items-center gap-2 pb-2 border-b border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white font-bold text-base">
-                  <Briefcase className="w-5 h-5 text-blue-500" />
+                <div className="flex items-center gap-2 pb-2.5 border-b border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white font-bold text-lg sm:text-xl">
+                  <Briefcase className="w-5.5 h-5.5 text-blue-500" />
                   <span>주요 경력 사항 (Work Experience)</span>
                 </div>
 
                 <div className="space-y-4">
                   {/* 경력 1: 마이닝오천 */}
-                  <div className="p-5 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700/80 shadow-sm hover:border-blue-400 dark:hover:border-blue-500 transition-all">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-2.5">
-                      <div className="flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0" />
-                        <h4 className="font-bold text-sm sm:text-base text-gray-900 dark:text-white">
+                  <div className="p-5.5 sm:p-6 rounded-2xl bg-white dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700/80 shadow-sm hover:border-blue-400 dark:hover:border-blue-500 transition-all">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2.5">
+                      <div className="flex items-center gap-2.5">
+                        <span className="w-3 h-3 rounded-full bg-emerald-500 shrink-0" />
+                        <h4 className="font-bold text-base sm:text-lg text-gray-900 dark:text-white">
                           마이닝오천 <span className="font-normal text-gray-400">|</span> RPA & AI 자동화 개발 및 유지보수
                         </h4>
                       </div>
-                      <div className="flex items-center gap-1.5 text-xs sm:text-sm text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-50 dark:bg-emerald-950/50 px-2.5 py-0.5 rounded-md w-fit">
-                        <Calendar className="w-3.5 h-3.5" />
+                      <div className="flex items-center gap-1.5 text-xs sm:text-sm text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-50 dark:bg-emerald-950/50 px-3 py-1 rounded-md w-fit">
+                        <Calendar className="w-4 h-4" />
                         <span>2026.04 ~ 현재 (재직중)</span>
                       </div>
                     </div>
-                    <ul className="mt-3 space-y-2 text-xs sm:text-sm text-gray-600 dark:text-gray-300 pl-4 list-disc marker:text-emerald-500 leading-relaxed">
+                    <ul className="mt-3.5 space-y-2 text-sm sm:text-base text-gray-700 dark:text-gray-300 pl-5 list-disc marker:text-emerald-500 leading-relaxed font-medium">
                       <li>고객사별 업무 요건 분석 기반 맞춤형 자동화 아키텍처 설계</li>
                       <li>레거시 상용 RPA(Brity, Worktronics 등) 워크플로의 Python 기반 전환 및 리팩터링</li>
                       <li>세무·노무 데이터 처리 자동화 및 이기종 RPA 솔루션 유지보수·트러블슈팅</li>
@@ -548,20 +549,20 @@ export default function FinderWindow({
                   </div>
 
                   {/* 경력 2: 세무법인 */}
-                  <div className="p-5 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700/80 shadow-sm hover:border-blue-400 dark:hover:border-blue-500 transition-all">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-2.5">
-                      <div className="flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full bg-blue-500 shrink-0" />
-                        <h4 className="font-bold text-sm sm:text-base text-gray-900 dark:text-white">
+                  <div className="p-5.5 sm:p-6 rounded-2xl bg-white dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700/80 shadow-sm hover:border-blue-400 dark:hover:border-blue-500 transition-all">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2.5">
+                      <div className="flex items-center gap-2.5">
+                        <span className="w-3 h-3 rounded-full bg-blue-500 shrink-0" />
+                        <h4 className="font-bold text-base sm:text-lg text-gray-900 dark:text-white">
                           세무법인 <span className="font-normal text-gray-400">|</span> RPA 상주 개발 및 유지보수
                         </h4>
                       </div>
-                      <div className="flex items-center gap-1.5 text-xs sm:text-sm text-blue-600 dark:text-blue-400 font-medium bg-blue-50 dark:bg-blue-950/50 px-2.5 py-0.5 rounded-md w-fit">
-                        <Calendar className="w-3.5 h-3.5" />
+                      <div className="flex items-center gap-1.5 text-xs sm:text-sm text-blue-600 dark:text-blue-400 font-semibold bg-blue-50 dark:bg-blue-950/50 px-3 py-1 rounded-md w-fit">
+                        <Calendar className="w-4 h-4" />
                         <span>2025.03 ~ 2026.04 (1년 1개월)</span>
                       </div>
                     </div>
-                    <ul className="mt-3 space-y-2 text-xs sm:text-sm text-gray-600 dark:text-gray-300 pl-4 list-disc marker:text-blue-500 leading-relaxed">
+                    <ul className="mt-3.5 space-y-2 text-sm sm:text-base text-gray-700 dark:text-gray-300 pl-5 list-disc marker:text-blue-500 leading-relaxed font-medium">
                       <li>세무·회계 데이터 정규화 및 과오납 환급/경정청구 자동화 파이프라인 구축</li>
                       <li>2차 인증(OTP, 인증서) 및 세션 보안 구간 예외 처리를 포함한 안정적 DataOps 구축</li>
                       <li>홈택스·위택스·4대보험 연계 포털 대상 대량 데이터 자동 스크래핑 및 접수 자동화</li>
@@ -570,20 +571,20 @@ export default function FinderWindow({
                   </div>
 
                   {/* 경력 3: 대기업 마트 본사 */}
-                  <div className="p-5 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700/80 shadow-sm hover:border-blue-400 dark:hover:border-blue-500 transition-all">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-2.5">
-                      <div className="flex items-center gap-2">
-                        <span className="w-2.5 h-2.5 rounded-full bg-purple-500 shrink-0" />
-                        <h4 className="font-bold text-sm sm:text-base text-gray-900 dark:text-white">
+                  <div className="p-5.5 sm:p-6 rounded-2xl bg-white dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700/80 shadow-sm hover:border-blue-400 dark:hover:border-blue-500 transition-all">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2.5">
+                      <div className="flex items-center gap-2.5">
+                        <span className="w-3 h-3 rounded-full bg-purple-500 shrink-0" />
+                        <h4 className="font-bold text-base sm:text-lg text-gray-900 dark:text-white">
                           대기업 마트 본사 <span className="font-normal text-gray-400">|</span> IS RPA 상주 개발 및 유지보수
                         </h4>
                       </div>
-                      <div className="flex items-center gap-1.5 text-xs sm:text-sm text-purple-600 dark:text-purple-400 font-medium bg-purple-50 dark:bg-purple-950/50 px-2.5 py-0.5 rounded-md w-fit">
-                        <Calendar className="w-3.5 h-3.5" />
+                      <div className="flex items-center gap-1.5 text-xs sm:text-sm text-purple-600 dark:text-purple-400 font-semibold bg-purple-50 dark:bg-purple-950/50 px-3 py-1 rounded-md w-fit">
+                        <Calendar className="w-4 h-4" />
                         <span>2021.08 ~ 2024.10 (3년 2개월)</span>
                       </div>
                     </div>
-                    <ul className="mt-3 space-y-2 text-xs sm:text-sm text-gray-600 dark:text-gray-300 pl-4 list-disc marker:text-purple-500 leading-relaxed">
+                    <ul className="mt-3.5 space-y-2 text-sm sm:text-base text-gray-700 dark:text-gray-300 pl-5 list-disc marker:text-purple-500 leading-relaxed font-medium">
                       <li>SAP ERP 데이터 추출, 일일 재고/매출 지표 리포팅 등 전사 반복 업무 자동화 총괄</li>
                       <li>경쟁사 가격 모니터링 및 대량 유통 데이터 자동 수집 배치 파이프라인 운영</li>
                       <li>무중단 배치를 위한 일일 작업 모니터링 체계 구축 및 장애 대응</li>
@@ -594,25 +595,25 @@ export default function FinderWindow({
 
               {/* 3. 학력 사항 (Education) - 맨 아래 배치 */}
               <div className="space-y-4 pt-2">
-                <div className="flex items-center gap-2 pb-2 border-b border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white font-bold text-base">
-                  <GraduationCap className="w-5 h-5 text-indigo-500" />
+                <div className="flex items-center gap-2 pb-2.5 border-b border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white font-bold text-lg sm:text-xl">
+                  <GraduationCap className="w-5.5 h-5.5 text-indigo-500" />
                   <span>학력 사항 (Education)</span>
                 </div>
 
-                <div className="p-5 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700/80 shadow-sm hover:border-indigo-400 dark:hover:border-indigo-500 transition-all">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-2.5">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-indigo-500 shrink-0" />
-                      <h4 className="font-bold text-sm sm:text-base text-gray-900 dark:text-white">
+                <div className="p-5.5 sm:p-6 rounded-2xl bg-white dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700/80 shadow-sm hover:border-indigo-400 dark:hover:border-indigo-500 transition-all">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2.5">
+                    <div className="flex items-center gap-2.5">
+                      <span className="w-3 h-3 rounded-full bg-indigo-500 shrink-0" />
+                      <h4 className="font-bold text-base sm:text-lg text-gray-900 dark:text-white">
                         한양사이버대학교 <span className="font-normal text-gray-400">|</span> 소프트웨어응용학과
                       </h4>
                     </div>
-                    <div className="flex items-center gap-1.5 text-xs sm:text-sm text-indigo-600 dark:text-indigo-400 font-semibold bg-indigo-50 dark:bg-indigo-950/50 px-2.5 py-0.5 rounded-md w-fit">
-                      <Calendar className="w-3.5 h-3.5" />
+                    <div className="flex items-center gap-1.5 text-xs sm:text-sm text-indigo-600 dark:text-indigo-400 font-semibold bg-indigo-50 dark:bg-indigo-950/50 px-3 py-1 rounded-md w-fit">
+                      <Calendar className="w-4 h-4" />
                       <span>2022.03 ~ 2028.02 (예정)</span>
                     </div>
                   </div>
-                  <ul className="mt-3 space-y-2 text-xs sm:text-sm text-gray-600 dark:text-gray-300 pl-4 list-disc marker:text-indigo-500 leading-relaxed">
+                  <ul className="mt-3.5 space-y-2 text-sm sm:text-base text-gray-700 dark:text-gray-300 pl-5 list-disc marker:text-indigo-500 leading-relaxed font-medium">
                     <li>소프트웨어응용학과 4학년 재학 중</li>
                     <li>컴퓨터 공학 기초 및 응용 소프트웨어 개발 역량 강화 중</li>
                     <li>실무 업무와 학업을 병행하며 꾸준히 학습하고 성장하고 있습니다.</li>
@@ -625,15 +626,15 @@ export default function FinderWindow({
           {/* 2. 전체 프로젝트 모아보기 탭 */}
           {activeTab === "overview" && (
             <div>
-              <div className="mb-6 pb-4 border-b border-gray-100 dark:border-gray-800">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <div className="mb-7 pb-4 border-b border-gray-100 dark:border-gray-800">
+                <h2 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white">
                   전체 프로젝트 탐색기
                 </h2>
-                <p className="text-sm text-gray-500 mt-1.5">
-                  GitHub 저장소의 data/projects.json에서 불러온 프로젝트 목록입니다.
+                <p className="text-base text-gray-500 mt-2">
+                  등록된 {allProjects.length}개의 프로젝트 목록입니다. 클릭하여 상세 설명과 링크를 확인하세요.
                 </p>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4.5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
                 {allProjects.map((p) => (
                   <div
                     key={p.id}
@@ -641,17 +642,39 @@ export default function FinderWindow({
                       onSelectProject(p);
                       onSelectTab("project");
                     }}
-                    className="group border border-gray-200 dark:border-gray-800 rounded-xl p-5 hover:border-blue-500 dark:hover:border-blue-400 hover:shadow-md cursor-pointer transition-all bg-gray-50/50 dark:bg-gray-800/40 space-y-2"
+                    className="group border border-gray-200 dark:border-gray-800 rounded-2xl p-5.5 hover:border-blue-500 dark:hover:border-blue-400 hover:shadow-lg cursor-pointer transition-all bg-gray-50/60 dark:bg-gray-800/40 space-y-3"
                   >
-                    <div className="flex items-center gap-2.5">
-                      <Folder className="w-5 h-5 text-[#e8a716] shrink-0" />
-                      <h3 className="font-bold text-base text-gray-900 dark:text-white group-hover:text-blue-500 truncate">
+                    <div className="flex items-center gap-3">
+                      <Folder className="w-6 h-6 text-[#e8a716] shrink-0" />
+                      <h3 className="font-bold text-base sm:text-lg text-gray-900 dark:text-white group-hover:text-blue-500 truncate">
                         {p.title}
                       </h3>
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 leading-relaxed">
+                    {p.subtitle && (
+                      <p className="text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400 line-clamp-1">
+                        {p.subtitle}
+                      </p>
+                    )}
+                    <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 line-clamp-2 leading-relaxed">
                       {p.description || "상세 설명이 없습니다."}
                     </p>
+                    {p.tags && p.tags.length > 0 && (
+                      <div className="flex flex-wrap gap-1.5 pt-1">
+                        {p.tags.slice(0, 3).map((t, idx) => (
+                          <span
+                            key={idx}
+                            className="px-2 py-0.5 rounded text-[11px] font-semibold bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-800"
+                          >
+                            {t}
+                          </span>
+                        ))}
+                        {p.tags.length > 3 && (
+                          <span className="text-[11px] text-gray-400 self-center">
+                            +{p.tags.length - 3}
+                          </span>
+                        )}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -660,49 +683,74 @@ export default function FinderWindow({
 
           {/* 3. 개별 프로젝트 상세 탭 */}
           {activeTab === "project" && activeProject && (
-            <div className="space-y-6 max-w-4xl mx-auto pb-8">
+            <div className="space-y-7 max-w-4xl mx-auto pb-8">
               {/* 상단 헤더 */}
-              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-4 border-b border-gray-100 dark:border-gray-800">
-                <div className="space-y-1.5">
-                  <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-2.5">
-                    <Folder className="w-7 h-7 text-[#e8a716] shrink-0" />
+              <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-5 border-b border-gray-200 dark:border-gray-800">
+                <div className="space-y-2 flex-1">
+                  <h1 className="text-2xl sm:text-3.5xl font-extrabold text-gray-900 dark:text-white flex items-center gap-3">
+                    <Folder className="w-8 h-8 text-[#e8a716] shrink-0" />
                     <span>{activeProject.title}</span>
                   </h1>
                   {activeProject.subtitle && (
-                    <p className="text-sm sm:text-base font-semibold text-blue-600 dark:text-blue-400">
+                    <p className="text-base sm:text-lg font-bold text-blue-600 dark:text-blue-400">
                       {activeProject.subtitle}
                     </p>
                   )}
-                  <p className="text-xs text-gray-400">
-                    프로젝트 ID: {activeProject.id}
-                  </p>
+                  {activeProject.tags && activeProject.tags.length > 0 && (
+                    <div className="flex flex-wrap items-center gap-2 pt-1.5">
+                      {activeProject.tags.map((tag, tIdx) => (
+                        <span
+                          key={tIdx}
+                          className="px-3 py-1 rounded-md bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 font-semibold text-xs sm:text-sm border border-blue-200 dark:border-blue-800"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
-                <div className="flex items-center gap-2.5 shrink-0">
-                  {activeProject.link && (
+
+                {/* 링크 & 상태 버튼 */}
+                <div className="flex flex-wrap items-center gap-2.5 shrink-0 pt-1">
+                  {/* 라이브 데모 버튼 */}
+                  {activeProject.demoUrl ? (
                     <a
-                      href={activeProject.link}
+                      href={activeProject.demoUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-white text-sm font-semibold shadow-sm transition-all"
+                      className="inline-flex items-center gap-2 px-4.5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm sm:text-base font-bold shadow-md hover:shadow-lg transition-all"
                     >
-                      <span>라이브 데모</span>
-                      <ExternalLink className="w-4 h-4" />
+                      <span>Live Demo</span>
+                      <ExternalLink className="w-4.5 h-4.5" />
                     </a>
-                  )}
-                  <a
-                    href="https://github.com/hyun1216/WEBportfolio"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 text-sm font-semibold transition-all"
-                  >
-                    <Github className="w-4 h-4" />
-                    <span>저장소</span>
-                  </a>
+                  ) : activeProject.id === "6" ? (
+                    <span className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-xs sm:text-sm font-semibold border border-gray-200 dark:border-gray-700">
+                      <span>Live Demo 진행중</span>
+                    </span>
+                  ) : null}
+
+                  {/* GitHub 저장소 버튼 / Private 뱃지 */}
+                  {activeProject.githubUrl ? (
+                    <a
+                      href={activeProject.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4.5 py-2.5 rounded-xl bg-gray-900 hover:bg-black text-white text-sm sm:text-base font-semibold shadow-md transition-all"
+                    >
+                      <Github className="w-4.5 h-4.5" />
+                      <span>Repository</span>
+                    </a>
+                  ) : activeProject.isPrivate ? (
+                    <span className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-800 text-xs sm:text-sm font-semibold">
+                      <Lock className="w-4 h-4 text-amber-600" />
+                      <span>Private Repository</span>
+                    </span>
+                  ) : null}
                 </div>
               </div>
 
               {/* 스크린샷 이미지 뷰어 */}
-              <div className="relative w-full h-64 sm:h-80 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-900 shadow-inner">
+              <div className="relative w-full h-72 sm:h-96 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-900 shadow-sm">
                 {activeProject.image ? (
                   <Image
                     src={activeProject.image}
@@ -712,36 +760,48 @@ export default function FinderWindow({
                   />
                 ) : (
                   <div className="w-full h-full flex flex-col items-center justify-center text-gray-400 gap-2">
-                    <Folder className="w-12 h-12 stroke-[1.2]" />
-                    <span className="text-sm">등록된 스크린샷이 없습니다</span>
+                    <Folder className="w-14 h-14 stroke-[1.2]" />
+                    <span className="text-base font-medium">등록된 스크린샷이 없습니다</span>
                   </div>
                 )}
               </div>
 
+              {/* 기본 개요 설명 */}
+              {activeProject.description && (
+                <div className="p-6 rounded-2xl bg-gray-50/80 dark:bg-gray-800/50 border border-gray-200/90 dark:border-gray-700/80 space-y-2.5 shadow-sm">
+                  <h3 className="text-base sm:text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                    <span>📌 프로젝트 개요 및 설명</span>
+                  </h3>
+                  <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200 leading-relaxed break-keep font-medium">
+                    {activeProject.description}
+                  </p>
+                </div>
+              )}
+
               {/* 1. 💡 프로젝트 요약 (Summary) 섹션 */}
               {activeProject.summary && (
-                <div className="p-5 sm:p-6 rounded-xl bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200/70 dark:border-amber-800/40 space-y-3.5">
-                  <div className="flex items-center gap-2 text-amber-800 dark:text-amber-400 font-bold text-base">
-                    <Lightbulb className="w-5 h-5 shrink-0" />
+                <div className="p-6 rounded-2xl bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/60 space-y-4 shadow-sm">
+                  <div className="flex items-center gap-2 text-amber-900 dark:text-amber-300 font-bold text-lg">
+                    <Lightbulb className="w-5.5 h-5.5 shrink-0 text-amber-500" />
                     <span>프로젝트 요약</span>
                   </div>
-                  <div className="grid grid-cols-1 gap-2.5 text-sm sm:text-[15px] text-gray-700 dark:text-gray-300 leading-relaxed">
+                  <div className="grid grid-cols-1 gap-3 text-base sm:text-lg text-gray-800 dark:text-gray-200 leading-relaxed">
                     {activeProject.summary.background && (
                       <p>
-                        <strong className="text-gray-900 dark:text-white">• 배경:</strong>{" "}
+                        <strong className="text-gray-900 dark:text-white font-bold">• 배경:</strong>{" "}
                         {activeProject.summary.background}
                       </p>
                     )}
                     {activeProject.summary.role && (
                       <p>
-                        <strong className="text-gray-900 dark:text-white">• 핵심 역할:</strong>{" "}
+                        <strong className="text-gray-900 dark:text-white font-bold">• 핵심 역할:</strong>{" "}
                         {activeProject.summary.role}
                       </p>
                     )}
                     {activeProject.summary.philosophy && (
                       <p>
-                        <strong className="text-gray-900 dark:text-white">• 설계 철학:</strong>{" "}
-                        <span className="bg-amber-100 dark:bg-amber-900/40 px-1.5 py-0.5 rounded font-medium">
+                        <strong className="text-gray-900 dark:text-white font-bold">• 설계 철학:</strong>{" "}
+                        <span className="bg-amber-100 dark:bg-amber-900/60 px-2 py-0.5 rounded font-semibold text-amber-950 dark:text-amber-200">
                           {activeProject.summary.philosophy}
                         </span>
                       </p>
@@ -750,40 +810,28 @@ export default function FinderWindow({
                 </div>
               )}
 
-              {/* 기본 개요 설명 */}
-              {!activeProject.summary && (
-                <div className="space-y-2.5">
-                  <h3 className="text-base font-bold text-gray-900 dark:text-white">
-                    📌 프로젝트 개요 및 설명
-                  </h3>
-                  <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed whitespace-pre-line break-keep">
-                    {activeProject.description || "등록된 상세 설명이 없습니다."}
-                  </p>
-                </div>
-              )}
-
               {/* 2. 🛠️ 엔지니어링 핵심 특장점 */}
               {activeProject.features && activeProject.features.length > 0 && (
-                <div className="space-y-4">
-                  <div className="flex items-center gap-2 pb-2 border-b border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white font-bold text-base">
-                    <Wrench className="w-5 h-5 text-blue-500" />
+                <div className="space-y-4 pt-1">
+                  <div className="flex items-center gap-2 pb-2.5 border-b border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white font-bold text-lg sm:text-xl">
+                    <Wrench className="w-5.5 h-5.5 text-blue-500" />
                     <span>엔지니어링 핵심 특장점</span>
                   </div>
                   <div className="space-y-4">
                     {activeProject.features.map((feat, idx) => (
                       <div
                         key={idx}
-                        className="p-5 rounded-xl bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700/80 shadow-sm space-y-2.5"
+                        className="p-5 sm:p-6 rounded-2xl bg-white dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700/80 shadow-sm space-y-3"
                       >
-                        <h4 className="font-bold text-sm sm:text-base text-gray-900 dark:text-white flex items-center gap-2">
-                          <CheckCircle2 className="w-4.5 h-4.5 text-blue-500 shrink-0" />
+                        <h4 className="font-bold text-base sm:text-lg text-gray-900 dark:text-white flex items-center gap-2.5">
+                          <CheckCircle2 className="w-5 h-5 text-blue-500 shrink-0" />
                           <span>{feat.title}</span>
                         </h4>
-                        <p className="text-sm text-gray-600 dark:text-gray-300 pl-6.5 leading-relaxed">
+                        <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 pl-7.5 leading-relaxed font-medium">
                           {feat.desc}
                         </p>
                         {feat.subitems && feat.subitems.length > 0 && (
-                          <div className="pl-6.5 space-y-2 pt-1">
+                          <div className="pl-7.5 space-y-2.5 pt-1">
                             {feat.subitems.map((sub, sIdx) => {
                               // 11단계 파이프라인 텍스트일 경우 시각적 배지 형태로 렌더링
                               if (sub.includes("➔")) {
@@ -791,21 +839,21 @@ export default function FinderWindow({
                                 return (
                                   <div
                                     key={sIdx}
-                                    className="flex flex-wrap items-center gap-2 p-3 rounded-lg bg-gray-50 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-800 text-xs sm:text-sm"
+                                    className="flex flex-wrap items-center gap-2.5 p-3.5 rounded-xl bg-gray-50 dark:bg-gray-900/60 border border-gray-200 dark:border-gray-800 text-xs sm:text-sm"
                                   >
                                     {steps.map((st, i) => (
                                       <React.Fragment key={i}>
                                         <span
-                                          className={`px-2.5 py-1 rounded-md font-medium ${
+                                          className={`px-3 py-1.5 rounded-lg font-semibold ${
                                             st.includes("검토")
-                                              ? "bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300 font-bold border border-amber-300 dark:border-amber-700 shadow-sm"
+                                              ? "bg-amber-100 dark:bg-amber-900/60 text-amber-900 dark:text-amber-200 font-bold border border-amber-300 dark:border-amber-700 shadow-sm"
                                               : "bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700"
                                           }`}
                                         >
                                           {st}
                                         </span>
                                         {i < steps.length - 1 && (
-                                          <ArrowRight className="w-3.5 h-3.5 text-gray-400" />
+                                          <ArrowRight className="w-4 h-4 text-gray-400" />
                                         )}
                                       </React.Fragment>
                                     ))}
@@ -815,9 +863,9 @@ export default function FinderWindow({
                               return (
                                 <div
                                   key={sIdx}
-                                  className="text-sm text-gray-600 dark:text-gray-300 flex items-start gap-2"
+                                  className="text-sm sm:text-base text-gray-700 dark:text-gray-300 flex items-start gap-2.5"
                                 >
-                                  <span className="text-blue-500 font-bold">•</span>
+                                  <span className="text-blue-500 font-bold mt-0.5">•</span>
                                   <span className="leading-relaxed">{sub}</span>
                                 </div>
                               );
@@ -832,30 +880,30 @@ export default function FinderWindow({
 
               {/* 3. 💻 기술 스택 (Tech Stack Table) */}
               {activeProject.techStackTable && activeProject.techStackTable.length > 0 && (
-                <div className="space-y-3.5">
-                  <div className="flex items-center gap-2 pb-2 border-b border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white font-bold text-base">
-                    <Cpu className="w-5 h-5 text-purple-500" />
+                <div className="space-y-4 pt-1">
+                  <div className="flex items-center gap-2 pb-2.5 border-b border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white font-bold text-lg sm:text-xl">
+                    <Cpu className="w-5.5 h-5.5 text-purple-500" />
                     <span>기술 스택 (Tech Stack)</span>
                   </div>
-                  <div className="overflow-x-auto rounded-xl border border-gray-200 dark:border-gray-700/80 shadow-sm">
-                    <table className="w-full text-left text-sm">
-                      <thead className="bg-gray-50 dark:bg-gray-800/80 text-gray-800 dark:text-gray-200 font-bold border-b border-gray-200 dark:border-gray-700">
+                  <div className="overflow-x-auto rounded-2xl border border-gray-200 dark:border-gray-700/80 shadow-sm">
+                    <table className="w-full text-left text-sm sm:text-base">
+                      <thead className="bg-gray-50 dark:bg-gray-800/80 text-gray-900 dark:text-gray-100 font-bold border-b border-gray-200 dark:border-gray-700 text-sm sm:text-base">
                         <tr>
-                          <th className="py-3 px-4 w-40">구분</th>
-                          <th className="py-3 px-4">사용 기술 및 라이브러리</th>
-                          <th className="py-3 px-4">적용 목적</th>
+                          <th className="py-3.5 px-4.5 w-44">구분</th>
+                          <th className="py-3.5 px-4.5">사용 기술 및 라이브러리</th>
+                          <th className="py-3.5 px-4.5">적용 목적</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-gray-100 dark:divide-gray-800 bg-white dark:bg-gray-900/40 text-gray-700 dark:text-gray-300">
                         {activeProject.techStackTable.map((row, idx) => (
                           <tr key={idx} className="hover:bg-gray-50/60 dark:hover:bg-gray-800/40">
-                            <td className="py-3 px-4 font-bold text-gray-900 dark:text-white whitespace-nowrap">
+                            <td className="py-3.5 px-4.5 font-bold text-gray-900 dark:text-white whitespace-nowrap">
                               {row.category}
                             </td>
-                            <td className="py-3 px-4 font-mono text-xs sm:text-[13px] text-blue-600 dark:text-blue-400 font-semibold">
+                            <td className="py-3.5 px-4.5 font-mono text-xs sm:text-sm text-blue-600 dark:text-blue-400 font-bold">
                               {row.skills}
                             </td>
-                            <td className="py-3 px-4 leading-relaxed">{row.purpose}</td>
+                            <td className="py-3.5 px-4.5 leading-relaxed">{row.purpose}</td>
                           </tr>
                         ))}
                       </tbody>
