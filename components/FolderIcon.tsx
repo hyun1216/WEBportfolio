@@ -39,7 +39,7 @@ export default function FolderIcon({
         onOpen(project);
       }}
       onTouchEnd={handleTouchEnd}
-      className={`group w-28 flex flex-col items-center p-2 rounded-lg cursor-pointer transition-all select-none ${
+      className={`group w-32 flex flex-col items-center p-2 rounded-xl cursor-pointer transition-all select-none ${
         isSelected
           ? "bg-blue-500/35 border border-white/40 backdrop-blur-sm"
           : "hover:bg-white/15 hover:backdrop-blur-sm border border-transparent"
@@ -47,7 +47,7 @@ export default function FolderIcon({
       title={`${project.title} (더블클릭하여 열기)`}
     >
       {/* macOS 노란색 폴더 SVG 아이콘 */}
-      <div className="w-[84px] h-[68px] relative transition-transform duration-200 group-hover:scale-105 group-active:scale-95 drop-shadow-lg">
+      <div className="w-[88px] h-[72px] relative transition-transform duration-200 group-hover:scale-105 group-active:scale-95 drop-shadow-xl">
         <svg
           viewBox="0 0 100 80"
           fill="none"
@@ -118,10 +118,10 @@ export default function FolderIcon({
 
       {/* 폴더 명칭 */}
       <span
-        className={`mt-2 text-xs font-medium text-center line-clamp-2 px-1.5 py-0.5 rounded leading-tight max-w-[110px] break-keep ${
+        className={`mt-2.5 text-[13.5px] font-medium text-center line-clamp-2 px-2 py-0.5 rounded-md leading-snug max-w-[124px] break-keep ${
           isSelected
-            ? "bg-blue-600 text-white"
-            : "text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]"
+            ? "bg-blue-600 text-white font-semibold"
+            : "text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]"
         }`}
       >
         {project.title}

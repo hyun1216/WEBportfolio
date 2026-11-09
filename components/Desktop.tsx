@@ -126,20 +126,20 @@ export default function Desktop({ initialProjects }: DesktopProps) {
       }}
     >
       {/* 1. 상단 macOS 메뉴바 */}
-      <header className="absolute top-0 left-0 right-0 h-7 bg-white/40 dark:bg-black/35 backdrop-blur-2xl border-b border-white/20 dark:border-white/10 px-4 flex items-center justify-between z-40 text-xs text-gray-900 dark:text-gray-100 shadow-sm">
+      <header className="absolute top-0 left-0 right-0 h-8 bg-white/40 dark:bg-black/35 backdrop-blur-2xl border-b border-white/20 dark:border-white/10 px-4 flex items-center justify-between z-40 text-[13.5px] text-gray-900 dark:text-gray-100 shadow-sm">
         <div className="flex items-center gap-4">
-          <span className="font-bold text-sm cursor-pointer select-none"></span>
+          <span className="font-bold text-base cursor-pointer select-none"></span>
           <span className="font-bold cursor-pointer">Finder</span>
-          <span className="hidden sm:inline-block cursor-pointer hover:bg-white/20 px-1.5 py-0.5 rounded">
+          <span className="hidden sm:inline-block cursor-pointer hover:bg-white/20 px-2 py-0.5 rounded">
             파일
           </span>
-          <span className="hidden sm:inline-block cursor-pointer hover:bg-white/20 px-1.5 py-0.5 rounded">
+          <span className="hidden sm:inline-block cursor-pointer hover:bg-white/20 px-2 py-0.5 rounded">
             보기
           </span>
-          <span className="hidden sm:inline-block cursor-pointer hover:bg-white/20 px-1.5 py-0.5 rounded">
+          <span className="hidden sm:inline-block cursor-pointer hover:bg-white/20 px-2 py-0.5 rounded">
             이동
           </span>
-          <span className="hidden sm:inline-block cursor-pointer hover:bg-white/20 px-1.5 py-0.5 rounded">
+          <span className="hidden sm:inline-block cursor-pointer hover:bg-white/20 px-2 py-0.5 rounded">
             도움말
           </span>
         </div>
@@ -148,13 +148,13 @@ export default function Desktop({ initialProjects }: DesktopProps) {
           {/* 프로필 칩 */}
           <button
             onClick={handleOpenProfile}
-            className="flex items-center gap-1.5 bg-white/40 hover:bg-white/60 dark:bg-white/10 dark:hover:bg-white/20 px-2 py-0.5 rounded-full border border-white/30 transition-all cursor-pointer"
+            className="flex items-center gap-2 bg-white/40 hover:bg-white/60 dark:bg-white/10 dark:hover:bg-white/20 px-2.5 py-0.5 rounded-full border border-white/30 transition-all cursor-pointer"
             title="개발자 프로필 보기"
           >
-            <div className="relative w-4 h-4 rounded-full overflow-hidden border border-white">
+            <div className="relative w-4.5 h-4.5 rounded-full overflow-hidden border border-white">
               <Image src="/me.JPG" alt="Profile" fill className="object-cover" />
             </div>
-            <span className="text-[11px] font-semibold">Portfolio</span>
+            <span className="text-xs font-semibold">Portfolio</span>
           </button>
 
           <span title="배터리 100%" className="flex items-center">
@@ -170,7 +170,7 @@ export default function Desktop({ initialProjects }: DesktopProps) {
       </header>
 
       {/* 2. 바탕화면 폴더 그리드 (우측 상단부터 세로 정렬되는 macOS 스타일) */}
-      <main className="absolute top-7 bottom-20 left-0 right-0 p-6 overflow-hidden">
+      <main className="absolute top-8 bottom-20 left-0 right-0 p-6 overflow-hidden">
         <div className="h-full flex flex-col flex-wrap content-end gap-6">
           {projects.map((proj) => (
             <FolderIcon

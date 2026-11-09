@@ -36,7 +36,7 @@ export default function ContextMenu({
     <div
       style={{ top: `${safeY}px`, left: `${safeX}px` }}
       onClick={(e) => e.stopPropagation()}
-      className="fixed z-50 w-52 bg-white/80 dark:bg-[#252526]/85 backdrop-blur-2xl border border-white/40 dark:border-white/10 rounded-xl p-1.5 shadow-2xl text-xs text-gray-800 dark:text-gray-200 select-none animate-in fade-in zoom-in-95 duration-100"
+      className="fixed z-50 w-56 bg-white/85 dark:bg-[#252526]/90 backdrop-blur-2xl border border-white/40 dark:border-white/10 rounded-xl p-2 shadow-2xl text-[13.5px] text-gray-800 dark:text-gray-200 select-none animate-in fade-in zoom-in-95 duration-100"
     >
       <button
         onClick={() => {
@@ -45,7 +45,7 @@ export default function ContextMenu({
         }}
         className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium hover:bg-blue-500 hover:text-white transition-colors"
       >
-        <FolderPlus className="w-4 h-4 text-amber-500" />
+        <FolderPlus className="w-4.5 h-4.5 text-amber-500" />
         <span>새 폴더 생성 (관리자)</span>
       </button>
 
@@ -58,7 +58,7 @@ export default function ContextMenu({
         }}
         className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium hover:bg-blue-500 hover:text-white transition-colors"
       >
-        <RefreshCw className="w-4 h-4 text-emerald-500" />
+        <RefreshCw className="w-4.5 h-4.5 text-emerald-500" />
         <span>새로고침</span>
       </button>
 
@@ -70,7 +70,7 @@ export default function ContextMenu({
           }}
           className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium hover:bg-blue-500 hover:text-white transition-colors"
         >
-          <Palette className="w-4 h-4 text-purple-500" />
+          <Palette className="w-4.5 h-4.5 text-purple-500" />
           <span>배경화면 테마 변경</span>
         </button>
       )}
@@ -84,7 +84,7 @@ export default function ContextMenu({
         }}
         className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium hover:bg-blue-500 hover:text-white transition-colors"
       >
-        <User className="w-4 h-4 text-blue-500" />
+        <User className="w-4.5 h-4.5 text-blue-500" />
         <span>개발자 소개 (Profile)</span>
       </button>
     </div>

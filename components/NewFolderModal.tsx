@@ -109,18 +109,18 @@ export default function NewFolderModal({
           <div className="w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900/40 flex items-center justify-center text-amber-600 dark:text-amber-400 mb-2 shadow-inner">
             <Lock className="w-6 h-6" />
           </div>
-          <span className="text-[11px] font-semibold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/50 px-2.5 py-0.5 rounded-full border border-amber-200 dark:border-amber-800">
+          <span className="text-xs font-semibold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/50 px-2.5 py-0.5 rounded-full border border-amber-200 dark:border-amber-800">
             Git-as-a-CMS 관리자 인증
           </span>
-          <h3 className="text-base font-bold mt-2">새 폴더 생성 (GitHub 직접 커밋)</h3>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+          <h3 className="text-lg font-bold mt-2">새 폴더 생성 (GitHub 직접 커밋)</h3>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
             저장소의 data/projects.json에 영구 반영됩니다.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-3">
+        <form onSubmit={handleSubmit} className="space-y-3.5">
           <div>
-            <label className="block text-xs font-semibold mb-1 text-gray-700 dark:text-gray-300">
+            <label className="block text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300">
               폴더 이름
             </label>
             <input
@@ -129,13 +129,13 @@ export default function NewFolderModal({
               onChange={(e) => setTitle(e.target.value)}
               placeholder="예: 신규 프로젝트 명칭"
               maxLength={40}
-              className="w-full px-3 py-2 text-xs rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
               autoFocus
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold mb-1 text-gray-700 dark:text-gray-300">
+            <label className="block text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300">
               간단한 설명 (선택)
             </label>
             <textarea
@@ -144,14 +144,14 @@ export default function NewFolderModal({
               placeholder="프로젝트 설명 또는 한 줄 요약"
               rows={2}
               maxLength={120}
-              className="w-full px-3 py-2 text-xs rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+              className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold mb-1 text-gray-700 dark:text-gray-300 flex items-center justify-between">
+            <label className="block text-sm font-semibold mb-1 text-gray-700 dark:text-gray-300 flex items-center justify-between">
               <span>관리자 암호</span>
-              <span className="text-[10px] text-gray-400">기본: admin1234</span>
+              <span className="text-xs text-gray-400">기본: admin1234</span>
             </label>
             <input
               ref={passwordInputRef}
@@ -159,30 +159,30 @@ export default function NewFolderModal({
               value={adminPassword}
               onChange={(e) => setAdminPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full px-3 py-2 text-xs rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           {errorMessage && (
-            <div className="flex items-center gap-1.5 text-xs text-red-500 dark:text-red-400 bg-red-50 dark:bg-red-950/40 p-2 rounded-md border border-red-200 dark:border-red-900">
+            <div className="flex items-center gap-1.5 text-xs text-red-500 dark:text-red-400 bg-red-50 dark:bg-red-950/40 p-2.5 rounded-md border border-red-200 dark:border-red-900">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{errorMessage}</span>
             </div>
           )}
 
-          <div className="flex gap-2 pt-2">
+          <div className="flex gap-2.5 pt-2">
             <button
               type="button"
               onClick={onClose}
               disabled={isLoading}
-              className="flex-1 py-2 rounded-lg text-xs font-semibold bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 transition-colors"
+              className="flex-1 py-2 rounded-lg text-sm font-semibold bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 transition-colors"
             >
               취소
             </button>
             <button
               type="submit"
               disabled={isLoading}
-              className="flex-1 py-2 rounded-lg text-xs font-semibold bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center gap-1.5 shadow-md transition-colors"
+              className="flex-1 py-2 rounded-lg text-sm font-semibold bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center gap-1.5 shadow-md transition-colors"
             >
               {isLoading ? (
                 <>
