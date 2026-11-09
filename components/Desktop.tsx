@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { Project } from "@/types/project";
 import FolderIcon from "./FolderIcon";
@@ -38,7 +38,7 @@ export default function Desktop({ initialProjects }: DesktopProps) {
 
   // 멀티 윈도우 목록 & zIndex 관리
   const [windows, setWindows] = useState<WindowState[]>([]);
-  const [highestZIndex, setHighestZIndex] = useState(50);
+  const highestZIndexRef = useRef(100);
 
   // 상단 메뉴바 도움말 드롭다운 상태
   const [isHelpMenuOpen, setIsHelpMenuOpen] = useState(false);
@@ -75,13 +75,10 @@ export default function Desktop({ initialProjects }: DesktopProps) {
 
   // 창을 최상위 z-index로 맨 앞으로 올리는 함수
   const bringToFront = useCallback((windowId: string) => {
-    setHighestZIndex((prev) => {
-      const nextZ = prev + 1;
-      setWindows((wList) =>
-        wList.map((w) => (w.id === windowId ? { ...w, zIndex: nextZ } : w))
-      );
-      return nextZ;
-    });
+    const nextZ = ++highestZIndexRef.current;
+    setWindows((wList) =>
+      wList.map((w) => (w.id === windowId ? { ...w, zIndex: nextZ } : w))
+    );
   }, []);
 
   // 바탕화면 빈 공간 우클릭 핸들러
@@ -105,86 +102,91 @@ export default function Desktop({ initialProjects }: DesktopProps) {
     setSelectedFolderId(null);
   };
 
-  // 폴더 더블클릭 시 Finder 오픈 (동일 폴더 존재 시 포커싱)
-  const handleOpenFolder = (project: Project) => {
+  // 폴더 더블클릭 시 Finder 오픈 (원자적 체크로 중복 창 절대 방지)
+  const handleOpenFolder = useCallback((project: Project) => {
     const windowId = `project-${project.id}`;
-    const exists = windows.some((w) => w.id === windowId);
 
-    if (exists) {
-      bringToFront(windowId);
-    } else {
-      setHighestZIndex((prev) => {
-        const nextZ = prev + 1;
-        const offset = (windows.length * 28) % 180;
-        setWindows((old) => [
-          ...old,
-          {
-            id: windowId,
-            title: project.title,
-            tab: "project",
-            project,
-            zIndex: nextZ,
-            initialOffset: offset,
-          },
-        ]);
-        return nextZ;
-      });
-    }
-  };
+    setWindows((prev) => {
+      const nextZ = ++highestZIndexRef.current;
+      // 이미 열려 있으면 최상위 z-index로 맨 앞 포커싱만 수행 (새 창 추가 절대 방지)
+      const exists = prev.some((w) => w.id === windowId);
+      if (exists) {
+        return prev.map((w) =>
+          w.id === windowId ? { ...w, zIndex: nextZ } : w
+        );
+      }
 
-  // 프로필 보기 열기 (동일 창 존재 시 포커싱)
-  const handleOpenProfile = () => {
+      // 없을 때만 단 1개의 새 창 생성
+      const offset = (prev.length * 28) % 180;
+      return [
+        ...prev,
+        {
+          id: windowId,
+          title: project.title,
+          tab: "project",
+          project,
+          zIndex: nextZ,
+          initialOffset: offset,
+        },
+      ];
+    });
+  }, []);
+
+  // 프로필 보기 열기 (원자적 체크로 동일 창 존재 시 포커싱)
+  const handleOpenProfile = useCallback(() => {
     const windowId = "profile";
-    const exists = windows.some((w) => w.id === windowId);
 
-    if (exists) {
-      bringToFront(windowId);
-    } else {
-      setHighestZIndex((prev) => {
-        const nextZ = prev + 1;
-        const offset = (windows.length * 28) % 180;
-        setWindows((old) => [
-          ...old,
-          {
-            id: windowId,
-            title: "개발자 소개 (Profile)",
-            tab: "profile",
-            project: null,
-            zIndex: nextZ,
-            initialOffset: offset,
-          },
-        ]);
-        return nextZ;
-      });
-    }
-  };
+    setWindows((prev) => {
+      const nextZ = ++highestZIndexRef.current;
+      const exists = prev.some((w) => w.id === windowId);
+      if (exists) {
+        return prev.map((w) =>
+          w.id === windowId ? { ...w, zIndex: nextZ } : w
+        );
+      }
 
-  // 전체 프로젝트 모아보기 열기 (동일 창 존재 시 포커싱)
-  const handleOpenOverview = () => {
+      const offset = (prev.length * 28) % 180;
+      return [
+        ...prev,
+        {
+          id: windowId,
+          title: "개발자 소개 (Profile)",
+          tab: "profile",
+          project: null,
+          zIndex: nextZ,
+          initialOffset: offset,
+        },
+      ];
+    });
+  }, []);
+
+  // 전체 프로젝트 모아보기 열기 (원자적 체크로 동일 창 존재 시 포커싱)
+  const handleOpenOverview = useCallback(() => {
     const windowId = "overview";
-    const exists = windows.some((w) => w.id === windowId);
 
-    if (exists) {
-      bringToFront(windowId);
-    } else {
-      setHighestZIndex((prev) => {
-        const nextZ = prev + 1;
-        const offset = (windows.length * 28) % 180;
-        setWindows((old) => [
-          ...old,
-          {
-            id: windowId,
-            title: "전체 프로젝트 탐색기",
-            tab: "overview",
-            project: null,
-            zIndex: nextZ,
-            initialOffset: offset,
-          },
-        ]);
-        return nextZ;
-      });
-    }
-  };
+    setWindows((prev) => {
+      const nextZ = ++highestZIndexRef.current;
+      const exists = prev.some((w) => w.id === windowId);
+      if (exists) {
+        return prev.map((w) =>
+          w.id === windowId ? { ...w, zIndex: nextZ } : w
+        );
+      }
+
+      const offset = (prev.length * 28) % 180;
+      return [
+        ...prev,
+        {
+          id: windowId,
+          title: "전체 프로젝트 탐색기",
+          tab: "overview",
+          project: null,
+          zIndex: nextZ,
+          initialOffset: offset,
+        },
+      ];
+    });
+  }, []);
 
   // 창 닫기
   const handleCloseWindow = (windowId: string) => {

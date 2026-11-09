@@ -16,14 +16,25 @@ export default function FolderIcon({
   onSelect,
   onOpen,
 }: FolderIconProps) {
-  // 모바일 터치 더블탭 처리
+  // 모바일/터치스크린 중복 이벤트 방지용 ref
   const lastTapRef = React.useRef<number>(0);
+  const lastOpenTimeRef = React.useRef<number>(0);
+
+  const safeOpen = () => {
+    const now = Date.now();
+    // 500ms 이내에 연속으로 열기 요청이 들어오면 무시 (중복 창 생성 완벽 방지)
+    if (now - lastOpenTimeRef.current < 500) {
+      return;
+    }
+    lastOpenTimeRef.current = now;
+    onOpen(project);
+  };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
     const now = Date.now();
     if (now - lastTapRef.current < 350) {
       e.preventDefault();
-      onOpen(project);
+      safeOpen();
     }
     lastTapRef.current = now;
   };
@@ -36,7 +47,7 @@ export default function FolderIcon({
       }}
       onDoubleClick={(e) => {
         e.stopPropagation();
-        onOpen(project);
+        safeOpen();
       }}
       onTouchEnd={handleTouchEnd}
       className={`group w-32 flex flex-col items-center p-2 rounded-xl cursor-pointer transition-all select-none ${
