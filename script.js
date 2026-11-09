@@ -511,6 +511,7 @@ let isMaximized = false;
 let isDragging = false;
 let dragStartX = 0, dragStartY = 0;
 let winStartX = 0, winStartY = 0;
+let hasCentered = false;
 
 function initFinder() {
   // 닫기
@@ -553,6 +554,17 @@ function initFinder() {
 function openFinder(targetId) {
   finderWindow.style.display = "flex";
   finderWindow.classList.remove("minimized");
+
+  // 첫 오픈 시 화면 중앙에 자연스럽게 배치
+  if (!hasCentered && !isMaximized) {
+    const winW = Math.min(860, window.innerWidth - 40);
+    const winH = Math.min(560, window.innerHeight - 120);
+    const centerX = Math.max(20, Math.floor((window.innerWidth - winW) / 2));
+    const centerY = Math.max(38, Math.floor((window.innerHeight - winH) / 2));
+    finderWindow.style.left = `${centerX}px`;
+    finderWindow.style.top = `${centerY}px`;
+    hasCentered = true;
+  }
 
   if (!targetId || targetId === "overview") {
     setActiveSidebarItem("navAllProjects");

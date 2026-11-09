@@ -36,6 +36,25 @@ body, html {
   background-color: #0d1117;
 }
 
+/* macOS 스타일 얇은 오버레이 스크롤바 */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.35);
+}
+
 /* --------------------------------------------------------------------------
    Desktop Screen & Dynamic Wallpaper
    -------------------------------------------------------------------------- */
