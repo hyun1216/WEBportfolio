@@ -13,6 +13,9 @@ import {
   Minimize2,
   X,
   Minus,
+  Briefcase,
+  Calendar,
+  CheckCircle2,
 } from "lucide-react";
 
 interface FinderWindowProps {
@@ -388,45 +391,126 @@ export default function FinderWindow({
 
         {/* 메인 뷰어 영역 */}
         <main className="flex-1 overflow-y-auto p-6 bg-white dark:bg-[#1e1e1e]">
-          {/* 1. 개발자 프로필 탭 (public/me.JPG 직접 연결) */}
+          {/* 1. 개발자 프로필 탭 (public/me.JPG 및 경력 사항 연동) */}
           {activeTab === "profile" && (
-            <div className="max-w-2xl mx-auto flex flex-col items-center text-center py-4">
-              <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-white dark:border-gray-700 shadow-xl mb-4">
-                <Image
-                  src="/me.JPG"
-                  alt="개발자 프로필 사진"
-                  fill
-                  className="object-cover"
-                  priority
-                />
+            <div className="max-w-3xl mx-auto py-2 space-y-8 animate-in fade-in duration-200">
+              {/* 상단 프로필 헤더 카드 */}
+              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6 p-6 rounded-2xl bg-gradient-to-b from-gray-50/80 to-gray-100/50 dark:from-gray-800/60 dark:to-gray-850/40 border border-gray-200/80 dark:border-gray-700/60 shadow-sm">
+                <div className="relative w-32 h-32 rounded-2xl overflow-hidden border-2 border-white dark:border-gray-700 shadow-md shrink-0">
+                  <Image
+                    src="/me.JPG"
+                    alt="개발자 프로필 사진"
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+                <div className="flex-1 text-center sm:text-left">
+                  <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 text-[11px] font-semibold border border-blue-200 dark:border-blue-800 mb-2">
+                    <span>Automation Engineer & Developer</span>
+                  </div>
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                    RPA & AI 자동화 엔지니어 / 풀스택 개발자
+                  </h2>
+                  <p className="text-xs text-gray-600 dark:text-gray-300 mt-2.5 leading-relaxed break-keep">
+                    고객사 맞춤형 자동화 아키텍처 설계부터 대규모 데이터 스크래핑, 과오납 환급 파이프라인, 전사 ERP 배치 모니터링까지
+                    비즈니스 생산성을 극대화하는 견고하고 신뢰도 높은 자동화 시스템을 구축합니다.
+                  </p>
+                  <div className="flex flex-wrap gap-2.5 justify-center sm:justify-start mt-4">
+                    <a
+                      href="https://github.com/hyun1216/WEBportfolio"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gray-900 hover:bg-black text-white text-xs font-semibold shadow-sm transition-all"
+                    >
+                      <Github className="w-3.5 h-3.5" />
+                      <span>GitHub 저장소</span>
+                    </a>
+                    <button
+                      onClick={() => onSelectTab("overview")}
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-200 text-xs font-semibold border border-gray-200 dark:border-gray-700 transition-all"
+                    >
+                      <LayoutGrid className="w-3.5 h-3.5" />
+                      <span>프로젝트 목록 둘러보기</span>
+                    </button>
+                  </div>
+                </div>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                Frontend / Full-stack Developer
-              </h2>
-              <p className="text-sm font-semibold text-blue-500 mt-1">
-                macOS Inspired Interactive Portfolio
-              </p>
-              <p className="text-sm text-gray-600 dark:text-gray-300 mt-4 leading-relaxed max-w-lg break-keep">
-                Git-as-a-CMS 아키텍처와 사용자 중심의 인터랙티브 인터페이스를 설계합니다.
-                Next.js, TypeScript, Tailwind CSS를 기반으로 완성도 높은 웹 애플리케이션을 구현합니다.
-              </p>
-              <div className="flex gap-3 mt-6">
-                <a
-                  href="https://github.com/hyun1216/WEBportfolio"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-900 hover:bg-black text-white text-xs font-semibold shadow-md transition-all"
-                >
-                  <Github className="w-4 h-4" />
-                  GitHub 저장소
-                </a>
-                <button
-                  onClick={() => onSelectTab("overview")}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs font-semibold transition-all"
-                >
-                  <LayoutGrid className="w-4 h-4" />
-                  프로젝트 둘러보기
-                </button>
+
+              {/* 경력 사항 (Work Experience) 섹션 */}
+              <div className="space-y-4">
+                <div className="flex items-center gap-2 pb-2 border-b border-gray-200 dark:border-gray-800">
+                  <Briefcase className="w-4 h-4 text-blue-500" />
+                  <h3 className="text-sm font-bold text-gray-900 dark:text-white">
+                    주요 경력 사항 (Work Experience)
+                  </h3>
+                </div>
+
+                <div className="space-y-4">
+                  {/* 경력 1: 마이닝오천 */}
+                  <div className="p-4 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700/80 shadow-sm hover:border-blue-400 dark:hover:border-blue-500 transition-all">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+                        <h4 className="font-bold text-sm text-gray-900 dark:text-white">
+                          마이닝오천 <span className="font-normal text-gray-400">|</span> RPA & AI 자동화 개발 및 유지보수
+                        </h4>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-50 dark:bg-emerald-950/50 px-2 py-0.5 rounded-md w-fit">
+                        <Calendar className="w-3 h-3" />
+                        <span>2026.04 ~ 현재 (재직중)</span>
+                      </div>
+                    </div>
+                    <ul className="mt-2.5 space-y-1.5 text-xs text-gray-600 dark:text-gray-300 pl-4 list-disc marker:text-emerald-500 leading-relaxed">
+                      <li>고객사별 업무 요건 분석 기반 맞춤형 자동화 아키텍처 설계</li>
+                      <li>레거시 상용 RPA(Brity, Worktronics 등) 워크플로의 Python 기반 전환 및 리팩터링</li>
+                      <li>세무·노무 데이터 처리 자동화 및 이기종 RPA 솔루션 유지보수·트러블슈팅</li>
+                    </ul>
+                  </div>
+
+                  {/* 경력 2: 세무법인 */}
+                  <div className="p-4 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700/80 shadow-sm hover:border-blue-400 dark:hover:border-blue-500 transition-all">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-blue-500 shrink-0" />
+                        <h4 className="font-bold text-sm text-gray-900 dark:text-white">
+                          세무법인 <span className="font-normal text-gray-400">|</span> RPA 상주 개발 및 유지보수
+                        </h4>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-xs text-blue-600 dark:text-blue-400 font-medium bg-blue-50 dark:bg-blue-950/50 px-2 py-0.5 rounded-md w-fit">
+                        <Calendar className="w-3 h-3" />
+                        <span>2025.03 ~ 2026.04 (1년 1개월)</span>
+                      </div>
+                    </div>
+                    <ul className="mt-2.5 space-y-1.5 text-xs text-gray-600 dark:text-gray-300 pl-4 list-disc marker:text-blue-500 leading-relaxed">
+                      <li>세무·회계 데이터 정규화 및 과오납 환급/경정청구 자동화 파이프라인 구축</li>
+                      <li>2차 인증(OTP, 인증서) 및 세션 보안 구간 예외 처리를 포함한 안정적 DataOps 구축</li>
+                      <li>홈택스·위택스·4대보험 연계 포털 대상 대량 데이터 자동 스크래핑 및 접수 자동화</li>
+                      <li>Node-RED 기반 워크플로 및 Telegram Bot 연동을 통한 실시간 배치 상태 알림 및 운영 제어 체계(ChatOps) 구축</li>
+                    </ul>
+                  </div>
+
+                  {/* 경력 3: 대기업 마트 본사 */}
+                  <div className="p-4 rounded-xl bg-white dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700/80 shadow-sm hover:border-blue-400 dark:hover:border-blue-500 transition-all">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-purple-500 shrink-0" />
+                        <h4 className="font-bold text-sm text-gray-900 dark:text-white">
+                          대기업 마트 본사 <span className="font-normal text-gray-400">|</span> IS RPA 상주 개발 및 유지보수
+                        </h4>
+                      </div>
+                      <div className="flex items-center gap-1.5 text-xs text-purple-600 dark:text-purple-400 font-medium bg-purple-50 dark:bg-purple-950/50 px-2 py-0.5 rounded-md w-fit">
+                        <Calendar className="w-3 h-3" />
+                        <span>2021.08 ~ 2024.10 (3년 2개월)</span>
+                      </div>
+                    </div>
+                    <ul className="mt-2.5 space-y-1.5 text-xs text-gray-600 dark:text-gray-300 pl-4 list-disc marker:text-purple-500 leading-relaxed">
+                      <li>SAP ERP 데이터 추출, 일일 재고/매출 지표 리포팅 등 전사 반복 업무 자동화 총괄</li>
+                      <li>경쟁사 가격 모니터링 및 대량 유통 데이터 자동 수집 배치 파이프라인 운영</li>
+                      <li>무중단 배치를 위한 일일 작업 모니터링 체계 구축 및 장애 대응</li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           )}
