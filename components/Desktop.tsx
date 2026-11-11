@@ -423,22 +423,28 @@ export default function Desktop({ initialProjects }: DesktopProps) {
       />
 
       {/* 6. 다중 Finder 윈도우 인스턴스들 */}
-      {windows.map((win) => (
-        <FinderWindow
-          key={win.id}
-          id={win.id}
-          zIndex={win.zIndex}
-          isOpen={true}
-          activeProject={win.project}
-          allProjects={projects}
-          activeTab={win.tab}
-          initialOffset={win.initialOffset}
-          onFocus={() => bringToFront(win.id)}
-          onClose={() => handleCloseWindow(win.id)}
-          onSelectProject={(proj) => handleSelectProjectInWindow(win.id, proj)}
-          onSelectTab={(tab) => handleSelectTabInWindow(win.id, tab)}
-        />
-      ))}
+      {windows.map((win) => {
+        const liveProject = win.project
+          ? projects.find((p) => p.id === win.project?.id) || win.project
+          : null;
+
+        return (
+          <FinderWindow
+            key={win.id}
+            id={win.id}
+            zIndex={win.zIndex}
+            isOpen={true}
+            activeProject={liveProject}
+            allProjects={projects}
+            activeTab={win.tab}
+            initialOffset={win.initialOffset}
+            onFocus={() => bringToFront(win.id)}
+            onClose={() => handleCloseWindow(win.id)}
+            onSelectProject={(proj) => handleSelectProjectInWindow(win.id, proj)}
+            onSelectTab={(tab) => handleSelectTabInWindow(win.id, tab)}
+          />
+        );
+      })}
 
       {/* 7. 새 폴더 생성 모달 (관리자 비밀번호 검증) */}
       <NewFolderModal

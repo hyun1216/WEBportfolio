@@ -31,8 +31,9 @@ export async function GET() {
     const repo = process.env.GITHUB_REPO_NAME || "WEBportfolio";
     const pat = process.env.GITHUB_PAT;
 
-    // 1. GITHUB_PAT가 구성되어 있고 프로덕션 환경인 경우 GitHub Contents API에서 최신 데이터 조회 시도
-    if (pat && !pat.startsWith("ghp_your")) {
+    // 1. 프로덕션 배포 환경(Vercel 등)이고 GITHUB_PAT가 구성되어 있는 경우 GitHub Contents API 조회 시도
+    // (로컬 개발 환경에서는 로컬 data/projects.json 파일 변경사항이 즉시 반영되도록 로컬 우선)
+    if (process.env.NODE_ENV === "production" && pat && !pat.startsWith("ghp_your")) {
       try {
         const ghRes = await fetch(
           `https://api.github.com/repos/${owner}/${repo}/contents/data/projects.json`,

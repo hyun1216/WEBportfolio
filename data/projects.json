@@ -2,19 +2,91 @@
   {
     "id": "1",
     "title": "뭐사주지?",
-    "subtitle": "mwasajuji | Kakao Gift Curator",
-    "description": "카카오톡 선물하기 링크 분석 및 맥락 기반 선물 큐레이션 웹",
+    "subtitle": "Next.js App Router & Supabase 기반의 린(Lean) 커머스 큐레이션 및 SEO/수익화 파이프라인 구축",
+    "description": "카카오톡 선물하기 중심의 획일화된 랭킹과 뻔한 광고성 추천 피로도를 해소하기 위해 기획·개발한 모바일 퍼스트 선물 큐레이션 웹 서비스입니다. 3~5만 원대 중심의 '부담지수'와 위트 있는 '에디터 팩폭' 코멘트로 탐색 비용을 줄이고, 런칭 직후 실구매 전환 및 수수료 수익화를 검증했습니다.",
     "tags": [
       "Next.js",
+      "React",
       "TypeScript",
       "Tailwind CSS",
       "Python (Flask)",
-      "Vercel"
+      "Vercel",
+      "SEO & Analytics"
     ],
     "image": "/projects/mosajuji.png",
     "link": "https://www.mwasajuji.kr/",
     "demoUrl": "https://www.mwasajuji.kr/",
-    "githubUrl": "https://github.com/hyun1216/mwasajuji"
+    "githubUrl": "https://github.com/hyun1216/mwasajuji",
+    "summary": {
+      "background": "카톡 선물하기 중심의 획일화된 랭킹과 뻔한 광고성 추천에서 벗어나, 현대인의 ‘선물 품앗이’ 피로도와 가격 선택 딜레마를 해소하기 위해 시작했습니다.",
+      "role": "관계에 맞춘 ‘부담지수(3~5만 원대 중심)’ 필터와 날 것 그대로의 ‘에디터 팩폭 코멘트’를 통해, 실패 없는 선물을 가장 빠르게 탐색하도록 돕습니다.",
+      "philosophy": "불필요한 결제 인프라 대신 제휴 링크를 잇는 실용적 미니멀리즘을 추구하며, 모바일 최적화 인터랙션으로 도파민 도는 가벼운 큐레이션 경험을 제공합니다."
+    },
+    "features": [
+      {
+        "title": "1. 관계 맞춤형 '부담지수' & 직관적 팩폭 큐레이션",
+        "desc": "선물 품앗이의 심리적 가격 저항선을 고려한 사용자 중심 필터링 시스템 구축",
+        "subitems": [
+          "단숨 금액 정렬을 넘어선 관계별 3단계 '부담지수 (가벼운간식/3~5만원대 적정선/스페셜) 인터페이스",
+          "포장된 마케팅 문구를 배제하고 현실 친구 시점의 추천 사유를 담은 플로팅 '에디터 팩폭' 말풍선 구현",
+          "호불호 없는 홈·리빙/뷰티 틈새 카테고리 중심의 고효율 아이템 큐레이션"
+        ]
+      },
+      {
+        "title": "2. 모바일 퍼스트 인터랙션 & 콤팩트 카테고리 네비게이션",
+        "desc": "작은 화면에서도 피로감 없이 탐색할 수 있는 반응형 뷰포트 최적화",
+        "subitems": [
+          "스크롤 다운 시 화면 영역을 가리지 않도록 1단 칩으로 축소/자동 접힘 및 최상단 도살 시 부드러운 자동 전개 인터랙션",
+          "매거진/인스타그램 피드 탐색 무드의 2열 카드 그리드 레이아웃 및 둥근 UI 룩앤필 적용",
+          "모바일 터치 뎁스를 최소화한 탭 기반 카테고리 즉시 전환"
+        ]
+      },
+      {
+        "title": "3. 린(Lean) 비즈니스 아키텍처 및 실구매 전환 검증",
+        "desc": "자체 결제 인프라 구축 리스크를 줄이고 빠른 시장 검증을 실현한 제휴 커머스 파이프라인:",
+        "subitems": [
+          "카카오 선물하기 제휴 링크를 매끄럽게 연결하여 이탈률 최소화 및 1-Click 아웃링크 라우팅 설계",
+          "서비스 런칭 직후 외부 유입 99회 기준 34,900원 실구매 결제 및 제휴 수수료 수익화 달성"
+        ]
+      },
+      {
+        "title": "4. 검색 엔진 최적화(SEO) 및 데이터 기반 트래픽 인프라",
+        "desc": "오가닉 검색 유입과 멀티채널 트래픽 분석을 위한 인프라 구축:",
+        "subitems": [
+          "동적 sitemap.xml, robots.txt 및 2030 선물 키워드 메타데이터 자동 주입",
+          "구글 서치 콘솔 및 네이버 서치어드바이저 색인 등록과 HTTPS 유효성 보증",
+          "카카오톡 공유 최적화 오픈그래프(OG) 이미지 카드뉴스 커스텀 설계",
+          "Vercel Web Analytics 연동을 통한 무비용 실시간 리퍼러(Referrer) 및 방문자 경로 추적"
+        ]
+      }
+    ],
+    "techStackTable": [
+      {
+        "category": "프레임워크 / 언어",
+        "skills": "Next.js 14+ (App Router), TypeScript",
+        "purpose": "서버 컴포넌트 기반 SSR/SSG 최적화, 빠른 모바일 로딩 속도 및 타입 안정성 확보"
+      },
+      {
+        "category": "스타일링 / 인터랙션",
+        "skills": "Tailwind CSS, Lucide React",
+        "purpose": "모바일 퍼스트 반응형 레이아웃, 스크롤 감지 트랜지션 및 일관된 라운드 칩 UI 구축"
+      },
+      {
+        "category": "데이터베이스 / 백엔드",
+        "skills": "Supabase (PostgreSQL)",
+        "purpose": "큐레이션 상품 메타데이터, 부담지수, 팩폭 코멘트 관리 및 관리자 실시간 CRUD 연동"
+      },
+      {
+        "category": "배포 / 호스팅",
+        "skills": "Vercel",
+        "purpose": "엣지 네트워크 기반 글로벌 CDN 배포, 자동 HTTPS/SSL 및 무중단 CI/CD 파이프라인"
+      },
+      {
+        "category": "분석 / SEO",
+        "skills": "Vercel Web Analytics, Search Console, Naver Search Advisor",
+        "purpose": "검색엔진 크롤링/색인 보증, 소셜 공유 OG 최적화 및 유입 채널별 트래픽 분석"
+      }
+    ]
   },
   {
     "id": "2",
@@ -31,7 +103,63 @@
     "image": "/projects/dividend-calc.png",
     "link": "https://mydividend.co.kr/",
     "demoUrl": "https://mydividend.co.kr/",
-    "githubUrl": "https://github.com/hyun1216/dividend-backend"
+    "githubUrl": "https://github.com/hyun1216/dividend-backend",
+    "summary": {
+      "background": "투자자가 직관적으로 체감하기 어려운 '목표 월 배당금 달성을 위한 필요 자본금'을 세후 기준 및 배당 주기별로 명확하게 시각화하고자 개발했습니다.",
+      "role": "금융 계산 로직 설계 및 풀스택 아키텍처 구축, 모바일 최적화 반응형 인터랙션 UI 전반을 단독으로 개발했습니다.",
+      "philosophy": "복잡한 금융 데이터와 수식일수록 사용자가 입력하는 순간 지연 없이 직관적으로 시각화되어야 한다는 원칙으로 설계했습니다."
+    },
+    "features": [
+      {
+        "title": "1. 세후 배당 역산 엔진 (Tax-Adjusted Reverse Calculation)",
+        "desc": "목표 월 수령액을 기준으로 배당소득세(15.4%) 및 종합과세 기준을 반영한 실제 필요 원금을 역산하는 정밀 연산 로직을 구현했습니다.",
+        "subitems": [
+          "세전·세후 배당률 옵션 토글 및 국가별(국내/해외) 배당소득세율 자동 차감 알고리즘 적용",
+          "부동소수점 오차 방지를 위한 정밀 수치 연산 파이프라인 설계 및 입력값 변경 즉시 반응하는 실시간 렌더링",
+          "목표 금액 대비 월별/연간 수령 예상 흐름을 직관적인 수치 매트릭스로 변환"
+        ]
+      },
+      {
+        "title": "2. 다중 자산 포트폴리오 시뮬레이션 (Multi-Asset Allocation Simulation)",
+        "desc": "단일 종목 계산의 한계를 넘어 월배당/분기배당/고배당 ETF 등 복수 종목을 조합한 혼합 포트폴리오 분석 환경을 설계했습니다.",
+        "subitems": [
+          "종목별 배당 주기(월/분기/반기/연) 불일치 문제를 해결하는 월평균 캐시플로우 정규화 모델링",
+          "투자 비중 조절 슬라이더 및 입력 필드 간 양방향 바인딩으로 사용자 시나리오 분석 편의성 극대화",
+          "각 자산군별 기대 배당률에 따른 가중평균 배당수익률 및 포트폴리오 리스크 완충 효과 산출"
+        ]
+      },
+      {
+        "title": "3. 모바일 퍼스트 반응형 레이아웃 및 UX 최적화 (Responsive UI/UX)",
+        "desc": "복잡한 숫자 입력과 긴 결과 테이블을 작은 모바일 화면에서도 한눈에 파악할 수 있도록 컴팩트한 카드형 그리드 레이아웃을 구축했습니다.",
+        "subitems": [
+          "숫자 키패드 자동 트리거 및 천 단위 콤마 자동 포맷팅을 지원하는 마스크 인풋 컴포넌트 개발",
+          "자산 비중과 목표 달성 진행률을 한눈에 비교할 수 있는 시각적 게이지 및 미니 차트 컴포넌트 최적화",
+          "불필요한 리렌더링을 차단하는 상태 분리 설계를 통해 모바일 저사양 브라우저에서도 지연 없는 UI 반응 속도 확보"
+        ]
+      }
+    ],
+    "techStackTable": [
+      {
+        "category": "Frontend",
+        "skills": "Next.js, TypeScript",
+        "purpose": "타입 안정성을 갖춘 금융 수식 연산 처리 및 SEO에 최적화된 고성능 웹 서비스 구축"
+      },
+      {
+        "category": "Styling",
+        "skills": "Tailwind CSS",
+        "purpose": "금융 데이터와 입력 필드가 밀집된 대시보드를 위한 일관된 디자인 시스템 및 모바일 반응형 UI 구현"
+      },
+      {
+        "category": "Architecture",
+        "skills": "Client-side Calculation Engine",
+        "purpose": "네트워크 왕복 비용 없는 실시간 데이터 렌더링 및 서버 부하 제로(Zero-Latency) 역산 환경 보장"
+      },
+      {
+        "category": "Deployment",
+        "skills": "Vercel",
+        "purpose": "글로벌 엣지 네트워크 기반의 초고속 로딩 성능 제공 및 Git 기반 무중단 지속적 배포 파이프라인 운영"
+      }
+    ]
   },
   {
     "id": "3",
@@ -83,7 +211,60 @@
     "image": "/projects/youth-check.png",
     "link": "https://youth-check-nine.vercel.app/",
     "demoUrl": "https://youth-check-nine.vercel.app/",
-    "githubUrl": "https://github.com/hyun1216/YouthCheck"
+    "githubUrl": "https://github.com/hyun1216/YouthCheck",
+    "summary": {
+      "background": "파편화된 청년 정책과 낚시성 사설 블로그 글로 인해 피로도를 느끼는 2030 직장인들에게, 신뢰할 수 있는 100% 공공 데이터 기반의 직관적인 정보 탐색 경험을 제공하고자 기획했습니다.",
+      "role": "서비스 기획부터 Next.js 기반의 프론트엔드 아키텍처 설계, Tailwind CSS를 활용한 반응형 UI 구현, 그리고 캘린더 연동 기능 개발 및 Vercel 배포까지 전 과정을 단독으로 수행했습니다.",
+      "philosophy": "사용자의 시선을 분산시키는 불필요한 색상과 요소를 배제하는 '색상 다이어트'를 적용하고, 어떠한 과장 없이 팩트에 기반한 클린 플랫폼 정체성을 유지하는 것을 최우선 가치로 삼았습니다."
+    },
+    "features": [
+      {
+        "title": "1. 백엔드 없는 브라우저 네이티브 캘린더 연동 (Calendar Integration)",
+        "desc": "정책 신청 기간을 놓치는 문제를 해결하기 위해, 별도 서버 없이 클라이언트 단에서 즉시 일정을 기기 캘린더에 동기화하는 기능을 구현하여 편의성을 높였습니다.",
+        "subitems": [
+          "RFC 5545 표준을 준수하는 .ics 파일 생성 유틸리티 함수(downloadIcsFile)를 Blob API로 구현하여 iOS 및 안드로이드 기본 캘린더 앱과의 즉각적인 연동성 확보",
+          "구글 캘린더 웹 인텐트 URL 생성 기능을 추가하여 데스크톱 사용자에게도 끊김 없는 일정 등록 경험 제공"
+        ]
+      },
+      {
+        "title": "2. 가독성 극대화 및 신뢰감을 주는 UI/UX 설계 (Clean UI/UX)",
+        "desc": "복잡한 텍스트와 산만한 컬러로 인한 피로도를 줄이기 위해, 메인 블루 컬러(코발트/인디고) 중심의 미니멀 렌더링 스타일을 적용하여 정보 집중도를 대폭 향상시켰습니다.",
+        "subitems": [
+          "Tailwind CSS를 활용해 무채색 배경과 넉넉한 여백 중심으로 컴포넌트를 재배치하는 '색상 다이어트'를 성공적으로 적용",
+          "불필요한 이모지와 박스 테두리를 제거하고 텍스트 라벨링과 폰트 웨이트(Font-weight)를 조절하여 공공 데이터 플랫폼으로서의 전문성 강조"
+        ]
+      },
+      {
+        "title": "3. 팩트 기반 자체 데이터 큐레이션 시스템 (Fact-based Data Structure)",
+        "desc": "외부 블로그 링크의 신뢰도 하락 문제를 해결하기 위해, 정부 공식 문서에 기반한 팩트체크 데이터를 구조화된 자체 목업 데이터로 가공하여 사용자 신뢰도를 확보했습니다.",
+        "subitems": [
+          "청년 소장펀드 vs ISA 비교, 2027년 월세지원 개편안 등 오해하기 쉬운 정책 조건들을 정확한 비교와 핵심 요약 데이터(mockPolicies.ts)로 재설계",
+          "상시 신청과 기간제 신청(applicationType)을 타입 인터페이스로 분리하여 캘린더 등록 로직 및 조건부 뱃지 UI를 유기적으로 렌더링"
+        ]
+      }
+    ],
+    "techStackTable": [
+      {
+        "category": "Frontend",
+        "skills": "Next.js, TypeScript",
+        "purpose": "컴포넌트 기반 아키텍처 설계 및 엄격한 타입 지정을 통한 런타임 에러 방지"
+      },
+      {
+        "category": "Styling",
+        "skills": "Tailwind CSS, Lucide React",
+        "purpose": "유틸리티 클래스를 활용한 신속한 반응형 UI 구현 및 일관된 아이콘 시스템 적용"
+      },
+      {
+        "category": "Deployment",
+        "skills": "Vercel, Git",
+        "purpose": "GitHub 저장소 연동을 통한 CI/CD 파이프라인 구축 및 안정적인 호스팅 환경 제공"
+      },
+      {
+        "category": "Web APIs",
+        "skills": "Blob API, iCalendar (.ics)",
+        "purpose": "백엔드 의존성 없이 클라이언트 브라우저 자원만을 활용한 네이티브 파일 다운로드 및 캘린더 연동 구현"
+      }
+    ]
   },
   {
     "id": "6",
@@ -99,7 +280,57 @@
     "image": "https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800&auto=format&fit=crop&q=80",
     "link": "https://github.com/hyun1216/Hangeul_zip.git",
     "demoUrl": "",
-    "githubUrl": "https://github.com/hyun1216/Hangeul_zip.git"
+    "githubUrl": "https://github.com/hyun1216/Hangeul_zip.git",
+    "inProgress": true,
+    "status": "진행중",
+    "summary": {
+      "background": "시중 학습지의 높은 구독료와 획일화된 진도 문제에 착안하여, 990원 1회 결제로 무제한 프린트가 가능한 '엄마표 홈스쿨링' 플랫폼을 기획했습니다.",
+      "role": "기획, UI 디자인, 비즈니스 모델 수립, Next.js 프론트엔드 및 Supabase 연동을 포함한 1인 풀스택 개발을 수행했습니다.",
+      "philosophy": "부모와 아이가 조급함 없이 각자의 진도 단계에 맞춰 성취감을 느낄 수 있는 따뜻하고 접근성 높은 에듀테크 환경을 만듭니다."
+    },
+    "features": [
+      {
+        "title": "1. 1회 결제(Lifetime Access) 권한 제어 아키텍처 구현",
+        "desc": "정기구독 결제 실패 예외처리의 복잡도를 줄이고자 토스페이먼츠 단건 결제로 평생 소장 모델을 설계했습니다.",
+        "subitems": [
+          "토스페이먼츠 위젯 연동으로 빠르고 직관적인 단건 결제 흐름 구현",
+          "Supabase 테이블 내 'has_lifetime_access' Boolean 컬럼을 활용해 O(1) 수준의 빠른 권한 검증 및 PDF 다운로드 락 해제 로직 구축"
+        ]
+      },
+      {
+        "title": "2. AI 기반 A4 흑백 최적화 PDF 콘텐츠 자동화 (Content Pipeline)",
+        "desc": "콘텐츠 제작 리소스를 최소화하기 위해 AI 프롬프트 기반의 학습지 및 부모 해설지 PDF 생성 워크플로우를 확립했습니다.",
+        "subitems": [
+          "아이용 학습지(선화, 따라 쓰기)와 부모용 해설지(스크립트)를 2페이지로 물리적 분리하는 프롬프트 엔지니어링 수행",
+          "가정용 흑백 프린터를 위한 명도 대비 최적화 및 속이 빈(Hollow) 폰트 윤곽선 렌더링 규격 적용"
+        ]
+      },
+      {
+        "title": "3. 반응형 UI 및 모바일 친화적 해설지 뷰어 설계 (Responsive UI)",
+        "desc": "부모가 스마트폰으로 해설지를 보며 아이를 지도하는 실사용 환경에 맞춰 가독성 높은 UI를 구축했습니다.",
+        "subitems": [
+          "Tailwind CSS를 활용하여 눈이 편안한 크림 옐로우 및 톤다운된 슬레이트 배경으로 시각적 피로도 최소화",
+          "Grid와 Flex를 적절히 배합하여 단계별 학습지 목록 렌더링 및 모바일 뷰 최적화 레이아웃 적용"
+        ]
+      }
+    ],
+    "techStackTable": [
+      {
+        "category": "Frontend",
+        "skills": "Next.js, Tailwind CSS",
+        "purpose": "빠른 페이지 라우팅 및 텍스트 가독성을 고려한 반응형 UI 컴포넌트 렌더링"
+      },
+      {
+        "category": "Backend / DB",
+        "skills": "Supabase",
+        "purpose": "사용자 계정 관리 및 결제 성공 유저의 무제한 다운로드 권한 제어"
+      },
+      {
+        "category": "Payments",
+        "skills": "Toss Payments API",
+        "purpose": "990원 1회 결제를 위한 쉽고 간편한 일반 결제 위젯 연동"
+      }
+    ]
   },
   {
     "id": "7",
@@ -116,7 +347,77 @@
     "image": "/projects/wish-sky.png",
     "link": "https://sowonsky.vercel.app/",
     "demoUrl": "https://sowonsky.vercel.app/",
-    "githubUrl": "https://github.com/hyun1216/SowonSky"
+    "githubUrl": "https://github.com/hyun1216/SowonSky",
+    "summary": {
+      "background": "로그인 장벽 없이 전 세계 사용자들이 각 지역의 밤하늘을 올려다보며 서로의 소원에 순수하게 공감할 수 있는 몽환적인 실시간 교감 공간을 만들고자 기획했습니다.",
+      "role": "Next.js App Router와 Supabase를 활용해 프론트엔드 인터랙션, 실시간 WebSocket 파이프라인, 완전 익명 기반 어뷰징 방어 백엔드 API를 1인 풀스택으로 설계 및 개발했습니다.",
+      "philosophy": "회원가입 절차를 완전히 배제하여 사용자 접근성을 극대화하되, 백엔드 레벨의 IP 해싱과 엣지 검증으로 익명 서비스의 신뢰성을 지키는 아키텍처를 지향했습니다."
+    },
+    "features": [
+      {
+        "title": "1. 글로벌 맵-스카이 뷰 전환 인터랙션 (Interactive Map-to-Sky Transition)",
+        "desc": "정적 리스트 중심의 UI를 탈피하고 react-simple-maps와 Framer Motion을 결합하여 지도에서 특정 국가의 상공으로 부드럽게 진입하는 공간형 UX를 구현했습니다.",
+        "subitems": [
+          "경량 SVG 기반 평면 세계 지도에서 국가별 호버 시 활성 풍선 개수를 실시간 툴팁으로 시각화",
+          "국가 클릭 시 줌인 트랜지션과 함께 해당 국가 상공 캔버스로 진입하는 상태 기반 화면 라우팅 구축",
+          "배경 파티클과 부드러운 유영 물리 효과를 적용해 감성적인 밤하늘 분위기 연출"
+        ]
+      },
+      {
+        "title": "2. 12시간 라이프사이클 및 소멸 연출 (12-Hour Ephemeral Lifecycle & Particle Burst)",
+        "desc": "영구 축적되는 데이터로 인한 시각적 난립과 DB 부하를 방지하기 위해 생성 시점 기준 12시간 시한부 소멸 아키텍처를 설계했습니다.",
+        "subitems": [
+          "DB 레벨에서 created_at 기준 12시간 이내 데이터만 인덱스를 통해 고속 필터링 조회",
+          "클라이언트 실시간 카운트다운 타이머 연동 및 만료 시 Framer Motion 파티클 폭발(Exit) 애니메이션 트리거",
+          "DOM 요소의 자동 언마운트와 상태 정리를 통해 장시간 브라우징 환경에서도 메모리 누수 방지"
+        ]
+      },
+      {
+        "title": "3. 실시간 풍선 동기화 및 동시성 제어 (Supabase Realtime & Concurrency Control)",
+        "desc": "전 세계 사용자가 올린 풍선과 응원(❤️) 인터랙션을 새로고침 없이 동기화하기 위해 WebSocket 채널 구독 환경을 구축했습니다.",
+        "subitems": [
+          "Supabase Realtime 채널을 통해 신규 INSERT 발생 시 현재 보고 있는 국가 캔버스에 풍선 즉각 렌더링",
+          "동시 다발적 하트 클릭에 따른 카운트 누락을 방지하기 위해 PostgreSQL RPC(increment_cheer) 함수 설계",
+          "낙관적 UI(Optimistic Update) 적용으로 네트워크 지연 없는 즉각적인 인터랙션 피드백 제공"
+        ]
+      },
+      {
+        "title": "4. 완전 익명 어뷰징 방어 및 유해 콘텐츠 필터링 (Anonymous Security & Moderation)",
+        "desc": "로그인 인증 체계가 없는 완전 익명 서비스의 취약점을 보완하기 위해 엣지 헤더 및 다중 검증 파이프라인을 구축했습니다.",
+        "subitems": [
+          "Vercel Edge 헤더(x-vercel-ip-country)를 분석해 클라이언트 조작 없이 실제 접속 국가 고정",
+          "클라이언트 IP의 SHA-256 단방향 해싱 및 로컬 스토리지를 결합하여 일일 2회 등록 제한(Rate Limiting) 적용",
+          "다국어 비속어 및 극단적 부정어(자살/살인 등)를 차단하는 2중 정규식 필터링 엔진 구현"
+        ]
+      }
+    ],
+    "techStackTable": [
+      {
+        "category": "Frontend",
+        "skills": "Next.js (App Router), TypeScript",
+        "purpose": "서버 컴포넌트와 클라이언트 인터랙션의 분리 및 견고한 타입 기반 데이터 플로우 구현"
+      },
+      {
+        "category": "Styling & Motion",
+        "skills": "Tailwind CSS, Framer Motion",
+        "purpose": "몽환적인 다크 테마 디자인 시스템 구축 및 풍선 부유/소멸 파티클 애니메이션 최적화"
+      },
+      {
+        "category": "Map Library",
+        "skills": "react-simple-maps",
+        "purpose": "무거운 지도 타일 대비 초경량 SVG 렌더링으로 번들 사이즈 절감 및 다크 감성 커스텀 테마 적용"
+      },
+      {
+        "category": "Database & Realtime",
+        "skills": "Supabase (PostgreSQL, Realtime)",
+        "purpose": "WebSocket 기반 실시간 데이터 스트리밍, RLS 보안 정책 및 동시성 제어 RPC 함수 운영"
+      },
+      {
+        "category": "Deployment & Edge",
+        "skills": "Vercel",
+        "purpose": "글로벌 엣지 배포 및 x-vercel-ip-country 헤더를 활용한 신뢰성 높은 위치 판별 처리"
+      }
+    ]
   },
   {
     "id": "8",

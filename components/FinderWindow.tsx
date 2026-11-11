@@ -220,27 +220,26 @@ export default function FinderWindow({
       style={
         isMaximized
           ? {
-              top: "32px",
-              left: "8px",
-              width: "calc(100vw - 16px)",
-              height: "calc(100vh - 40px)",
-              zIndex,
-              isolation: "isolate",
-              transform: "translate3d(0, 0, 0)",
-            }
+            top: "32px",
+            left: "8px",
+            width: "calc(100vw - 16px)",
+            height: "calc(100vh - 40px)",
+            zIndex,
+            isolation: "isolate",
+            transform: "translate3d(0, 0, 0)",
+          }
           : {
-              top: `${position.y}px`,
-              left: `${position.x}px`,
-              width: `${size.width}px`,
-              height: `${size.height}px`,
-              zIndex,
-              isolation: "isolate",
-              transform: "translate3d(0, 0, 0)",
-            }
+            top: `${position.y}px`,
+            left: `${position.x}px`,
+            width: `${size.width}px`,
+            height: `${size.height}px`,
+            zIndex,
+            isolation: "isolate",
+            transform: "translate3d(0, 0, 0)",
+          }
       }
-      className={`fixed flex flex-col bg-white dark:bg-[#1e1e1e] rounded-xl shadow-2xl border border-black/15 dark:border-white/10 overflow-hidden ${
-        isDragging || isResizing ? "transition-none select-none" : "animate-in fade-in duration-100"
-      }`}
+      className={`fixed flex flex-col bg-white dark:bg-[#1e1e1e] rounded-xl shadow-2xl border border-black/15 dark:border-white/10 overflow-hidden ${isDragging || isResizing ? "transition-none select-none" : "animate-in fade-in duration-100"
+        }`}
     >
       {/* ====================================================================
           macOS 창 크기 조절 리사이즈 핸들 (8개 방향)
@@ -339,8 +338,8 @@ export default function FinderWindow({
             {activeTab === "profile"
               ? "개발자 소개 (Profile)"
               : activeTab === "overview"
-              ? "전체 프로젝트 탐색기"
-              : activeProject?.title || "Finder"}
+                ? "전체 프로젝트 탐색기"
+                : activeProject?.title || "Finder"}
           </span>
         </div>
 
@@ -371,11 +370,10 @@ export default function FinderWindow({
               <li>
                 <button
                   onClick={() => onSelectTab("overview")}
-                  className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium transition-colors ${
-                    activeTab === "overview"
-                      ? "bg-blue-500 text-white shadow-sm font-semibold"
-                      : "text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5"
-                  }`}
+                  className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium transition-colors ${activeTab === "overview"
+                    ? "bg-blue-500 text-white shadow-sm font-semibold"
+                    : "text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5"
+                    }`}
                 >
                   <LayoutGrid className="w-4.5 h-4.5 shrink-0" />
                   <span>전체 프로젝트</span>
@@ -384,11 +382,10 @@ export default function FinderWindow({
               <li>
                 <button
                   onClick={() => onSelectTab("profile")}
-                  className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium transition-colors ${
-                    activeTab === "profile"
-                      ? "bg-blue-500 text-white shadow-sm font-semibold"
-                      : "text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5"
-                  }`}
+                  className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg font-medium transition-colors ${activeTab === "profile"
+                    ? "bg-blue-500 text-white shadow-sm font-semibold"
+                    : "text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5"
+                    }`}
                 >
                   <User className="w-4.5 h-4.5 shrink-0" />
                   <span>개발자 소개 (Profile)</span>
@@ -412,11 +409,10 @@ export default function FinderWindow({
                         onSelectProject(p);
                         onSelectTab("project");
                       }}
-                      className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg font-medium text-left truncate transition-colors ${
-                        isActive
-                          ? "bg-blue-500 text-white shadow-sm font-semibold"
-                          : "text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5"
-                      }`}
+                      className={`w-full flex items-center gap-2.5 px-2.5 py-1.5 rounded-lg font-medium text-left truncate transition-colors ${isActive
+                        ? "bg-blue-500 text-white shadow-sm font-semibold"
+                        : "text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/5"
+                        }`}
                     >
                       <Folder className="w-4.5 h-4.5 text-[#e8a716] shrink-0" />
                       <span className="truncate">{p.title}</span>
@@ -656,11 +652,19 @@ export default function FinderWindow({
                     }}
                     className="group border border-gray-200 dark:border-gray-800 rounded-2xl p-5.5 hover:border-blue-500 dark:hover:border-blue-400 hover:shadow-lg cursor-pointer transition-all bg-gray-50/60 dark:bg-gray-800/40 space-y-3"
                   >
-                    <div className="flex items-center gap-3">
-                      <Folder className="w-6 h-6 text-[#e8a716] shrink-0" />
-                      <h3 className="font-bold text-base sm:text-lg text-gray-900 dark:text-white group-hover:text-blue-500 truncate">
-                        {p.title}
-                      </h3>
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <Folder className="w-6 h-6 text-[#e8a716] shrink-0" />
+                        <h3 className="font-bold text-base sm:text-lg text-gray-900 dark:text-white group-hover:text-blue-500 truncate">
+                          {p.title}
+                        </h3>
+                      </div>
+                      {(p.inProgress || p.status === "진행중" || p.id === "6") && (
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border border-amber-300/80 dark:border-amber-800 text-xs font-bold shrink-0">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse" />
+                          진행중
+                        </span>
+                      )}
                     </div>
                     {p.subtitle && (
                       <p className="text-xs sm:text-sm font-semibold text-blue-600 dark:text-blue-400 line-clamp-1">
@@ -735,10 +739,19 @@ export default function FinderWindow({
                       <span>Live Demo</span>
                       <ExternalLink className="w-4.5 h-4.5" />
                     </a>
-                  ) : activeProject.id === "6" ? (
-                    <span className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-xs sm:text-sm font-semibold border border-gray-200 dark:border-gray-700 shrink-0 whitespace-nowrap">
-                      <span>Live Demo 진행중</span>
-                    </span>
+                  ) : (activeProject.inProgress || activeProject.status === "진행중" || activeProject.id === "6") ? (
+                    <button
+                      type="button"
+                      onClick={() => alert("현재 서비스 개발 및 런칭 준비가 한창 진행 중인 프로젝트입니다! 곧 공개될 예정이니 기대해 주세요!")}
+                      className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 active:scale-95 text-amber-700 dark:text-amber-300 border border-amber-300/80 dark:border-amber-600/60 text-sm sm:text-base font-bold shadow-sm transition-all cursor-pointer shrink-0 whitespace-nowrap"
+                      title="현재 개발 및 런칭 준비가 진행 중인 프로젝트입니다"
+                    >
+                      <span className="relative flex h-2.5 w-2.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span>
+                      </span>
+                      <span>진행중...</span>
+                    </button>
                   ) : null}
 
                   {/* GitHub 저장소 버튼 / Private 뱃지 */}
@@ -761,14 +774,15 @@ export default function FinderWindow({
                 </div>
               </div>
 
-              {/* 스크린샷 이미지 뷰어 */}
-              <div className="relative w-full h-72 sm:h-96 rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-900 shadow-sm">
+              {/* 스크린샷 이미지 뷰어 (16:9 비율 유지) */}
+              <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-900 shadow-sm">
                 {activeProject.image ? (
                   <Image
                     src={activeProject.image}
                     alt={`${activeProject.title} 스크린샷`}
                     fill
                     className="object-cover"
+                    priority
                   />
                 ) : (
                   <div className="w-full h-full flex flex-col items-center justify-center text-gray-400 gap-2">
@@ -856,11 +870,10 @@ export default function FinderWindow({
                                     {steps.map((st, i) => (
                                       <React.Fragment key={i}>
                                         <span
-                                          className={`px-3 py-1.5 rounded-lg font-semibold ${
-                                            st.includes("검토")
-                                              ? "bg-amber-100 dark:bg-amber-900/60 text-amber-900 dark:text-amber-200 font-bold border border-amber-300 dark:border-amber-700 shadow-sm"
-                                              : "bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700"
-                                          }`}
+                                          className={`px-3 py-1.5 rounded-lg font-semibold ${st.includes("검토")
+                                            ? "bg-amber-100 dark:bg-amber-900/60 text-amber-900 dark:text-amber-200 font-bold border border-amber-300 dark:border-amber-700 shadow-sm"
+                                            : "bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-gray-700"
+                                            }`}
                                         >
                                           {st}
                                         </span>
@@ -901,21 +914,21 @@ export default function FinderWindow({
                     <table className="w-full text-left text-sm sm:text-base">
                       <thead className="bg-gray-50 dark:bg-gray-800/80 text-gray-900 dark:text-gray-100 font-bold border-b border-gray-200 dark:border-gray-700 text-sm sm:text-base">
                         <tr>
-                          <th className="py-3.5 px-4.5 w-44">구분</th>
-                          <th className="py-3.5 px-4.5">사용 기술 및 라이브러리</th>
-                          <th className="py-3.5 px-4.5">적용 목적</th>
+                          <th className="py-3.5 px-6 sm:px-7 w-48">구분</th>
+                          <th className="py-3.5 px-6">사용 기술 및 라이브러리</th>
+                          <th className="py-3.5 px-6">적용 목적</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-gray-100 dark:divide-gray-800 bg-white dark:bg-gray-900/40 text-gray-700 dark:text-gray-300">
                         {activeProject.techStackTable.map((row, idx) => (
                           <tr key={idx} className="hover:bg-gray-50/60 dark:hover:bg-gray-800/40">
-                            <td className="py-3.5 px-4.5 font-bold text-gray-900 dark:text-white whitespace-nowrap">
+                            <td className="py-4 px-6 sm:px-7 font-bold text-gray-900 dark:text-white whitespace-nowrap">
                               {row.category}
                             </td>
-                            <td className="py-3.5 px-4.5 font-mono text-xs sm:text-sm text-blue-600 dark:text-blue-400 font-bold">
+                            <td className="py-4 px-6 font-mono text-xs sm:text-sm text-blue-600 dark:text-blue-400 font-bold">
                               {row.skills}
                             </td>
-                            <td className="py-3.5 px-4.5 leading-relaxed">{row.purpose}</td>
+                            <td className="py-4 px-6 leading-relaxed text-sm sm:text-base">{row.purpose}</td>
                           </tr>
                         ))}
                       </tbody>

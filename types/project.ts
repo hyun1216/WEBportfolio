@@ -26,6 +26,8 @@ export interface Project {
   githubUrl?: string;
   demoUrl?: string;
   isPrivate?: boolean;
+  inProgress?: boolean;
+  status?: string;
   tags?: string[];
   summary?: ProjectSummary;
   features?: ProjectFeature[];
